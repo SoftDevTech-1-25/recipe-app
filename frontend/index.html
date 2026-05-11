@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Книга Рецептов</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <nav class="hotbar">
+    <a href="index.html" class="hotbar-item active">
+      <span class="hotbar-icon">🏠</span>
+      <span>Главная страница</span>
+    </a>
+    <a href="notepad.html" class="hotbar-item">
+      <span class="hotbar-icon">📋</span>
+      <span>Блокнот</span>
+    </a>
+    <a href="meal-planner.html" class="hotbar-item">
+      <span class="hotbar-icon">📅</span>
+      <span>Календарь питания</span>
+    </a>
+    <a href="favorites.html" class="hotbar-item">
+      <span class="hotbar-icon">⭐</span>
+      <span>Избранное</span>
+    </a>
+    <a href="help.html" class="hotbar-item hotbar-help">?</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-section">
+    <div class="parchment-card hero-card">
+      <div class="hero-left">
+        <div class="title-row">
+          <span class="leaf">🌿</span>
+          <h1 class="mc-h1">КНИГА<br>РЕЦЕПТОВ</h1>
+          <span class="leaf">🌿</span>
+        </div>
+        <p class="tagline">Craft your meals. Block by block.</p>
+        <p class="hero-desc">Цифровая кулинарная библиотека в пиксельном стиле Minecraft. Создавай рецепты, планируй питание на неделю и собирай любимые блюда в сундук избранного.</p>
+        <div class="btn-row">
+          <a href="recipes.html" class="mc-btn btn-green">▶ НАЧАТЬ КРАФТИТЬ</a>
+          <a href="recipes.html" class="mc-btn btn-gray">ГОСТЕВОЙ РЕЖИМ</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="dish-frame">
+          <div class="dish-inner">🥗</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-chip">👤 2–3 порции</div>
+          <div class="stat-chip">⏱ 20 мин</div>
+          <div class="stat-chip">👨‍🍳 лёгкий</div>
+          <div class="stat-chip">🔥 ~350 ккал</div>
+        </div>
+        <div class="tag-row">
+          <span class="tag g">быстрая</span>
+          <span class="tag g">лёгкая</span>
+          <span class="tag y">с курицей</span>
+          <span class="tag y">с сыром</span>
+          <span class="tag b">домашняя</span>
+          <span class="tag b">полезная</span>
+          <span class="tag p">салат</span>
+          <span class="tag pk">праздничная</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="page-section">
+    <div class="parchment-card">
+      <h2 class="section-title">КАК ЭТО РАБОТАЕТ</h2>
+      <div class="how-row">
+        <div class="how-step">
+          <div class="how-icon">🧱</div>
+          <strong>Верстак</strong>
+          <p>Добавляй ингредиенты и создавай рецепты как в Minecraft</p>
+        </div>
+        <div class="how-arrow">➜</div>
+        <div class="how-step">
+          <div class="how-icon">🔍</div>
+          <strong>Поиск</strong>
+          <p>Ищи по категориям, тегам и сложности приготовления</p>
+        </div>
+        <div class="how-arrow">➜</div>
+        <div class="how-step">
+          <div class="how-icon">🍽️</div>
+          <strong>Готовь</strong>
+          <p>Масштабируй порции и планируй питание на неделю</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POPULAR RECIPES -->
+  <section class="page-section">
+    <div class="parchment-card">
+      <h2 class="section-title">ПОПУЛЯРНЫЕ РЕЦЕПТЫ</h2>
+      <div class="recipe-grid">
+
+        <div class="recipe-card" onclick="location.href='recipe-detail.html'">
+          <div class="rc-img">🍕</div>
+          <div class="rc-body">
+            <h3 class="rc-title">ПИЦЦА С СЫРОМ</h3>
+            <div class="rc-tags">
+              <span class="tag rd">острая</span>
+              <span class="tag g">вегетарианская</span>
+            </div>
+            <div class="rc-meta">
+              <span>⏱ 40 мин</span>
+              <span>👨‍🍳 средний</span>
+            </div>
+          </div>
+          <button class="fav-btn" onclick="event.stopPropagation(); this.classList.toggle('active')">⭐</button>
+        </div>
+
+        <div class="recipe-card" onclick="location.href='recipe-detail.html'">
+          <div class="rc-img">🍣</div>
+          <div class="rc-body">
+            <h3 class="rc-title">СЕТ СУШИ</h3>
+            <div class="rc-tags">
+              <span class="tag b">японское</span>
+              <span class="tag b">морепродукты</span>
+            </div>
+            <div class="rc-meta">
+              <span>⏱ 60 мин</span>
+              <span>👨‍🍳 сложный</span>
+            </div>
+          </div>
+          <button class="fav-btn" onclick="event.stopPropagation(); this.classList.toggle('active')">⭐</button>
+        </div>
+
+        <div class="recipe-card" onclick="location.href='recipe-detail.html'">
+          <div class="rc-img">🥣</div>
+          <div class="rc-body">
+            <h3 class="rc-title">ЧЕЧЕВИЧНЫЙ СУП</h3>
+            <div class="rc-tags">
+              <span class="tag g">вегетарианская</span>
+              <span class="tag g">с овощами</span>
+            </div>
+            <div class="rc-meta">
+              <span>⏱ 35 мин</span>
+              <span>👨‍🍳 лёгкий</span>
+            </div>
+          </div>
+          <button class="fav-btn" onclick="event.stopPropagation(); this.classList.toggle('active')">⭐</button>
+        </div>
+
+        <div class="recipe-card" onclick="location.href='recipe-detail.html'">
+          <div class="rc-img">🥗</div>
+          <div class="rc-body">
+            <h3 class="rc-title">САЛАТ ЦЕЗАРЬ</h3>
+            <div class="rc-tags">
+              <span class="tag g">салат</span>
+              <span class="tag g">с овощами</span>
+            </div>
+            <div class="rc-meta">
+              <span>⏱ 20 мин</span>
+              <span>👨‍🍳 лёгкий</span>
+            </div>
+          </div>
+          <button class="fav-btn" onclick="event.stopPropagation(); this.classList.toggle('active')">⭐</button>
+        </div>
+
+      </div>
+      <div class="center-btn">
+        <a href="recipes.html" class="mc-btn btn-green">ОТКРЫТЬ ВСЕ РЕЦЕПТЫ ▶</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="page-section">
+    <div class="parchment-card">
+      <h2 class="section-title">ЧТО ВНУТРИ</h2>
+      <div class="feat-grid">
+        <div class="feat-box">
+          <div class="feat-icon">📋</div>
+          <strong>Блокнот</strong>
+          <p>Список покупок с ручным вводом и авто-генерацией из плана питания</p>
+        </div>
+        <div class="feat-box">
+          <div class="feat-icon">📅</div>
+          <strong>Календарь</strong>
+          <p>Планируй блюда на неделю — ячейки как слоты инвентаря</p>
+        </div>
+        <div class="feat-box">
+          <div class="feat-icon">⭐</div>
+          <strong>Избранное</strong>
+          <p>Личный сундук с любимыми рецептами — всегда под рукой</p>
+        </div>
+        <div class="feat-box">
+          <div class="feat-icon">⚖️</div>
+          <strong>Масштаб</strong>
+          <p>Пересчёт ингредиентов под нужное количество порций</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mc-footer">
+    <p>⛏ Книга Рецептов · 2024 · Craft your meals. Block by block.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
