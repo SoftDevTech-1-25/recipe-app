@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Блокнот — CraftCook</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    .notepad-layout {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 700px) {
+      .notepad-layout { grid-template-columns: 1fr; }
+    }
+
+    .notepad-panel {
+      background: var(--parch-light);
+      border: 3px solid var(--brown);
+      border-radius: var(--radius);
+      box-shadow: 4px 4px 0 var(--brown-dark);
+      overflow: hidden;
+    }
+
+    .notepad-panel-title {
+      background: var(--brown);
+      color: var(--parch-light);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      padding: 0.7rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .notepad-panel-title span { opacity: 0.7; font-size: 8px; }
+
+    .notepad-body { padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem; }
+
+    /* FREE TEXT */
+    .free-textarea {
+      width: 100%;
+      min-height: 320px;
+      background: #FFF8EC;
+      border: 2px solid var(--brown-mid);
+      border-radius: var(--radius);
+      padding: 1rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--brown-dark);
+      resize: vertical;
+      outline: none;
+      line-height: 1.8;
+      transition: border-color 0.15s;
+    }
+
+    .free-textarea:focus { border-color: var(--brown); }
+
+    .notepad-meta {
+      font-size: 12px;
+      color: var(--brown-mid);
+      font-weight: 700;
+      text-align: right;
+    }
+
+    /* CHECKLIST */
+    .checklist-input-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .checklist-input {
+      flex: 1;
+      background: #FFF8EC;
+      border: 2px solid var(--brown-mid);
+      border-radius: var(--radius);
+      padding: 0.5rem 0.8rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--brown-dark);
+      outline: none;
+    }
+
+    .checklist-input:focus { border-color: var(--brown); }
+
+    .add-btn {
+      background: var(--green-tag);
+      border: 2px solid var(--brown-dark);
+      border-radius: var(--radius);
+      color: #fff;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      padding: 0.5rem 0.8rem;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 var(--brown-dark);
+      transition: filter 0.1s;
+      white-space: nowrap;
+    }
+
+    .add-btn:hover { filter: brightness(1.1); }
+    .add-btn:active { transform: translate(1px,1px); box-shadow: none; }
+
+    .checklist { display: flex; flex-direction: column; gap: 4px; max-height: 340px; overflow-y: auto; }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.5rem 0.7rem;
+      background: #FFF8EC;
+      border: 2px solid var(--brown-mid);
+      border-radius: var(--radius);
+      transition: background 0.15s, opacity 0.15s;
+    }
+
+    .checklist-item.checked {
+      background: var(--parch-dark);
+      opacity: 0.6;
+    }
+
+    .checklist-item.checked .item-text {
+      text-decoration: line-through;
+      color: var(--brown-mid);
+    }
+
+    .item-checkbox {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--brown);
+      border-radius: 2px;
+      background: var(--parch-light);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    .checklist-item.checked .item-checkbox {
+      background: var(--green-tag);
+      border-color: var(--brown-dark);
+      color: #fff;
+    }
+
+    .item-text {
+      flex: 1;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--brown-dark);
+    }
+
+    .item-delete {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: var(--brown-mid);
+      padding: 0 0.2rem;
+      transition: color 0.15s;
+      flex-shrink: 0;
+    }
+
+    .item-delete:hover { color: #C0392B; }
+
+    .checklist-empty {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 13px;
+      color: var(--brown-mid);
+      font-weight: 700;
+    }
+
+    .checklist-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--brown-mid);
+    }
+
+    .clear-btn {
+      background: none;
+      border: 2px solid var(--brown-mid);
+      border-radius: var(--radius);
+      padding: 0.3rem 0.7rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--brown-mid);
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .clear-btn:hover { border-color: #C0392B; color: #C0392B; }
+
+    .saved-badge {
+      font-size: 11px;
+      color: var(--green-tag);
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .saved-badge.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <!-- HOTBAR -->
+  <nav class="hotbar">
+    <div class="hotbar-logo">⚒ CRAFTCOOK</div>
+    <div class="hotbar-links">
+      <a href="./index.html"><span class="icon">🏠</span> Главная</a>
+      <a href="./recipes.html"><span class="icon">📖</span> Рецепты</a>
+      <a href="./notepad.html" class="active"><span class="icon">📝</span> Блокнот</a>
+      <a href="./calendar.html"><span class="icon">📅</span> Календарь</a>
+      <a href="./favorites.html"><span class="icon">☆</span> Избранное</a>
+      <a href="./help.html"><span class="icon">❓</span></a>
+    </div>
+  </nav>
+
+  <div class="notepad-layout">
+
+    <!-- СВОБОДНЫЙ ТЕКСТ -->
+    <div class="notepad-panel">
+      <div class="notepad-panel-title">
+        📝 ЗАМЕТКИ
+        <span id="note-saved" class="saved-badge">✔ сохранено</span>
+      </div>
+      <div class="notepad-body">
+        <textarea
+          class="free-textarea"
+          id="free-note"
+          placeholder="Пиши сюда что угодно — идеи блюд, заметки, список на неделю..."
+        ></textarea>
+        <div class="notepad-meta" id="note-chars">0 символов</div>
+      </div>
+    </div>
+
+    <!-- СПИСОК ПОКУПОК -->
+    <div class="notepad-panel">
+      <div class="notepad-panel-title">
+        🛒 СПИСОК ПОКУПОК
+        <span id="list-saved" class="saved-badge">✔ сохранено</span>
+      </div>
+      <div class="notepad-body">
+
+        <div class="checklist-input-row">
+          <input
+            class="checklist-input"
+            id="new-item-input"
+            type="text"
+            placeholder="Добавить продукт..."
+            maxlength="80"
+          />
+          <button class="add-btn" onclick="addItem()">+ ДОБАВИТЬ</button>
+        </div>
+
+        <div class="checklist" id="checklist">
+          <div class="checklist-empty" id="checklist-empty">📦 Список пуст</div>
+        </div>
+
+        <div class="checklist-footer">
+          <span id="list-counter">0 продуктов</span>
+          <button class="clear-btn" onclick="clearChecked()">🗑 Удалить купленные</button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="mc-footer">⚒ CraftCook — 2024 · Сделано с ❤ и пикселями</footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // ── ЗАМЕТКИ ──
+    const noteTA = document.getElementById('free-note');
+    const noteChars = document.getElementById('note-chars');
+    const noteSaved = document.getElementById('note-saved');
+
+    noteTA.value = localStorage.getItem('craftcook-note') || '';
+    updateChars();
+
+    noteTA.addEventListener('input', () => {
+      updateChars();
+      clearTimeout(noteTA._t);
+      noteTA._t = setTimeout(() => {
+        localStorage.setItem('craftcook-note', noteTA.value);
+        showSaved(noteSaved);
+      }, 600);
+    });
+
+    function updateChars() {
+      noteChars.textContent = noteTA.value.length + ' символов';
+    }
+
+    // ── СПИСОК ПОКУПОК ──
+    let items = JSON.parse(localStorage.getItem('craftcook-list') || '[]');
+    renderList();
+
+    document.getElementById('new-item-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') addItem();
+    });
+
+    function addItem() {
+      const input = document.getElementById('new-item-input');
+      const val = input.value.trim();
+      if (!val) return;
+      items.push({ text: val, checked: false });
+      input.value = '';
+      saveList();
+      renderList();
+    }
+
+    function toggleItem(i) {
+      items[i].checked = !items[i].checked;
+      saveList();
+      renderList();
+    }
+
+    function deleteItem(i) {
+      items.splice(i, 1);
+      saveList();
+      renderList();
+    }
+
+    function clearChecked() {
+      items = items.filter(it => !it.checked);
+      saveList();
+      renderList();
+    }
+
+    function saveList() {
+      localStorage.setItem('craftcook-list', JSON.stringify(items));
+      showSaved(document.getElementById('list-saved'));
+    }
+
+    function renderList() {
+      const list = document.getElementById('checklist');
+      const empty = document.getElementById('checklist-empty');
+      const counter = document.getElementById('list-counter');
+
+      // clear old items (keep empty msg)
+      [...list.querySelectorAll('.checklist-item')].forEach(el => el.remove());
+
+      if (items.length === 0) {
+        empty.style.display = 'block';
+        counter.textContent = '0 продуктов';
+        return;
+      }
+
+      empty.style.display = 'none';
+      const checked = items.filter(i => i.checked).length;
+      counter.textContent = `${checked}/${items.length} куплено`;
+
+      items.forEach((item, i) => {
+        const el = document.createElement('div');
+        el.className = 'checklist-item' + (item.checked ? ' checked' : '');
+        el.innerHTML = `
+          <div class="item-checkbox" onclick="toggleItem(${i})">${item.checked ? '✔' : ''}</div>
+          <span class="item-text">${item.text}</span>
+          <button class="item-delete" onclick="deleteItem(${i})">✕</button>
+        `;
+        list.appendChild(el);
+      });
+    }
+
+    function showSaved(el) {
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 1500);
+    }
+  </script>
+</body>
+</html>
