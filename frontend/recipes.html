@@ -3,235 +3,237 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Лента рецептов — Книга Рецептов</title>
+  <title>Рецепты — CraftCook</title>
   <link rel="stylesheet" href="css/style.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet"/>
 </head>
 <body>
 
+  <!-- HOTBAR -->
   <nav class="hotbar">
-    <a href="index.html" class="hotbar-item">
-      <span class="hotbar-icon">🏠</span>
-      <span>Главная страница</span>
-    </a>
-    <a href="notepad.html" class="hotbar-item">
-      <span class="hotbar-icon">📋</span>
-      <span>Блокнот</span>
-    </a>
-    <a href="meal-planner.html" class="hotbar-item">
-      <span class="hotbar-icon">📅</span>
-      <span>Календарь питания</span>
-    </a>
-    <a href="favorites.html" class="hotbar-item">
-      <span class="hotbar-icon">⭐</span>
-      <span>Избранное</span>
-    </a>
-    <a href="help.html" class="hotbar-item hotbar-help">?</a>
+    <div class="hotbar-logo">⚒ CRAFTCOOK</div>
+    <div class="hotbar-links">
+      <a href="./index.html"><span class="icon">🏠</span> Главная</a>
+      <a href="./recipes.html" class="active"><span class="icon">📖</span> Рецепты</a>
+      <a href="./notepad.html"><span class="icon">📝</span> Блокнот</a>
+      <a href="./calendar.html"><span class="icon">📅</span> Календарь</a>
+      <a href="./favorites.html"><span class="icon">☆</span> Избранное</a>
+      <a href="./help.html"><span class="icon">❓</span></a>
+    </div>
   </nav>
 
+  <!-- FEED LAYOUT -->
   <div class="feed-layout">
 
-    <!-- LEFT: recipe list -->
-    <main class="feed-main">
+    <!-- MAIN -->
+    <div class="feed-main">
 
-      <!-- Search bar -->
-      <div class="search-bar-wrap parchment-card" style="padding: 1rem 1.5rem; margin-bottom: 1rem;">
-        <div class="search-bar">
-          <input type="text" id="searchInput" placeholder="Искать рецепт..." class="search-input" oninput="filterRecipes()"/>
+      <!-- Search + Create -->
+      <div class="feed-top-row">
+        <div class="search-bar" style="flex:1">
+          <input type="text" id="search-input" placeholder="Найти рецепт..."/>
           <span class="search-icon">🔍</span>
         </div>
+        <a href="recipe-new.html" class="mc-btn primary">+ СОЗДАТЬ РЕЦЕПТ</a>
+      </div>
+
+      <!-- Active filter label -->
+      <div id="active-filter" style="display:none; font-size:14px; font-weight:700; color:var(--brown); display:flex; align-items:center; gap:0.5rem;">
+        <span>Фильтр:</span>
+        <span id="filter-label" class="tag green"></span>
+        <button onclick="clearFilter()" style="background:none;border:none;cursor:pointer;font-size:16px;color:var(--brown)">✕</button>
       </div>
 
       <!-- Recipe list -->
-      <div class="parchment-card">
-        <div class="feed-header">
-          <h2 class="section-title" style="margin-bottom:0; border:none;">РЕЦЕПТЫ</h2>
-          <a href="recipe-new.html" class="mc-btn btn-green" style="font-size:17px; padding:6px 14px;">+ СОЗДАТЬ РЕЦЕПТ</a>
-        </div>
+      <div class="feed-list" id="feed-list">
 
-        <div id="recipeList" class="recipe-feed-list">
-
-          <div class="feed-card" data-tags="острая,вегетарианская" onclick="location.href='recipe-detail.html'">
-            <div class="feed-img">🍕</div>
-            <div class="feed-body">
-              <h3 class="feed-title">ПИЦЦА С СЫРОМ</h3>
-              <div class="feed-tags">
-                <span class="tag rd">острая</span>
-                <span class="tag g">вегетарианская</span>
-              </div>
+        <a href="recipe-detail.html" class="feed-card" data-tags="острая,вегетарианская,с сыром">
+          <div class="feed-card-img">🍕</div>
+          <div class="feed-card-body">
+            <div class="feed-card-name">ПИЦЦА С СЫРОМ</div>
+            <div class="feed-card-tags">
+              <span class="tag pink">острая</span>
+              <span class="tag green">вегетарианская</span>
+              <span class="tag yellow">с сыром</span>
             </div>
-            <button class="fav-btn" onclick="event.stopPropagation(); this.classList.toggle('active')">⭐</button>
+            <div class="feed-card-meta"><span>⏱ 40 мин</span><span>⭐⭐ Средне</span><span>🔥 520 ккал</span></div>
           </div>
+          <button class="feed-card-fav" onclick="toggleFav(event, this)">☆</button>
+        </a>
 
-          <div class="feed-card" data-tags="японское,морепродукты" onclick="location.href='recipe-detail.html'">
-            <div class="feed-img">🍣</div>
-            <div class="feed-body">
-              <h3 class="feed-title">СЕТ СУШИ</h3>
-              <div class="feed-tags">
-                <span class="tag b">японское</span>
-                <span class="tag b">морепродукты</span>
-              </div>
+        <a href="recipe-detail.html" class="feed-card" data-tags="японское,морепродукты,рыбная">
+          <div class="feed-card-img">🍣</div>
+          <div class="feed-card-body">
+            <div class="feed-card-name">СЕТ СУШИ</div>
+            <div class="feed-card-tags">
+              <span class="tag blue">японское</span>
+              <span class="tag teal">морепродукты</span>
+              <span class="tag teal">рыбная</span>
             </div>
-            <button class="fav-btn" onclick="event.stopPropagation(); this.classList.toggle('active')">⭐</button>
+            <div class="feed-card-meta"><span>⏱ 60 мин</span><span>⭐⭐⭐ Сложно</span><span>🔥 380 ккал</span></div>
           </div>
+          <button class="feed-card-fav" onclick="toggleFav(event, this)">☆</button>
+        </a>
 
-          <div class="feed-card" data-tags="вегетарианская,с овощами" onclick="location.href='recipe-detail.html'">
-            <div class="feed-img">🥣</div>
-            <div class="feed-body">
-              <h3 class="feed-title">ЧЕЧЕВИЧНЫЙ СУП</h3>
-              <div class="feed-tags">
-                <span class="tag g">вегетарианская</span>
-                <span class="tag g">с овощами</span>
-              </div>
+        <a href="recipe-detail.html" class="feed-card" data-tags="вегетарианская,с овощами,полезная,домашняя">
+          <div class="feed-card-img">🍲</div>
+          <div class="feed-card-body">
+            <div class="feed-card-name">ЧЕЧЕВИЧНЫЙ СУП</div>
+            <div class="feed-card-tags">
+              <span class="tag green">вегетарианская</span>
+              <span class="tag green">с овощами</span>
+              <span class="tag teal">полезная</span>
             </div>
-            <button class="fav-btn" onclick="event.stopPropagation(); this.classList.toggle('active')">⭐</button>
+            <div class="feed-card-meta"><span>⏱ 35 мин</span><span>⭐ Легко</span><span>🔥 290 ккал</span></div>
           </div>
+          <button class="feed-card-fav" onclick="toggleFav(event, this)">☆</button>
+        </a>
 
-          <div class="feed-card" data-tags="салат,с овощами" onclick="location.href='recipe-detail.html'">
-            <div class="feed-img">🥗</div>
-            <div class="feed-body">
-              <h3 class="feed-title">САЛАТ ЦЕЗАРЬ</h3>
-              <div class="feed-tags">
-                <span class="tag g">салат</span>
-                <span class="tag g">с овощами</span>
-              </div>
+        <a href="recipe-detail.html" class="feed-card" data-tags="с курицей,с сыром,быстрая,лёгкая,домашняя,полезная,диетическая,праздничная">
+          <div class="feed-card-img">🥗</div>
+          <div class="feed-card-body">
+            <div class="feed-card-name">САЛАТ ЦЕЗАРЬ</div>
+            <div class="feed-card-tags">
+              <span class="tag green">лёгкая</span>
+              <span class="tag yellow">с курицей</span>
+              <span class="tag yellow">с сыром</span>
+              <span class="tag green">быстрая</span>
             </div>
-            <button class="fav-btn" onclick="event.stopPropagation(); this.classList.toggle('active')">⭐</button>
+            <div class="feed-card-meta"><span>⏱ 20 мин</span><span>⭐ Легко</span><span>🔥 350 ккал</span></div>
           </div>
+          <button class="feed-card-fav" onclick="toggleFav(event, this)">☆</button>
+        </a>
 
-          <div class="feed-card" data-tags="мясная,домашняя" onclick="location.href='recipe-detail.html'">
-            <div class="feed-img">🍝</div>
-            <div class="feed-body">
-              <h3 class="feed-title">СПАГЕТТИ БОЛОНЬЕЗЕ</h3>
-              <div class="feed-tags">
-                <span class="tag rd">мясная</span>
-                <span class="tag y">домашняя</span>
-              </div>
+        <a href="recipe-detail.html" class="feed-card" data-tags="мясная,домашняя,запечённая,праздничная">
+          <div class="feed-card-img">🍖</div>
+          <div class="feed-card-body">
+            <div class="feed-card-name">ЗАПЕЧЁННЫЕ РЁБРА</div>
+            <div class="feed-card-tags">
+              <span class="tag pink">мясная</span>
+              <span class="tag brown">запечённая</span>
+              <span class="tag purple">праздничная</span>
             </div>
-            <button class="fav-btn" onclick="event.stopPropagation(); this.classList.toggle('active')">⭐</button>
+            <div class="feed-card-meta"><span>⏱ 90 мин</span><span>⭐⭐⭐ Сложно</span><span>🔥 680 ккал</span></div>
           </div>
+          <button class="feed-card-fav" onclick="toggleFav(event, this)">☆</button>
+        </a>
 
-          <div class="feed-card" data-tags="быстрая,с курицей" onclick="location.href='recipe-detail.html'">
-            <div class="feed-img">🍗</div>
-            <div class="feed-body">
-              <h3 class="feed-title">КУРИНЫЕ КРЫЛЫШКИ</h3>
-              <div class="feed-tags">
-                <span class="tag g">быстрая</span>
-                <span class="tag y">с курицей</span>
-              </div>
+        <a href="recipe-detail.html" class="feed-card" data-tags="веганская,вегетарианская,полезная,с овощами,диетическая">
+          <div class="feed-card-img">🥘</div>
+          <div class="feed-card-body">
+            <div class="feed-card-name">ОВОЩНОЕ КАРРИ</div>
+            <div class="feed-card-tags">
+              <span class="tag teal">веганская</span>
+              <span class="tag green">с овощами</span>
+              <span class="tag pink">острая</span>
             </div>
-            <button class="fav-btn" onclick="event.stopPropagation(); this.classList.toggle('active')">⭐</button>
+            <div class="feed-card-meta"><span>⏱ 30 мин</span><span>⭐⭐ Средне</span><span>🔥 310 ккал</span></div>
           </div>
+          <button class="feed-card-fav" onclick="toggleFav(event, this)">☆</button>
+        </a>
 
-        </div>
-      </div>
-    </main>
-
-    <!-- RIGHT: categories + sort -->
-    <aside class="feed-aside">
-
-      <div class="parchment-card aside-block">
-        <h3 class="aside-title">КАТЕГОРИИ</h3>
-        <ul class="cat-list" id="catList">
-          <li class="cat-item" onclick="filterByTag('острая')">□ острая</li>
-          <li class="cat-item" onclick="filterByTag('сладкая')">□ сладкая</li>
-          <li class="cat-item" onclick="filterByTag('солёная')">□ солёная</li>
-          <li class="cat-item" onclick="filterByTag('кислая')">□ кислая</li>
-          <li class="cat-item" onclick="filterByTag('веганская')">□ веганская</li>
-          <li class="cat-item" onclick="filterByTag('вегетарианская')">□ вегетарианская</li>
-          <li class="cat-item" onclick="filterByTag('мясная')">□ мясная</li>
-          <li class="cat-item" onclick="filterByTag('рыбная')">□ рыбная</li>
-          <li class="cat-item" onclick="filterByTag('диетическая')">□ диетическая</li>
-          <li class="cat-item" onclick="filterByTag('полезная')">□ полезная</li>
-          <li class="cat-item" onclick="filterByTag('жареная')">□ жареная</li>
-          <li class="cat-item" onclick="filterByTag('запечённая')">□ запечённая</li>
-          <li class="cat-item" onclick="filterByTag('домашняя')">□ домашняя</li>
-          <li class="cat-item" onclick="filterByTag('быстрая')">□ быстрая</li>
-          <li class="cat-item" onclick="filterByTag('праздничная')">□ праздничная</li>
-          <li class="cat-item" onclick="filterByTag('с сыром')">□ с сыром</li>
-          <li class="cat-item" onclick="filterByTag('с курицей')">□ с курицей</li>
-          <li class="cat-item" onclick="filterByTag('с овощами')">□ с овощами</li>
-          <li class="cat-item" onclick="filterByTag('с морепродуктами')">□ с морепродуктами</li>
-        </ul>
-        <button class="mc-btn btn-gray" onclick="clearFilter()" style="font-size:16px; padding:5px 12px; margin-top:8px; width:100%;">✕ СБРОСИТЬ</button>
       </div>
 
-      <div class="parchment-card aside-block">
-        <h3 class="aside-title">СОРТИРОВКА</h3>
-        <ul class="cat-list">
-          <li class="cat-item" onclick="setSort(this)">□ По популярности</li>
-          <li class="cat-item" onclick="setSort(this)">□ По сложности</li>
-          <li class="cat-item" onclick="setSort(this)">□ По скорости готовки</li>
-          <li class="cat-item" onclick="setSort(this)">□ Случайно</li>
-        </ul>
+      <div id="no-results" style="display:none; text-align:center; padding:2rem; font-family:'Press Start 2P',monospace; font-size:10px; color:var(--brown-mid);">
+        📦 Ничего не найдено
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-panel">
+        <div class="sidebar-panel-title">КАТЕГОРИИ</div>
+        <div class="sidebar-list" id="categories">
+          <button class="sidebar-item" onclick="filterBy('острая')">острая</button>
+          <button class="sidebar-item" onclick="filterBy('сладкая')">сладкая</button>
+          <button class="sidebar-item" onclick="filterBy('солёная')">солёная</button>
+          <button class="sidebar-item" onclick="filterBy('веганская')">веганская</button>
+          <button class="sidebar-item" onclick="filterBy('вегетарианская')">вегетарианская</button>
+          <button class="sidebar-item" onclick="filterBy('мясная')">мясная</button>
+          <button class="sidebar-item" onclick="filterBy('рыбная')">рыбная</button>
+          <button class="sidebar-item" onclick="filterBy('диетическая')">диетическая</button>
+          <button class="sidebar-item" onclick="filterBy('полезная')">полезная</button>
+          <button class="sidebar-item" onclick="filterBy('жареная')">жареная</button>
+          <button class="sidebar-item" onclick="filterBy('запечённая')">запечённая</button>
+          <button class="sidebar-item" onclick="filterBy('домашняя')">домашняя</button>
+          <button class="sidebar-item" onclick="filterBy('быстрая')">быстрая</button>
+          <button class="sidebar-item" onclick="filterBy('праздничная')">праздничная</button>
+          <button class="sidebar-item" onclick="filterBy('с сыром')">с сыром</button>
+          <button class="sidebar-item" onclick="filterBy('с курицей')">с курицей</button>
+          <button class="sidebar-item" onclick="filterBy('с овощами')">с овощами</button>
+          <button class="sidebar-item" onclick="filterBy('морепродукты')">с морепродуктами</button>
+        </div>
+      </div>
+
+      <div class="sidebar-panel">
+        <div class="sidebar-panel-title">СОРТИРОВКА</div>
+        <div class="sidebar-list">
+          <button class="sidebar-item active" onclick="sortBy('popular', this)">По популярности</button>
+          <button class="sidebar-item" onclick="sortBy('hard', this)">По сложности</button>
+          <button class="sidebar-item" onclick="sortBy('fast', this)">По скорости готовки</button>
+          <button class="sidebar-item" onclick="sortBy('random', this)">Случайно</button>
+        </div>
       </div>
 
     </aside>
   </div>
 
-  <footer class="mc-footer">
-    <p>⛏ Книга Рецептов · 2024 · Craft your meals. Block by block.</p>
-  </footer>
+  <footer class="mc-footer">⚒ CraftCook — 2024 · Сделано с ❤ и пикселями</footer>
 
+  <script src="js/main.js"></script>
   <script>
-    let activeTag = null;
+    let activeFilter = null;
 
-    function filterByTag(tag) {
-      const items = document.querySelectorAll('.cat-item');
-      items.forEach(i => {
-        i.textContent = i.textContent.replace('■', '□');
-        i.classList.remove('active');
+    function filterBy(tag) {
+      activeFilter = tag;
+      document.getElementById('active-filter').style.display = 'flex';
+      document.getElementById('filter-label').textContent = tag;
+
+      document.querySelectorAll('#categories .sidebar-item').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.trim() === tag);
       });
 
-      if (activeTag === tag) {
-        activeTag = null;
-        showAllRecipes();
-        return;
-      }
-
-      activeTag = tag;
-      const clicked = [...items].find(i => i.textContent.includes(tag));
-      if (clicked) {
-        clicked.textContent = '■ ' + tag;
-        clicked.classList.add('active');
-      }
-
-      document.querySelectorAll('.feed-card').forEach(card => {
-        const tags = card.dataset.tags || '';
-        card.style.display = tags.includes(tag) ? 'flex' : 'none';
-      });
+      applyFilters();
     }
 
     function clearFilter() {
-      activeTag = null;
-      document.querySelectorAll('.cat-item').forEach(i => {
-        i.textContent = '□ ' + i.textContent.replace('■ ', '').replace('□ ', '');
-        i.classList.remove('active');
-      });
-      showAllRecipes();
+      activeFilter = null;
+      document.getElementById('active-filter').style.display = 'none';
+      document.querySelectorAll('#categories .sidebar-item').forEach(b => b.classList.remove('active'));
+      applyFilters();
     }
 
-    function showAllRecipes() {
-      document.querySelectorAll('.feed-card').forEach(c => c.style.display = 'flex');
+    function applyFilters() {
+      const q = document.getElementById('search-input').value.toLowerCase();
+      const cards = document.querySelectorAll('#feed-list .feed-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const name = card.querySelector('.feed-card-name').textContent.toLowerCase();
+        const tags = card.dataset.tags || '';
+        const matchSearch = !q || name.includes(q) || tags.includes(q);
+        const matchFilter = !activeFilter || tags.includes(activeFilter);
+        const show = matchSearch && matchFilter;
+        card.style.display = show ? 'flex' : 'none';
+        if (show) visible++;
+      });
+      document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
     }
 
-    function filterRecipes() {
-      const q = document.getElementById('searchInput').value.toLowerCase();
-      document.querySelectorAll('.feed-card').forEach(card => {
-        const title = card.querySelector('.feed-title').textContent.toLowerCase();
-        card.style.display = title.includes(q) ? 'flex' : 'none';
+    document.getElementById('search-input').addEventListener('input', applyFilters);
+
+    function sortBy(type, btn) {
+      document.querySelectorAll('.sidebar-list .sidebar-item').forEach(b => {
+        if ([...document.querySelectorAll('.sidebar-panel')[1].querySelectorAll('.sidebar-item')].includes(b))
+          b.classList.remove('active');
       });
+      btn.classList.add('active');
     }
 
-    function setSort(el) {
-      document.querySelectorAll('.cat-item').forEach(i => {
-        if (['По популярности','По сложности','По скорости готовки','Случайно'].some(s => i.textContent.includes(s))) {
-          i.textContent = '□ ' + i.textContent.replace('■ ','').replace('□ ','');
-          i.classList.remove('active');
-        }
-      });
-      el.textContent = '■ ' + el.textContent.replace('□ ','').replace('■ ','');
-      el.classList.add('active');
+    function toggleFav(e, btn) {
+      e.preventDefault();
+      btn.textContent = btn.textContent === '☆' ? '★' : '☆';
+      btn.style.color = btn.textContent === '★' ? '#E24B4A' : '';
     }
   </script>
 </body>
