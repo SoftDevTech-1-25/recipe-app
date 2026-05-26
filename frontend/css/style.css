@@ -94,7 +94,6 @@ body {
 
 .hotbar-links a .icon { font-size: 16px; }
 
-/* ─── PARCHMENT PANEL ─── */
 .parchment {
   background: var(--parch-light);
   border: var(--border);
@@ -286,7 +285,6 @@ body {
   gap: 1rem;
 }
 
-/* ─── RECIPE CARD ─── */
 .recipe-card {
   background: var(--parch-light);
   border: 3px solid var(--brown);
