@@ -39,12 +39,18 @@ func main() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 
-	// Repositories (in-memory for demo)
-	userRepo := postgres.NewUserRepository(nil)
-	recipeRepo := postgres.NewRecipeRepository(nil)
-	ingredientRepo := postgres.NewIngredientRepository(nil)
-	mealPlanRepo := postgres.NewMealPlanRepository(nil)
-	shoppingRepo := postgres.NewShoppingListRepository(nil)
+	// Database
+	db, err := postgres.NewConnection("../database/init.db")
+	if err != nil {
+		log.Fatal("Failed to connect to database:", err)
+	}
+
+	// Repositories
+	userRepo := postgres.NewUserRepository(db)
+	recipeRepo := postgres.NewRecipeRepository(db)
+	ingredientRepo := postgres.NewIngredientRepository(db)
+	mealPlanRepo := postgres.NewMealPlanRepository(db)
+	shoppingRepo := postgres.NewShoppingListRepository(db)
 
 	// Services
 	authService := service.NewAuthService(userRepo, cfg.JWTSecret, cfg.JWTExpiration)

@@ -1,9 +1,14 @@
 package postgres
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
+)
 
-// NewConnection returns nil for now (in-memory mode)
-// Will be restored when Postgres is added back
 func NewConnection(dsn string) (*gorm.DB, error) {
-	return nil, nil
+	db, err := gorm.Open(sqlite.Open(dsn), &gorm.Config{})
+	if err != nil {
+		return nil, err
+	}
+	return db, nil
 }
