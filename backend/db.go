@@ -61,8 +61,8 @@ type Recipe struct {
 	Emoji       string             `json:"emoji" gorm:"default:🍽"`
 	IsPublic    bool               `json:"is_public" gorm:"default:true"`
 	Tags        []Tag              `json:"tags" gorm:"many2many:recipe_tags;"`
-	Ingredients []RecipeIngredient `json:"ingredients,omitempty"`
-	Steps       []RecipeStep       `json:"steps,omitempty"`
+	Ingredients []RecipeIngredient `json:"ingredients,omitempty" gorm:"foreignKey:RecipeID"`
+	Steps       []RecipeStep       `json:"steps,omitempty" gorm:"foreignKey:RecipeID"`
 	CreatedAt   time.Time          `json:"created_at"`
 	UpdatedAt   time.Time          `json:"updated_at"`
 }
