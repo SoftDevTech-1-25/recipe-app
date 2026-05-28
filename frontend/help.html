@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Помощь — CraftCook</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    .help-page {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .help-card {
+      background: var(--parch-light);
+      border: 3px solid var(--brown);
+      border-radius: var(--radius);
+      box-shadow: 4px 4px 0 var(--brown-mid);
+      overflow: hidden;
+    }
+
+    .help-card-title {
+      background: var(--brown);
+      color: var(--parch-light);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      padding: 0.7rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      user-select: none;
+      transition: filter 0.15s;
+    }
+
+    .help-card-title:hover { filter: brightness(1.2); }
+    .help-card-title .arrow { margin-left: auto; transition: transform 0.25s; font-style: normal; }
+    .help-card.open .arrow { transform: rotate(90deg); }
+
+    .help-card-body {
+      display: none;
+      padding: 1.2rem;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .help-card.open .help-card-body { display: flex; }
+
+    .help-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--parch-dark);
+    }
+
+    .help-row:last-child { border-bottom: none; }
+    .help-row-icon { font-size: 24px; flex-shrink: 0; }
+    .help-row-text { flex: 1; }
+
+    .help-row-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      color: var(--brown-dark);
+      margin-bottom: 0.3rem;
+      line-height: 1.6;
+    }
+
+    .help-row-desc {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--brown);
+      line-height: 1.7;
+    }
+
+    .version-badge {
+      display: inline-block;
+      background: var(--green-tag-bg);
+      border: 2px solid var(--green-tag);
+      border-radius: var(--radius);
+      padding: 3px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green-tag);
+    }
+
+    .contact-block {
+      background: var(--parch-dark);
+      border: 2px solid var(--brown-mid);
+      border-radius: var(--radius);
+      padding: 1rem;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--brown);
+      line-height: 1.8;
+    }
+
+    /* FAQ */
+    .faq-item {
+      border: 2px solid var(--brown-mid);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .faq-q {
+      background: var(--parch-dark);
+      padding: 0.7rem 1rem;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--brown-dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.15s;
+    }
+
+    .faq-q:hover { background: #EDD9B0; }
+    .faq-q .faq-arrow { font-size: 11px; transition: transform 0.2s; }
+    .faq-item.open .faq-arrow { transform: rotate(90deg); }
+
+    .faq-a {
+      display: none;
+      padding: 0.7rem 1rem;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--brown);
+      line-height: 1.7;
+      background: #FFF8EC;
+      border-top: 2px solid var(--brown-mid);
+    }
+
+    .faq-item.open .faq-a { display: block; }
+
+    /* API table */
+    .api-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .api-table th {
+      background: var(--brown);
+      color: var(--parch-light);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      padding: 0.5rem 0.7rem;
+      text-align: left;
+    }
+
+    .api-table td {
+      padding: 0.5rem 0.7rem;
+      border-bottom: 1px solid var(--parch-dark);
+      font-weight: 600;
+      color: var(--brown-dark);
+      vertical-align: top;
+    }
+
+    .api-table tr:last-child td { border-bottom: none; }
+    .api-table tr:nth-child(even) td { background: var(--parch-dark); }
+
+    .method {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 3px;
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .method.get    { background: #C8E6A0; color: #3A6A10; border: 1px solid #5D8A3C; }
+    .method.post   { background: #A8C8E8; color: #2A5A8A; border: 1px solid #2A5A8A; }
+    .method.delete { background: #E8A8A8; color: #8A2A2A; border: 1px solid #C03030; }
+
+    .endpoint {
+      font-family: monospace;
+      font-size: 13px;
+      color: var(--brown-dark);
+    }
+
+    /* Sitemap */
+    .sitemap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.8rem;
+    }
+
+    .sitemap-card {
+      background: var(--parch-dark);
+      border: 2px solid var(--brown-mid);
+      border-radius: var(--radius);
+      padding: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      text-decoration: none;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+
+    .sitemap-card:hover { border-color: var(--brown); transform: translateY(-2px); }
+
+    .sitemap-card-icon { font-size: 28px; }
+
+    .sitemap-card-name {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      color: var(--brown-dark);
+      line-height: 1.6;
+    }
+
+    .sitemap-card-desc {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--brown-mid);
+      line-height: 1.5;
+    }
+
+    /* Step list */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      background: var(--brown);
+      color: var(--parch-light);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .step-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--brown);
+      line-height: 1.6;
+      padding-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="hotbar">
+    <div class="hotbar-logo">⚒ CRAFTCOOK</div>
+    <div class="hotbar-links">
+      <a href="./index.html"><span class="icon">🏠</span> Главная</a>
+      <a href="./recipes.html"><span class="icon">📖</span> Рецепты</a>
+      <a href="./notepad.html"><span class="icon">📝</span> Блокнот</a>
+      <a href="./calendar.html"><span class="icon">📅</span> Календарь</a>
+      <a href="./favorites.html"><span class="icon">☆</span> Избранное</a>
+      <a href="./help.html" class="active"><span class="icon">❓</span></a>
+    </div>
+  </nav>
+
+  <div class="help-page">
+
+    <h2 class="section-title">❓ ПОМОЩЬ И О ПРОЕКТЕ</h2>
+
+    <!-- О ПРОЕКТЕ -->
+    <div class="help-card open">
+      <div class="help-card-title" onclick="toggleCard(this)">
+        📖 О ПРОЕКТЕ
+        <i class="arrow">▶</i>
+      </div>
+      <div class="help-card-body">
+        <div class="help-row">
+          <div class="help-row-icon">⚒</div>
+          <div class="help-row-text">
+            <div class="help-row-title">ЧТО ТАКОЕ CRAFTCOOK?</div>
+            <div class="help-row-desc">CraftCook — цифровая кулинарная книга в стиле Minecraft. Храни рецепты, масштабируй порции и планируй питание на неделю. Каждый рецепт — это крафт!</div>
+          </div>
+        </div>
+        <div class="help-row">
+          <div class="help-row-icon">👥</div>
+          <div class="help-row-text">
+            <div class="help-row-title">КОМАНДА</div>
+            <div class="help-row-desc">
+              🎨 Эрбол — Фронтенд<br>
+              ⚙️ Эмир — Бэкенд (Go + Gin)<br>
+              🗄️ Бекжан — База данных (SQLite)
+            </div>
+          </div>
+        </div>
+        <div class="help-row">
+          <div class="help-row-icon">🎯</div>
+          <div class="help-row-text">
+            <div class="help-row-title">ЦЕЛЬ ПРОЕКТА</div>
+            <div class="help-row-desc">Создать удобную цифровую библиотеку для домашних поваров — хранить, организовывать и масштабировать любимые рецепты.</div>
+          </div>
+        </div>
+        <div class="help-row">
+          <div class="help-row-icon">🔖</div>
+          <div class="help-row-text">
+            <div class="help-row-title">ВЕРСИЯ</div>
+            <div class="help-row-desc"><span class="version-badge">v0.1.0 — beta</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- КАРТА СТРАНИЦ -->
+    <div class="help-card open">
+      <div class="help-card-title" onclick="toggleCard(this)">
+        🗺️ КАРТА СТРАНИЦ
+        <i class="arrow">▶</i>
+      </div>
+      <div class="help-card-body">
+        <div class="sitemap-grid">
+          <a href="./index.html" class="sitemap-card">
+            <div class="sitemap-card-icon">🏠</div>
+            <div class="sitemap-card-name">ГЛАВНАЯ</div>
+            <div class="sitemap-card-desc">Лендинг с описанием и популярными рецептами</div>
+          </a>
+          <a href="./recipes.html" class="sitemap-card">
+            <div class="sitemap-card-icon">📖</div>
+            <div class="sitemap-card-name">РЕЦЕПТЫ</div>
+            <div class="sitemap-card-desc">Лента рецептов с поиском, фильтрами и сортировкой</div>
+          </a>
+          <a href="./notepad.html" class="sitemap-card">
+            <div class="sitemap-card-icon">📝</div>
+            <div class="sitemap-card-name">БЛОКНОТ</div>
+            <div class="sitemap-card-desc">Заметки и список покупок с чекбоксами</div>
+          </a>
+          <a href="./calendar.html" class="sitemap-card">
+            <div class="sitemap-card-icon">📅</div>
+            <div class="sitemap-card-name">КАЛЕНДАРЬ</div>
+            <div class="sitemap-card-desc">Недельный планировщик питания</div>
+          </a>
+          <a href="./favorites.html" class="sitemap-card">
+            <div class="sitemap-card-icon">★</div>
+            <div class="sitemap-card-name">ИЗБРАННОЕ</div>
+            <div class="sitemap-card-desc">Сохранённые рецепты</div>
+          </a>
+          <a href="./recipe-detail.html" class="sitemap-card">
+            <div class="sitemap-card-icon">🍽️</div>
+            <div class="sitemap-card-name">РЕЦЕПТ</div>
+            <div class="sitemap-card-desc">Детальная страница рецепта с ингредиентами</div>
+          </a>
+          <a href="./recipe-new.html" class="sitemap-card">
+            <div class="sitemap-card-icon">➕</div>
+            <div class="sitemap-card-name">СОЗДАТЬ</div>
+            <div class="sitemap-card-desc">Добавить новый рецепт</div>
+          </a>
+          <a href="./settings.html" class="sitemap-card">
+            <div class="sitemap-card-icon">⚙️</div>
+            <div class="sitemap-card-name">НАСТРОЙКИ</div>
+            <div class="sitemap-card-desc">Настройки пользователя</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- КАК ПОЛЬЗОВАТЬСЯ -->
+    <div class="help-card">
+      <div class="help-card-title" onclick="toggleCard(this)">
+        🎮 КАК ПОЛЬЗОВАТЬСЯ САЙТОМ
+        <i class="arrow">▶</i>
+      </div>
+      <div class="help-card-body">
+        <div class="help-row">
+          <div class="help-row-icon">🔍</div>
+          <div class="help-row-text">
+            <div class="help-row-title">ПОИСК РЕЦЕПТОВ</div>
+            <div class="step-list">
+              <div class="step-item"><div class="step-num">1</div><div class="step-text">Перейди во вкладку "Рецепты"</div></div>
+              <div class="step-item"><div class="step-num">2</div><div class="step-text">Введи название блюда в строку поиска</div></div>
+              <div class="step-item"><div class="step-num">3</div><div class="step-text">Или выбери категорию в боковой панели</div></div>
+              <div class="step-item"><div class="step-num">4</div><div class="step-text">Используй сортировку для удобства</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="help-row">
+          <div class="help-row-icon">☆</div>
+          <div class="help-row-text">
+            <div class="help-row-title">ДОБАВИТЬ В ИЗБРАННОЕ</div>
+            <div class="step-list">
+              <div class="step-item"><div class="step-num">1</div><div class="step-text">Найди нужный рецепт в ленте</div></div>
+              <div class="step-item"><div class="step-num">2</div><div class="step-text">Нажми ☆ справа на карточке</div></div>
+              <div class="step-item"><div class="step-num">3</div><div class="step-text">Иконка станет ★ — рецепт сохранён</div></div>
+              <div class="step-item"><div class="step-num">4</div><div class="step-text">Все избранные доступны во вкладке "Избранное"</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="help-row">
+          <div class="help-row-icon">📅</div>
+          <div class="help-row-text">
+            <div class="help-row-title">ПЛАНИРОВЩИК ПИТАНИЯ</div>
+            <div class="step-list">
+              <div class="step-item"><div class="step-num">1</div><div class="step-text">Открой вкладку "Календарь"</div></div>
+              <div class="step-item"><div class="step-num">2</div><div class="step-text">Нажми "+ добавить блюдо" в нужный день</div></div>
+              <div class="step-item"><div class="step-num">3</div><div class="step-text">Выбери приём пищи: Завтрак / Обед / Ужин / Перекус</div></div>
+              <div class="step-item"><div class="step-num">4</div><div class="step-text">Выбери рецепт из списка или напиши своё блюдо</div></div>
+              <div class="step-item"><div class="step-num">5</div><div class="step-text">Нажми "✔ ДОБАВИТЬ" — блюдо появится в ячейке дня</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="help-row">
+          <div class="help-row-icon">⚖️</div>
+          <div class="help-row-text">
+            <div class="help-row-title">МАСШТАБИРОВАНИЕ ПОРЦИЙ</div>
+            <div class="step-list">
+              <div class="step-item"><div class="step-num">1</div><div class="step-text">Открой страницу рецепта</div></div>
+              <div class="step-item"><div class="step-num">2</div><div class="step-text">Найди блок "Количество порций"</div></div>
+              <div class="step-item"><div class="step-num">3</div><div class="step-text">Измени число — ингредиенты пересчитаются автоматически</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="help-row">
+          <div class="help-row-icon">📝</div>
+          <div class="help-row-text">
+            <div class="help-row-title">БЛОКНОТ И СПИСОК ПОКУПОК</div>
+            <div class="step-list">
+              <div class="step-item"><div class="step-num">1</div><div class="step-text">Открой вкладку "Блокнот"</div></div>
+              <div class="step-item"><div class="step-num">2</div><div class="step-text">Слева — свободное поле для заметок</div></div>
+              <div class="step-item"><div class="step-num">3</div><div class="step-text">Справа — список покупок, вводи продукт и нажми "+ ДОБАВИТЬ"</div></div>
+              <div class="step-item"><div class="step-num">4</div><div class="step-text">Отмечай купленные товары чекбоксом</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="help-card">
+      <div class="help-card-title" onclick="toggleCard(this)">
+        ❓ ЧАСТЫЕ ВОПРОСЫ (FAQ)
+        <i class="arrow">▶</i>
+      </div>
+      <div class="help-card-body">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Сохраняются ли мои данные? <span class="faq-arrow">▶</span></div>
+          <div class="faq-a">Да! Блокнот и календарь сохраняют данные в localStorage браузера — они не пропадут при закрытии страницы. Рецепты и избранное хранятся в базе данных на сервере.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Как масштабировать рецепт на больше людей? <span class="faq-arrow">▶</span></div>
+          <div class="faq-a">Открой страницу рецепта и измени количество порций в специальном поле. Все ингредиенты пересчитаются автоматически пропорционально.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Можно ли добавить свой рецепт? <span class="faq-arrow">▶</span></div>
+          <div class="faq-a">Да! Перейди во вкладку "Рецепты" и нажми кнопку "+ СОЗДАТЬ РЕЦЕПТ". Заполни форму с названием, ингредиентами и шагами приготовления.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Почему не загружаются рецепты? <span class="faq-arrow">▶</span></div>
+          <div class="faq-a">Скорее всего бэкенд не запущен. Убедись что Docker запущен командой "docker compose up" из корневой папки проекта.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Как удалить блюдо из календаря? <span class="faq-arrow">▶</span></div>
+          <div class="faq-a">Нажми кнопку ✕ справа от блюда в ячейке дня. Блюдо сразу удалится.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Как убрать рецепт из избранного? <span class="faq-arrow">▶</span></div>
+          <div class="faq-a">Открой вкладку "Избранное" и нажми кнопку ★ справа от рецепта. Или нажми ★ на карточке в ленте рецептов — иконка снова станет ☆.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Работает ли сайт на телефоне? <span class="faq-arrow">▶</span></div>
+          <div class="faq-a">Да, сайт адаптирован для мобильных устройств. Все страницы корректно отображаются на экранах разного размера.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- API ENDPOINTS -->
+    <div class="help-card">
+      <div class="help-card-title" onclick="toggleCard(this)">
+        ⚡ API ЭНДПОИНТЫ
+        <i class="arrow">▶</i>
+      </div>
+      <div class="help-card-body">
+        <div class="help-row-desc" style="padding-bottom:0.5rem">Бэкенд работает на порту <b>:8080</b>. Все запросы к рецептам через <code>/api/recipes</code>.</div>
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>МЕТОД</th>
+              <th>ENDPOINT</th>
+              <th>ОПИСАНИЕ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="method get">GET</span></td>
+              <td class="endpoint">/health</td>
+              <td>Проверка работы сервера</td>
+            </tr>
+            <tr>
+              <td><span class="method get">GET</span></td>
+              <td class="endpoint">/api/recipes</td>
+              <td>Получить все рецепты</td>
+            </tr>
+            <tr>
+              <td><span class="method get">GET</span></td>
+              <td class="endpoint">/api/recipes?search=паста</td>
+              <td>Поиск рецептов по названию</td>
+            </tr>
+            <tr>
+              <td><span class="method get">GET</span></td>
+              <td class="endpoint">/api/recipes/:id</td>
+              <td>Получить рецепт по ID</td>
+            </tr>
+            <tr>
+              <td><span class="method post">POST</span></td>
+              <td class="endpoint">/api/recipes</td>
+              <td>Создать новый рецепт</td>
+            </tr>
+            <tr>
+              <td><span class="method delete">DELETE</span></td>
+              <td class="endpoint">/api/recipes/:id</td>
+              <td>Удалить рецепт по ID</td>
+            </tr>
+            <tr>
+              <td><span class="method get">GET</span></td>
+              <td class="endpoint">/api/tags</td>
+              <td>Получить все теги</td>
+            </tr>
+            <tr>
+              <td><span class="method get">GET</span></td>
+              <td class="endpoint">/api/categories</td>
+              <td>Получить все категории</td>
+            </tr>
+            <tr>
+              <td><span class="method post">POST</span></td>
+              <td class="endpoint">/api/recipes/:id/favorite</td>
+              <td>Добавить рецепт в избранное</td>
+            </tr>
+            <tr>
+              <td><span class="method get">GET</span></td>
+              <td class="endpoint">/api/shopping-list</td>
+              <td>Получить список покупок</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ТЕХНОЛОГИИ -->
+    <div class="help-card">
+      <div class="help-card-title" onclick="toggleCard(this)">
+        ⚙️ ТЕХНОЛОГИИ ПРОЕКТА
+        <i class="arrow">▶</i>
+      </div>
+      <div class="help-card-body">
+        <div class="help-row">
+          <div class="help-row-icon">🎨</div>
+          <div class="help-row-text">
+            <div class="help-row-title">ФРОНТЕНД</div>
+            <div class="help-row-desc">HTML5, CSS3, JavaScript — без фреймворков. Шрифты: Press Start 2P (заголовки), Nunito (текст).</div>
+          </div>
+        </div>
+        <div class="help-row">
+          <div class="help-row-icon">⚙️</div>
+          <div class="help-row-text">
+            <div class="help-row-title">БЭКЕНД</div>
+            <div class="help-row-desc">Go 1.21 + Gin framework. REST API с CORS поддержкой. Порт: 8080.</div>
+          </div>
+        </div>
+        <div class="help-row">
+          <div class="help-row-icon">🗄️</div>
+          <div class="help-row-text">
+            <div class="help-row-title">БАЗА ДАННЫХ</div>
+            <div class="help-row-desc">SQLite. Таблицы: Users, Recipes, Ingredients, Recipe_Steps, Categories, Meal_Plans.</div>
+          </div>
+        </div>
+        <div class="help-row">
+          <div class="help-row-icon">🐳</div>
+          <div class="help-row-text">
+            <div class="help-row-title">ДЕПЛОЙ</div>
+            <div class="help-row-desc">Docker + Docker Compose. Фронтенд через Nginx, бэкенд в отдельном контейнере.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- КАТЕГОРИИ -->
+    <div class="help-card">
+      <div class="help-card-title" onclick="toggleCard(this)">
+        🏷️ КАТЕГОРИИ И ТЕГИ
+        <i class="arrow">▶</i>
+      </div>
+      <div class="help-card-body">
+        <div class="help-row-desc" style="padding-bottom:0.5rem">Каждый рецепт помечается цветными тегами для удобной фильтрации:</div>
+        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:1rem">
+          <span class="tag green">вегетарианская</span>
+          <span class="tag green">лёгкая</span>
+          <span class="tag green">быстрая</span>
+          <span class="tag green">с овощами</span>
+          <span class="tag teal">веганская</span>
+          <span class="tag teal">полезная</span>
+          <span class="tag teal">морепродукты</span>
+          <span class="tag teal">рыбная</span>
+          <span class="tag yellow">с курицей</span>
+          <span class="tag yellow">с сыром</span>
+          <span class="tag yellow">японское</span>
+          <span class="tag pink">острая</span>
+          <span class="tag pink">мясная</span>
+          <span class="tag blue">диетическая</span>
+          <span class="tag blue">домашняя</span>
+          <span class="tag purple">праздничная</span>
+          <span class="tag purple">сладкая</span>
+          <span class="tag brown">запечённая</span>
+          <span class="tag brown">жареная</span>
+        </div>
+        <div class="help-row-desc">Используй боковую панель на странице "Рецепты" чтобы фильтровать по любому тегу.</div>
+      </div>
+    </div>
+
+    <!-- КОНТАКТЫ -->
+    <div class="help-card">
+      <div class="help-card-title" onclick="toggleCard(this)">
+        📬 КОНТАКТЫ
+        <i class="arrow">▶</i>
+      </div>
+      <div class="help-card-body">
+        <div class="contact-block">
+          Нашли баг или есть предложения по улучшению?<br>
+          Напишите команде CraftCook! 🎮<br><br>
+          🎨 Эрбол — Фронтенд<br>
+          ⚙️ Эмир — Бэкенд<br>
+          🗄️ Бекжан — База данных<br><br>
+          📁 GitHub: recipe-app / RECIP...
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="mc-footer">⚒ CraftCook — 2024 · Сделано с ❤ и пикселями</footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    function toggleCard(titleEl) {
+      titleEl.closest('.help-card').classList.toggle('open');
+    }
+
+    function toggleFaq(qEl) {
+      qEl.closest('.faq-item').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

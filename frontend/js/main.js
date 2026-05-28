@@ -2,7 +2,7 @@
 // Recipe Book: Minecraft Edition — Frontend JS
 // ============================================
 
-const BASE_URL = "/api";
+const BASE_URL = "http://localhost:8080/api";
 // const BASE_URL = "http://192.168.1.XX:8080/api";
 
 // ============================================
@@ -132,7 +132,6 @@ function renderList(recipes) {
 }
 
 function renderCraftingGrid(ingredients) {
-    // ingredients — массив из 9 элементов (null для пустых слотов)
     const grid = document.createElement('div');
     grid.className = 'crafting-grid';
     (ingredients || Array(9).fill(null)).forEach(item => {
@@ -233,7 +232,6 @@ function handleSearch(query) {
 }
 
 function setupEventListeners() {
-    // Поиск
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
@@ -242,7 +240,6 @@ function setupEventListeners() {
         });
     }
 
-    // Фильтр по категориям
     document.querySelectorAll('.category-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
@@ -255,7 +252,6 @@ function setupEventListeners() {
         });
     });
 
-    // Модалка — закрытие
     const modalClose = document.getElementById('modal-close');
     if (modalClose) modalClose.addEventListener('click', closeModal);
 
@@ -270,7 +266,6 @@ function setupEventListeners() {
         if (e.key === 'Escape') closeModal();
     });
 
-    // Форма добавления рецепта
     const form = document.getElementById('add-recipe-form');
     if (form) {
         form.addEventListener('submit', async(e) => {
@@ -283,7 +278,7 @@ function setupEventListeners() {
                 difficulty: formData.get('difficulty'),
                 description: formData.get('description'),
                 image: formData.get('image') || '/img/placeholder.png',
-                ingredients: [] // TODO: собрать из формы если есть
+                ingredients: []
             };
             try {
                 const saved = await apiPost('/recipes', recipe);

@@ -1,12 +1,10 @@
 FROM golang:1.25-alpine
 
-WORKDIR /app
+RUN apk add --no-cache gcc musl-dev sqlite  # ← добавь sqlite
 
-# Устанавливаем GCC и musl-dev для CGO (SQLite требует)
-RUN apk add --no-cache gcc musl-dev
-
-# Включаем CGO
 ENV CGO_ENABLED=1
+
+WORKDIR /app
 
 COPY go.mod go.sum ./
 RUN go mod download

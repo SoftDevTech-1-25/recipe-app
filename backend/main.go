@@ -11,6 +11,7 @@ func main() {
 
 	r := gin.Default()
 
+	// CORS middleware
 	r.Use(func(c *gin.Context) {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
 		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
@@ -21,18 +22,124 @@ func main() {
 		}
 		c.Next()
 	})
+
+	// Health check (вне api группы)
 	r.GET("/health", func(c *gin.Context) {
 		c.JSON(200, gin.H{"status": "ok"})
 	})
 
+	// API группа
 	api := r.Group("/api")
 	{
+		// Основные endpoint'ы
 		api.GET("/recipes", getRecipes)
 		api.GET("/recipes/:id", getRecipeByID)
 		api.POST("/recipes", createRecipe)
 		api.DELETE("/recipes/:id", deleteRecipe)
 		api.GET("/tags", getTags)
 		api.GET("/categories", getCategories)
+
+		api.GET("/admin/seed-tags", func(c *gin.Context) {
+			tagList := []struct{ Name, Color string }{
+				{"острая", "#b03030"}, {"сладкая", "#c04080"}, {"солёная", "#6a6a5a"},
+				{"кислая", "#c8a020"}, {"веганская", "#5a8a3c"}, {"вегетарианская", "#7ab84a"},
+				{"мясная", "#8B4513"}, {"рыбная", "#3a6a9a"}, {"диетическая", "#7a4a9a"},
+				{"полезная", "#5a8a3c"}, {"жареная", "#b03030"}, {"запечённая", "#c8a020"},
+				{"домашняя", "#c8a020"}, {"быстрая", "#00CED1"}, {"праздничная", "#c04080"},
+				{"с сыром", "#FFD700"}, {"с курицей", "#c8a020"}, {"с овощами", "#5a8a3c"},
+				{"с морепродуктами", "#3a6a9a"}, {"японское", "#3a6a9a"}, {"салат", "#5a8a3c"},
+			}
+
+			created := 0
+			for _, t := range tagList {
+				var existing Tag
+				DB.Where("name = ?", t.Name).First(&existing)
+				if existing.ID == 0 {
+					DB.Create(&Tag{Name: t.Name, Color: t.Color})
+					created++
+				}
+			}
+
+			c.JSON(200, gin.H{
+				"created_tags": created,
+				"total":        len(tagList),
+			})
+		})
+		// Фикс тегов — ОДИН РАЗ, без вложенности
+		api.GET("/admin/fix-all", func(c *gin.Context) {
+			fixes := map[string][]string{
+				"Пицца":      {"вегетарианская", "с сыром"},
+				"Роллы":      {"японское", "с морепродуктами"},
+				"Борщ":       {"с овощами", "домашняя"},
+				"Цезарь":     {"салат", "с курицей"},
+				"Карбонара":  {"итальянская", "быстрая"},
+				"Тирамису":   {"сладкая", "десерт"},
+				"Уха":        {"рыбная", "суп"},
+				"Стейк":      {"мясная", "жареная"},
+				"Пельмени":   {"домашняя", "мясная"},
+				"Шашлык":     {"жареная", "мясная"},
+				"Блины":      {"быстрая", "десерт"},
+				"Рамен":      {"японское", "суп"},
+				"Том Ям":     {"острая", "суп"},
+				"Фалафель":   {"веганская", "жареная"},
+				"Лазанья":    {"итальянская", "запечённая"},
+				"Пад Тай":    {"азиатская", "острая"},
+				"Чизкейк":    {"сладкая", "десерт"},
+				"Минестроне": {"суп", "вегетарианская"},
+				"Плов":       {"домашняя", "мясная"},
+				"Манты":      {"домашняя", "мясная"},
+				"Фо Бо":      {"острая", "суп"},
+				"Рататуй":    {"вегетарианская", "запечённая"},
+				"Чуррос":     {"сладкая", "жареная"},
+				"Гаспачо":    {"с овощами", "холодная"},
+				"Нисуаз":     {"салат", "рыбная"},
+				"Вареники":   {"домашняя", "вегетарианская"},
+				"Мисо":       {"японское", "суп"},
+				"Тако":       {"быстрая", "мясная"},
+				"Паэлья":     {"морепродукты", "испанская"},
+				"Крем-брюле": {"сладкая", "десерт"},
+				"Солянка":    {"суп", "мясная"},
+				"Табуле":     {"салат", "веганская"},
+				"Кебаб":      {"мясная", "жареная"},
+				"Хачапури":   {"с сыром", "запечённая"},
+				"Фондю":      {"с сыром", "быстрая"},
+				"Гуляш":      {"мясная", "домашняя"},
+				"Мусака":     {"запечённая", "домашняя"},
+				"Каннеллони": {"итальянская", "запечённая"},
+				"Самоса":     {"острая", "жареная"},
+				"Эклеры":     {"сладкая", "десерт"},
+				"Харчо":      {"острая", "суп"},
+				"Баклава":    {"сладкая", "десерт"},
+			}
+
+			fixed := 0
+			for keyword, tagNames := range fixes {
+				var recipes []Recipe
+				DB.Where("title LIKE ?", "%"+keyword+"%").Find(&recipes)
+
+				for _, recipe := range recipes {
+					for _, tagName := range tagNames {
+						var tag Tag
+						DB.Where("name = ?", tagName).First(&tag)
+						if tag.ID == 0 {
+							continue
+						}
+
+						var exists int64
+						DB.Raw("SELECT COUNT(*) FROM recipe_tags WHERE recipe_id = ? AND tag_id = ?", recipe.ID, tag.ID).Scan(&exists)
+						if exists == 0 {
+							DB.Exec("INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (?, ?)", recipe.ID, tag.ID)
+							fixed++
+						}
+					}
+				}
+			}
+
+			c.JSON(200, gin.H{
+				"fixed_tags": fixed,
+				"message":    "Теги привязаны. Обнови страницу.",
+			})
+		})
 	}
 
 	r.Run(":8080")
