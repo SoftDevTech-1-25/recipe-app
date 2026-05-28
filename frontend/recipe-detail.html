@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Детальный вид рецепта — CraftCook</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+  <!-- HOTBAR NAV -->
+  <nav class="hotbar">
+    <div class="hotbar-logo">⚒ CRAFTCOOK</div>
+    <div class="hotbar-links">
+      <a href="./index.html"><span class="icon">🏠</span> Главная</a>
+      <a href="./recipes.html" class="active"><span class="icon">📖</span> Рецепты</a>
+      <a href="./notepad.html"><span class="icon">📝</span> Блокнот</a>
+      <a href="./calendar.html"><span class="icon">📅</span> Календарь</a>
+      <a href="./favorites.html"><span class="icon">☆</span> Избранное</a>
+      <a href="./help.html"><span class="icon">❓</span></a>
+    </div>
+  </nav>
+
+  <!-- RECIPE DETAIL CONTAINER -->
+  <div class="recipe-detail-container">
+    
+    <!-- BACK BUTTON -->
+    <a href="./recipes.html" class="back-button">← ВЕРНУТЬСЯ</a>
+
+    <!-- HEADER -->
+    <div class="recipe-header">
+      <div class="recipe-header-left">
+        <div class="recipe-emoji-large" id="recipe-emoji">🍽️</div>
+        <div>
+          <h1 id="recipe-title">Загрузка...</h1>
+          <p id="recipe-description" class="recipe-description">Описание рецепта</p>
+        </div>
+      </div>
+      <div class="recipe-header-right">
+        <button id="favorite-btn" class="mc-btn-secondary" onclick="toggleFavorite()">☆ ИЗБРАННОЕ</button>
+        <button id="download-btn" class="mc-btn-secondary" onclick="downloadRecipe()">📥 СКАЧАТЬ</button>
+      </div>
+    </div>
+
+    <!-- META INFO -->
+    <div class="recipe-meta-info">
+      <div class="meta-item">
+        <span class="meta-icon">⏱</span>
+        <span class="meta-label">ВРЕМЯ:</span>
+        <span id="recipe-time">30 мин</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-icon">⭐</span>
+        <span class="meta-label">СЛОЖНОСТЬ:</span>
+        <span id="recipe-difficulty">Средняя</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-icon">👥</span>
+        <span class="meta-label">ПОРЦИИ:</span>
+        <div class="portions-control">
+          <button onclick="decreasePortions()">−</button>
+          <input type="number" id="portions-input" value="2" min="1" max="20"/>
+          <button onclick="increasePortions()">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAGS -->
+    <div id="recipe-tags" class="recipe-tags">
+      <!-- Теги загружаются здесь -->
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="recipe-content">
+
+      <!-- INGREDIENTS SECTION (CRAFTCRAFTING TABLE STYLE) -->
+      <div class="recipe-section">
+        <h2 class="section-header">⚗️ ИНГРЕДИЕНТЫ</h2>
+        <div class="crafting-table">
+          <div id="ingredients-list" class="ingredients-slots">
+            <!-- Ингредиенты загружаются сюда в пиксельном стиле -->
+          </div>
+        </div>
+      </div>
+
+      <!-- INSTRUCTIONS SECTION -->
+      <div class="recipe-section">
+        <h2 class="section-header">🔨 КАК ГОТОВИТЬ</h2>
+        <div id="steps-list" class="steps-list">
+          <!-- Шаги загружаются сюда -->
+        </div>
+      </div>
+
+      <!-- CATEGORY SECTION -->
+      <div class="recipe-section" id="category-section" style="display:none;">
+        <h2 class="section-header">📂 КАТЕГОРИЯ</h2>
+        <div id="recipe-category" class="category-badge">
+          <!-- Категория загружается сюда -->
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer class="mc-footer">⚒ CraftCook — 2024 · Сделано с ❤ и пикселями</footer>
+
+  <script>
+    let currentRecipe = null;
+    let currentPortions = 2;
+    let originalPortions = 2;
+
+    async function loadRecipeDetail() {
+      const params = new URLSearchParams(window.location.search);
+      const recipeId = params.get('id');
+
+      if (!recipeId) {
+        document.querySelector('.recipe-detail-container').innerHTML = '<p>❌ Рецепт не найден</p>';
+        return;
+      }
+
+      try {
+        const response = await fetch(`http://localhost:8080/api/recipes/${recipeId}`);
+        if (!response.ok) throw new Error('Рецепт не найден');
+        
+        currentRecipe = await response.json();
+        originalPortions = currentRecipe.servings || 2;
+        currentPortions = originalPortions;
+        
+        renderRecipe();
+        loadFavoriteStatus();
+      } catch (error) {
+        console.error('Ошибка загрузки рецепта:', error);
+        document.querySelector('.recipe-detail-container').innerHTML = '<p>❌ Ошибка загрузки рецепта</p>';
+      }
+    }
+
+    function renderRecipe() {
+      // Заголовок
+      document.getElementById('recipe-emoji').textContent = currentRecipe.emoji || '🍽️';
+      document.getElementById('recipe-title').textContent = currentRecipe.title || 'Без названия';
+      document.getElementById('recipe-description').textContent = currentRecipe.description || '';
+
+      // Мета информация
+      document.getElementById('recipe-time').textContent = `${currentRecipe.time || 0} мин`;
+      document.getElementById('recipe-difficulty').textContent = currentRecipe.difficulty || 'Неизвестна';
+      document.getElementById('portions-input').value = currentPortions;
+
+      // Теги
+      const tagsContainer = document.getElementById('recipe-tags');
+      tagsContainer.innerHTML = '';
+      if (currentRecipe.tags && currentRecipe.tags.length > 0) {
+        currentRecipe.tags.forEach(tag => {
+          const tagEl = document.createElement('span');
+          tagEl.className = 'tag green';
+          tagEl.textContent = tag;
+          tagsContainer.appendChild(tagEl);
+        });
+      }
+
+      // Ингредиенты (в стиле Minecraft crafting table)
+      renderIngredients();
+
+      // Шаги приготовления
+      renderSteps();
+
+      // Категория
+      if (currentRecipe.category) {
+        document.getElementById('recipe-category').textContent = currentRecipe.category;
+        document.getElementById('category-section').style.display = 'block';
+      }
+    }
+
+    function renderIngredients() {
+      const ingredientsList = document.getElementById('ingredients-list');
+      ingredientsList.innerHTML = '';
+
+      if (!currentRecipe.ingredients || currentRecipe.ingredients.length === 0) {
+        ingredientsList.innerHTML = '<p>📦 Нет ингредиентов</p>';
+        return;
+      }
+
+      currentRecipe.ingredients.forEach((ingredient, index) => {
+        const portionMultiplier = currentPortions / originalPortions;
+        const scaledQuantity = (ingredient.quantity * portionMultiplier).toFixed(2);
+
+        const ingredientSlot = document.createElement('div');
+        ingredientSlot.className = 'ingredient-slot';
+        ingredientSlot.innerHTML = `
+          <div class="ingredient-icon">📦</div>
+          <div class="ingredient-info">
+            <div class="ingredient-name">${ingredient.ingredient?.name || 'Ингредиент'}</div>
+            <div class="ingredient-quantity">${scaledQuantity} ${ingredient.unit}</div>
+          </div>
+        `;
+        ingredientsList.appendChild(ingredientSlot);
+      });
+    }
+
+    function renderSteps() {
+      const stepsList = document.getElementById('steps-list');
+      stepsList.innerHTML = '';
+
+      if (!currentRecipe.steps || currentRecipe.steps.length === 0) {
+        stepsList.innerHTML = '<p>📖 Шаги не добавлены</p>';
+        return;
+      }
+
+      currentRecipe.steps.forEach((step, index) => {
+        const stepEl = document.createElement('div');
+        stepEl.className = 'step-item';
+        stepEl.innerHTML = `
+          <div class="step-number">⬛ ${step.step_order}</div>
+          <div class="step-content">
+            <p class="step-description">${step.description}</p>
+            ${step.duration ? `<small class="step-duration">⏱ ${step.duration} мин</small>` : ''}
+          </div>
+        `;
+        stepsList.appendChild(stepEl);
+      });
+    }
+
+    function increasePortions() {
+      currentPortions++;
+      document.getElementById('portions-input').value = currentPortions;
+      renderIngredients();
+    }
+
+    function decreasePortions() {
+      if (currentPortions > 1) {
+        currentPortions--;
+        document.getElementById('portions-input').value = currentPortions;
+        renderIngredients();
+      }
+    }
+
+    function toggleFavorite() {
+      const btn = document.getElementById('favorite-btn');
+      const isFav = btn.classList.contains('favorite-active');
+      
+      if (isFav) {
+        btn.classList.remove('favorite-active');
+        btn.textContent = '☆ ИЗБРАННОЕ';
+        localStorage.removeItem(`favorite-${currentRecipe.id}`);
+      } else {
+        btn.classList.add('favorite-active');
+        btn.textContent = '★ В ИЗБРАННОМ';
+        localStorage.setItem(`favorite-${currentRecipe.id}`, 'true');
+      }
+    }
+
+    function loadFavoriteStatus() {
+      const btn = document.getElementById('favorite-btn');
+      if (localStorage.getItem(`favorite-${currentRecipe.id}`)) {
+        btn.classList.add('favorite-active');
+        btn.textContent = '★ В ИЗБРАННОМ';
+      }
+    }
+
+    function downloadRecipe() {
+      const recipeData = {
+        title: currentRecipe.title,
+        description: currentRecipe.description,
+        prepTime: currentRecipe.time,
+        difficulty: currentRecipe.difficulty,
+        servings: currentPortions,
+        ingredients: currentRecipe.ingredients,
+        steps: currentRecipe.steps,
+        tags: currentRecipe.tags,
+        downloadedAt: new Date().toLocaleString('ru-RU')
+      };
+
+      const dataStr = JSON.stringify(recipeData, null, 2);
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(dataBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${currentRecipe.title}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+
+      // Показать уведомление
+      alert(`✅ Рецепт "${currentRecipe.title}" скачан!`);
+    }
+
+    // Загрузить рецепт при открытии страницы
+    window.addEventListener('load', loadRecipeDetail);
+  </script>
+
+</body>
+</html>
