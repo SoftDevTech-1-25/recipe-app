@@ -96,17 +96,19 @@ type Favorite struct {
 // ==================== DTO для фронта ====================
 
 type RecipeResponse struct {
-	ID          uint     `json:"id"`
-	Name        string   `json:"name"`
-	Title       string   `json:"title"`
-	Description string   `json:"description"`
-	Tags        []string `json:"tags"`
-	Emoji       string   `json:"emoji"`
-	Time        int      `json:"time"`
-	Difficulty  string   `json:"difficulty"`
-	Servings    int      `json:"servings"`
-	ImageURL    string   `json:"image_url"`
-	Category    string   `json:"category"`
+	ID          uint                `json:"id"`
+	Name        string              `json:"name"`
+	Title       string              `json:"title"`
+	Description string              `json:"description"`
+	Tags        []string            `json:"tags"`
+	Emoji       string              `json:"emoji"`
+	Time        int                 `json:"time"`
+	Difficulty  string              `json:"difficulty"`
+	Servings    int                 `json:"servings"`
+	ImageURL    string              `json:"image_url"`
+	Category    string              `json:"category"`
+	Ingredients []RecipeIngredient  `json:"ingredients,omitempty"`
+	Steps       []RecipeStep        `json:"steps,omitempty"`
 }
 
 func recipeToResponse(r Recipe) RecipeResponse {
@@ -139,6 +141,8 @@ func recipeToResponse(r Recipe) RecipeResponse {
 		Servings:    r.Servings,
 		ImageURL:    r.ImageURL,
 		Category:    catName,
+		Ingredients: r.Ingredients,
+		Steps:       r.Steps,
 	}
 }
 
