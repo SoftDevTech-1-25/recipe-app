@@ -176,10 +176,24 @@ func getRecipes(c *gin.Context) {
 func getRecipeByID(c *gin.Context) {
 	id := c.Param("id")
 	var recipe Recipe
-	if err := DB.Preload("Tags").Preload("Category").Preload("Ingredients.Ingredient").Preload("Steps").First(&recipe, id).Error; err != nil {
+	
+	// Загружаем рецепт со всеми связанными данными
+	if err := DB.Preload("Tags").
+		Preload("Category").
+		Preload("Ingredients", func(db *gorm.DB) *gorm.DB {
+			// Сортируем ингредиенты по ID для консистентности
+			return db.Order("id ASC")
+		}).
+		Preload("Ingredients.Ingredient").
+		Preload("Steps", func(db *gorm.DB) *gorm.DB {
+			// Сортируем шаги по порядку
+			return db.Order("step_order ASC")
+		}).
+		First(&recipe, id).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Рецепт не найден"})
 		return
 	}
+	
 	c.JSON(http.StatusOK, recipeToResponse(recipe))
 }
 
