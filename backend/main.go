@@ -150,7 +150,15 @@ func getRecipes(c *gin.Context) {
 	tag := c.Query("tag")
 	search := c.Query("search")
 
-	query := DB.Preload("Tags").Preload("Category")
+	query := DB.Preload("Tags").
+		Preload("Category").
+		Preload("Ingredients", func(db *gorm.DB) *gorm.DB {
+			return db.Order("id ASC")
+		}).
+		Preload("Ingredients.Ingredient").
+		Preload("Steps", func(db *gorm.DB) *gorm.DB {
+			return db.Order("step_order ASC")
+		})
 
 	if tag != "" {
 		query = query.Joins("JOIN recipe_tags ON recipe_tags.recipe_id = recipes.id").
