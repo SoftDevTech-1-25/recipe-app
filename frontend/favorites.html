@@ -165,7 +165,7 @@
 
   </div>
 
-  <footer class="mc-footer">⚒ CraftCook — 2024 · Сделано с ❤ и пикселями</footer>
+  <footer class="mc-footer">⚒ CraftCook — 2026 · Сделано с ❤ и пикселями</footer>
 
   <script src="js/main.js"></script>
   <script>
@@ -179,7 +179,15 @@
       { id: 6, emoji: '🥘', name: 'ОВОЩНОЕ КАРРИ',      tags: [['teal','веганская'],['pink','острая']], time: '30 мин', diff: '⭐⭐ Средне',  kcal: '310 ккал' },
     ];
 
-    let favorites = JSON.parse(localStorage.getItem('craftcook-favorites') || '[]');
+    // Получить избранные из localStorage
+    function getFavoritesFromStorage() {
+      return JSON.parse(localStorage.getItem('craftcook-favorites') || '[]');
+    }
+
+    // Сохранить избранные в localStorage
+    function saveFavoritesToStorage(favorites) {
+      localStorage.setItem('craftcook-favorites', JSON.stringify(favorites));
+    }
 
     function render() {
       const list = document.getElementById('fav-list');
@@ -188,6 +196,7 @@
 
       list.innerHTML = '';
 
+      const favorites = getFavoritesFromStorage();
       const favRecipes = allRecipes.filter(r => favorites.includes(r.id));
 
       count.textContent = favRecipes.length > 0 ? `${favRecipes.length} рецептов` : '';
@@ -205,7 +214,7 @@
         card.innerHTML = `
           <div class="fav-card-img">${r.emoji}</div>
           <div class="fav-card-body">
-            <a href="./recipe-detail.html" class="fav-card-name">${r.name}</a>
+            <a href="./recipe-detail.html?id=${r.id}" class="fav-card-name">${r.name}</a>
             <div class="fav-card-tags">
               ${r.tags.map(([cls, label]) => `<span class="tag ${cls}">${label}</span>`).join('')}
             </div>
@@ -222,11 +231,13 @@
     }
 
     function removeFav(id) {
+      let favorites = getFavoritesFromStorage();
       favorites = favorites.filter(f => f !== id);
-      localStorage.setItem('craftcook-favorites', JSON.stringify(favorites));
+      saveFavoritesToStorage(favorites);
       render();
     }
 
+    // Первоначальный рендер
     render();
   </script>
 </body>

@@ -6,187 +6,102 @@
   <title>Календарь питания — CraftCook</title>
   <link rel="stylesheet" href="css/style.css"/>
   <style>
-    .calendar-page {
-      max-width: 1100px;
+    .calendar-container {
+      max-width: 900px;
       margin: 2rem auto;
       padding: 0 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
     }
 
-    .calendar-header {
+    .calendar-controls {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
       flex-wrap: wrap;
       gap: 1rem;
     }
 
-    .week-nav {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .week-nav button {
-      background: var(--parch-light);
-      border: 3px solid var(--brown);
+    .calendar-controls button {
+      background: var(--brown);
+      color: var(--parch-light);
+      border: none;
+      padding: 0.6rem 1rem;
       border-radius: var(--radius);
-      box-shadow: 3px 3px 0 var(--brown-mid);
-      font-family: 'Press Start 2P', monospace;
-      font-size: 10px;
-      color: var(--brown-dark);
-      padding: 0.5rem 0.8rem;
       cursor: pointer;
-      transition: filter 0.1s;
+      font-weight: 700;
     }
 
-    .week-nav button:hover { filter: brightness(0.95); }
-    .week-nav button:active { transform: translate(2px,2px); box-shadow: none; }
-
-    .week-label {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 10px;
-      color: var(--brown-dark);
-      min-width: 200px;
-      text-align: center;
-    }
-
-    /* GRID */
     .calendar-grid {
       display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 0.8rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
 
-    @media (max-width: 800px) {
-      .calendar-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 480px) {
-      .calendar-grid { grid-template-columns: 1fr; }
-    }
-
-    .day-col {
+    .day-card {
       background: var(--parch-light);
       border: 3px solid var(--brown);
       border-radius: var(--radius);
       box-shadow: 4px 4px 0 var(--brown-mid);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      min-height: 260px;
+      padding: 1rem;
     }
 
-    .day-col.today { border-color: var(--green-tag); box-shadow: 4px 4px 0 var(--green-tag); }
-
-    .day-header {
-      background: var(--brown);
-      color: var(--parch-light);
+    .day-card-header {
       font-family: 'Press Start 2P', monospace;
-      font-size: 8px;
-      padding: 0.5rem 0.6rem;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
+      font-size: 9px;
+      color: var(--brown-dark);
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--brown-mid);
     }
 
-    .day-col.today .day-header { background: var(--green-tag); }
-
-    .day-date {
-      font-size: 10px;
-      opacity: 0.8;
+    .day-card-date {
+      font-size: 11px;
+      color: var(--brown-mid);
     }
 
-    .day-slots {
-      flex: 1;
-      padding: 0.5rem;
+    .day-meals {
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
+      gap: 0.6rem;
     }
 
     .meal-slot {
-      background: var(--parch-dark);
-      border: 2px dashed var(--brown-mid);
-      border-radius: var(--radius);
-      padding: 0.4rem 0.5rem;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--brown-mid);
-      min-height: 40px;
       display: flex;
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 3px;
-      transition: border-color 0.15s;
-      position: relative;
-    }
-
-    .meal-slot.has-meal {
-      background: #FFF8EC;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
       border: 2px solid var(--brown-mid);
-      color: var(--brown-dark);
-    }
-
-    .meal-slot-label {
-      font-size: 9px;
-      font-family: 'Press Start 2P', monospace;
-      color: var(--brown-mid);
-      opacity: 0.8;
-    }
-
-    .meal-slot.has-meal .meal-slot-label { color: var(--brown-mid); }
-
-    .meal-name {
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--brown-dark);
-      line-height: 1.3;
-    }
-
-    .meal-emoji { font-size: 16px; }
-
-    .remove-meal {
-      position: absolute;
-      top: 3px;
-      right: 4px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 11px;
-      color: var(--brown-mid);
-      opacity: 0.6;
-      transition: opacity 0.15s;
-      padding: 0;
-    }
-
-    .remove-meal:hover { opacity: 1; color: #C0392B; }
-
-    .add-meal-btn {
-      width: 100%;
-      background: none;
-      border: 2px dashed var(--brown-mid);
       border-radius: var(--radius);
-      color: var(--brown-mid);
-      font-family: 'Nunito', sans-serif;
+      padding: 0.6rem;
       font-size: 12px;
-      font-weight: 700;
-      padding: 0.3rem;
-      cursor: pointer;
-      transition: border-color 0.15s, color 0.15s;
-      margin-top: 2px;
     }
 
-    .add-meal-btn:hover { border-color: var(--green-tag); color: var(--green-tag); }
+    .meal-type { font-weight: 700; color: var(--brown-dark); }
+    .meal-name { flex: 1; margin: 0 0.8rem; color: var(--brown-mid); }
+    .meal-remove { background: none; border: none; color: #C0392B; cursor: pointer; }
 
-    /* MODAL */
+    .day-card-add {
+      background: var(--green-tag);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.6rem;
+      width: 100%;
+      margin-top: 0.8rem;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
     .modal-overlay {
       display: none;
       position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 200;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
       align-items: center;
       justify-content: center;
     }
@@ -194,140 +109,69 @@
     .modal-overlay.open { display: flex; }
 
     .modal {
-      max-height: 90vh;
-      display: flex;
-      flex-direction: column;
       background: var(--parch-light);
       border: 3px solid var(--brown);
       border-radius: var(--radius);
-      box-shadow: 6px 6px 0 var(--brown-dark);
-      width: 90%;
-      max-width: 420px;
-      overflow: hidden;
-    }
-
-    .modal-title {
-      background: var(--brown);
-      color: var(--parch-light);
-      font-family: 'Press Start 2P', monospace;
-      font-size: 9px;
-      padding: 0.8rem 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .modal-close {
-      background: none;
-      border: none;
-      color: var(--parch-light);
-      font-size: 16px;
-      cursor: pointer;
-      opacity: 0.8;
-    }
-
-    .modal-close:hover { opacity: 1; }
-
-    .modal-body {
-      overflow-y: auto;
-      flex: 1;
-      padding: 1.2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
+      padding: 1.5rem;
+      max-width: 400px;
+      box-shadow: 8px 8px 0 var(--brown-dark);
     }
 
     .modal-label {
-      font-size: 13px;
-      font-weight: 800;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
       color: var(--brown-dark);
+      margin-top: 1rem;
+      margin-bottom: 0.4rem;
     }
 
     .modal-input {
       width: 100%;
-      background: #FFF8EC;
+      background: white;
       border: 2px solid var(--brown-mid);
       border-radius: var(--radius);
-      padding: 0.6rem 0.8rem;
-      font-family: 'Nunito', sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--brown-dark);
-      outline: none;
+      padding: 0.6rem;
+      font-size: 13px;
+      box-sizing: border-box;
     }
 
-    .modal-input:focus { border-color: var(--brown); }
-
-    .recipe-picker {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      max-height: 200px;
-      overflow-y: auto;
+    .recipe-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
     }
 
     .recipe-option {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.5rem 0.7rem;
-      background: var(--parch-dark);
+      background: white;
       border: 2px solid var(--brown-mid);
       border-radius: var(--radius);
+      padding: 0.8rem;
       cursor: pointer;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--brown-dark);
+      text-align: center;
       transition: background 0.15s;
     }
 
-    .recipe-option:hover { background: #FFF8EC; border-color: var(--brown); }
-    .recipe-option.selected { background: var(--green-tag-bg); border-color: var(--green-tag); }
+    .recipe-option:hover { background: var(--parch-dark); }
 
     .modal-footer {
-      padding: 0 1.2rem 1.2rem;
       display: flex;
-      gap: 0.6rem;
-      justify-content: flex-end;
+      gap: 0.8rem;
+      margin-top: 1rem;
     }
 
-    /* SUMMARY */
-    .week-summary {
-      background: var(--parch-light);
-      border: 3px solid var(--brown);
-      border-radius: var(--radius);
-      box-shadow: 4px 4px 0 var(--brown-mid);
-      overflow: hidden;
-    }
+    .mc-btn { flex: 1; }
 
-    .summary-title {
-      background: var(--brown);
-      color: var(--parch-light);
-      font-family: 'Press Start 2P', monospace;
-      font-size: 9px;
-      padding: 0.7rem 1rem;
-    }
-
-    .summary-body {
-      padding: 1rem;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .summary-stat {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--brown);
+    @media (max-width: 768px) {
+      .calendar-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- HOTBAR -->
+  <!-- HOTBAR NAV -->
   <nav class="hotbar">
     <div class="hotbar-logo">⚒ CRAFTCOOK</div>
     <div class="hotbar-links">
@@ -340,57 +184,29 @@
     </div>
   </nav>
 
-  <div class="calendar-page">
-
-    <!-- HEADER -->
-    <div class="calendar-header">
-      <h2 class="section-title" style="margin:0">📅 ПЛАН ПИТАНИЯ</h2>
-      <div class="week-nav">
-        <button onclick="changeWeek(-1)">◀ НАЗАД</button>
-        <div class="week-label" id="week-label"></div>
-        <button onclick="changeWeek(1)">ВПЕРЁД ▶</button>
-      </div>
-      <button class="mc-btn secondary" onclick="clearWeek()">🗑 Очистить неделю</button>
+  <div class="calendar-container">
+    <div class="calendar-controls">
+      <button onclick="prevWeek()">← НАЗАД</button>
+      <h2 class="section-title" style="margin: 0;">📅 МОЙ КАЛЕНДАРЬ</h2>
+      <button onclick="nextWeek()">ВПЕРЁД →</button>
     </div>
 
-    <!-- CALENDAR GRID -->
-    <div class="calendar-grid" id="calendar-grid"></div>
-
-    <!-- SUMMARY -->
-    <div class="week-summary">
-      <div class="summary-title">📊 ИТОГ НЕДЕЛИ</div>
-      <div class="summary-body" id="week-summary"></div>
-    </div>
-
+    <div class="calendar-grid" id="calendar"></div>
   </div>
 
-  <!-- MODAL -->
-  <div class="modal-overlay" id="modal">
+  <div class="modal-overlay" id="meal-modal">
     <div class="modal">
-      <div class="modal-title">
-        🍽 ДОБАВИТЬ БЛЮДО
-        <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-label">Выбери блюдо или напиши свой рецепт:</div>
+      <div class="recipe-options" id="recipe-list">
+        <div class="recipe-option" onclick="selectRecipe('🍕 Пицца с сыром', this)">🍕 Пицца с сыром</div>
+        <div class="recipe-option" onclick="selectRecipe('🍣 Сет суши', this)">🍣 Сет суши</div>
+        <div class="recipe-option" onclick="selectRecipe('🍲 Чечевичный суп', this)">🍲 Чечевичный суп</div>
+        <div class="recipe-option" onclick="selectRecipe('🥗 Салат Цезарь', this)">🥗 Салат Цезарь</div>
+        <div class="recipe-option" onclick="selectRecipe('🍖 Запечённые рёбра', this)">🍖 Запечённые рёбра</div>
+        <div class="recipe-option" onclick="selectRecipe('🥘 Овощное карри', this)">🥘 Овощное карри</div>
       </div>
-      <div class="modal-body">
-        <div class="modal-label">Выбери приём пищи:</div>
-        <div class="recipe-picker" id="meal-type-picker">
-          <div class="recipe-option" onclick="selectMealType('🌅 Завтрак', this)">🌅 Завтрак</div>
-          <div class="recipe-option" onclick="selectMealType('☀️ Обед', this)">☀️ Обед</div>
-          <div class="recipe-option" onclick="selectMealType('🌙 Ужин', this)">🌙 Ужин</div>
-          <div class="recipe-option" onclick="selectMealType('🍎 Перекус', this)">🍎 Перекус</div>
-        </div>
-        <div class="modal-label">Выбери рецепт:</div>
-        <div class="recipe-picker" id="recipe-picker">
-          <div class="recipe-option" onclick="selectRecipe('🍕 Пицца с сыром', this)">🍕 Пицца с сыром</div>
-          <div class="recipe-option" onclick="selectRecipe('🍣 Сет суши', this)">🍣 Сет суши</div>
-          <div class="recipe-option" onclick="selectRecipe('🍲 Чечевичный суп', this)">🍲 Чечевичный суп</div>
-          <div class="recipe-option" onclick="selectRecipe('🥗 Салат Цезарь', this)">🥗 Салат Цезарь</div>
-          <div class="recipe-option" onclick="selectRecipe('🍖 Запечённые рёбра', this)">🍖 Запечённые рёбра</div>
-          <div class="recipe-option" onclick="selectRecipe('🥘 Овощное карри', this)">🥘 Овощное карри</div>
-        </div>
-        <div class="modal-label">Или напиши своё:</div>
-        <input class="modal-input" id="custom-meal" type="text" placeholder="Своё блюдо..."/>
-      </div>
+      <div class="modal-label">Или напиши своё:</div>
+      <input class="modal-input" id="custom-meal" type="text" placeholder="Своё блюдо..."/>
       <div class="modal-footer">
         <button class="mc-btn secondary" onclick="closeModal()">ОТМЕНА</button>
         <button class="mc-btn primary" onclick="confirmMeal()">✔ ДОБАВИТЬ</button>
@@ -398,7 +214,7 @@
     </div>
   </div>
 
-  <footer class="mc-footer">⚒ CraftCook — 2024 · Сделано с ❤ и пикселями</footer>
+  <footer class="mc-footer">⚒ CraftCook — 2026 · Сделано с ❤ и пикселями</footer>
 
   <script src="js/main.js"></script>
   <script>
@@ -435,114 +251,82 @@
 
     function renderCalendar() {
       const dates = getWeekDates(weekOffset);
-      const first = dates[0], last = dates[6];
-      document.getElementById('week-label').textContent =
-        `${first.getDate()} ${MONTHS[first.getMonth()]} — ${last.getDate()} ${MONTHS[last.getMonth()]} ${last.getFullYear()}`;
-
-      const grid = document.getElementById('calendar-grid');
+      const grid = document.getElementById('calendar');
       grid.innerHTML = '';
-
-      dates.forEach((date, i) => {
-        const key = dateKey(date);
-        const meals = calendarData[key] || [];
-        const col = document.createElement('div');
-        col.className = 'day-col' + (isToday(date) ? ' today' : '');
-        col.innerHTML = `
-          <div class="day-header">
-            <div>${DAYS[i]}</div>
-            <div class="day-date">${date.getDate()} ${MONTHS[date.getMonth()]}</div>
+      dates.forEach(d => {
+        const key = dateKey(d);
+        const meals = calendarData[key] || {};
+        const card = document.createElement('div');
+        card.className = 'day-card' + (isToday(d) ? ' today' : '');
+        card.innerHTML = `
+          <div class="day-card-header">
+            ${DAYS[d.getDay() === 0 ? 6 : d.getDay() - 1]} <div class="day-card-date">${d.getDate()} ${MONTHS[d.getMonth()]}</div>
           </div>
-          <div class="day-slots" id="slots-${key}">
-            ${meals.map((m, mi) => `
-              <div class="meal-slot has-meal">
-                <div class="meal-slot-label">${m.type}</div>
-                <div class="meal-name">${m.name}</div>
-                <button class="remove-meal" onclick="removeMeal('${key}',${mi})">✕</button>
-              </div>
-            `).join('')}
-            ${meals.length < 4 ? `<button class="add-meal-btn" onclick="openModal('${key}')">+ добавить блюдо</button>` : ''}
+          <div class="day-meals" id="meals-${key}">
+            ${!meals.breakfast ? '' : `<div class="meal-slot"><span class="meal-type">🌅</span><span class="meal-name">${meals.breakfast}</span><button class="meal-remove" onclick="removeMeal('${key}', 'breakfast')">✕</button></div>`}
+            ${!meals.lunch ? '' : `<div class="meal-slot"><span class="meal-type">🌞</span><span class="meal-name">${meals.lunch}</span><button class="meal-remove" onclick="removeMeal('${key}', 'lunch')">✕</button></div>`}
+            ${!meals.dinner ? '' : `<div class="meal-slot"><span class="meal-type">🌙</span><span class="meal-name">${meals.dinner}</span><button class="meal-remove" onclick="removeMeal('${key}', 'dinner')">✕</button></div>`}
           </div>
+          <button class="day-card-add" onclick="openMealModal('${key}')">+ ДОБАВИТЬ БЛЮДО</button>
         `;
-        grid.appendChild(col);
+        grid.appendChild(card);
       });
-
-      renderSummary(dates);
     }
 
-    function renderSummary(dates) {
-      const summary = document.getElementById('week-summary');
-      let total = 0;
-      dates.forEach(d => { total += (calendarData[dateKey(d)] || []).length; });
-      const planned = dates.filter(d => (calendarData[dateKey(d)] || []).length > 0).length;
-      summary.innerHTML = `
-        <div class="summary-stat">🍽 Блюд запланировано: <b>${total}</b></div>
-        <div class="summary-stat">📆 Дней с планом: <b>${planned} из 7</b></div>
-        <div class="summary-stat">⭐ Осталось заполнить: <b>${7 - planned} дн.</b></div>
-      `;
-    }
-
-    function openModal(key) {
-      pendingDay = key;
-      selectedMealType = null;
-      selectedRecipe = null;
+    function openMealModal(dateKey) {
+      pendingDay = dateKey;
+      document.getElementById('meal-modal').classList.add('open');
       document.getElementById('custom-meal').value = '';
-      document.querySelectorAll('.recipe-option').forEach(o => o.classList.remove('selected'));
-      document.getElementById('modal').classList.add('open');
+      selectedRecipe = null;
     }
 
     function closeModal() {
-      document.getElementById('modal').classList.remove('open');
+      document.getElementById('meal-modal').classList.remove('open');
       pendingDay = null;
+      selectedRecipe = null;
     }
 
-    function selectMealType(type, el) {
-      selectedMealType = type;
-      document.querySelectorAll('#meal-type-picker .recipe-option').forEach(o => o.classList.remove('selected'));
-      el.classList.add('selected');
-    }
-
-    function selectRecipe(name, el) {
-      selectedRecipe = name;
-      document.querySelectorAll('#recipe-picker .recipe-option').forEach(o => o.classList.remove('selected'));
-      el.classList.add('selected');
-      document.getElementById('custom-meal').value = '';
+    function selectRecipe(recipe, el) {
+      document.querySelectorAll('.recipe-option').forEach(e => e.style.background = '');
+      el.style.background = var(--parch-dark);
+      selectedRecipe = recipe;
     }
 
     function confirmMeal() {
       const custom = document.getElementById('custom-meal').value.trim();
-      const name = custom || selectedRecipe;
-      if (!name) { alert('Выбери или напиши блюдо!'); return; }
-      if (!selectedMealType) { alert('Выбери приём пищи!'); return; }
-      if (!calendarData[pendingDay]) calendarData[pendingDay] = [];
-      calendarData[pendingDay].push({ type: selectedMealType, name });
+      const meal = selectedRecipe || custom;
+      if (!meal) {
+        alert('Выбери блюдо или напиши своё!');
+        return;
+      }
+      if (!calendarData[pendingDay]) calendarData[pendingDay] = {};
+      const types = ['breakfast', 'lunch', 'dinner'];
+      for (let type of types) {
+        if (!calendarData[pendingDay][type]) {
+          calendarData[pendingDay][type] = meal;
+          break;
+        }
+      }
       localStorage.setItem('craftcook-calendar', JSON.stringify(calendarData));
+      renderCalendar();
       closeModal();
-      renderCalendar();
     }
 
-    function removeMeal(key, index) {
-      calendarData[key].splice(index, 1);
-      if (calendarData[key].length === 0) delete calendarData[key];
+    function removeMeal(dateKey, type) {
+      if (calendarData[dateKey]) delete calendarData[dateKey][type];
       localStorage.setItem('craftcook-calendar', JSON.stringify(calendarData));
       renderCalendar();
     }
 
-    function changeWeek(dir) {
-      weekOffset += dir;
+    function prevWeek() {
+      weekOffset--;
       renderCalendar();
     }
 
-    function clearWeek() {
-      if (!confirm('Очистить всю неделю?')) return;
-      getWeekDates(weekOffset).forEach(d => delete calendarData[dateKey(d)]);
-      localStorage.setItem('craftcook-calendar', JSON.stringify(calendarData));
+    function nextWeek() {
+      weekOffset++;
       renderCalendar();
     }
-
-    // Close modal on overlay click
-    document.getElementById('modal').addEventListener('click', function(e) {
-      if (e.target === this) closeModal();
-    });
 
     renderCalendar();
   </script>

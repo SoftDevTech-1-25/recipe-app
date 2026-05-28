@@ -7,71 +7,68 @@
   <link rel="stylesheet" href="css/style.css"/>
   <style>
     .notepad-layout {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 2rem auto;
       padding: 0 1.5rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1.5rem;
-      align-items: start;
-    }
-
-    @media (max-width: 700px) {
-      .notepad-layout { grid-template-columns: 1fr; }
     }
 
     .notepad-panel {
       background: var(--parch-light);
       border: 3px solid var(--brown);
       border-radius: var(--radius);
-      box-shadow: 4px 4px 0 var(--brown-dark);
+      box-shadow: 4px 4px 0 var(--brown-mid);
       overflow: hidden;
     }
 
     .notepad-panel-title {
-      background: var(--brown);
+      background: var(--brown-dark);
       color: var(--parch-light);
       font-family: 'Press Start 2P', monospace;
       font-size: 9px;
-      padding: 0.7rem 1rem;
+      padding: 0.8rem;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 0.5rem;
+      align-items: center;
     }
 
-    .notepad-panel-title span { opacity: 0.7; font-size: 8px; }
+    .saved-badge {
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      background: var(--green-tag);
+      color: white;
+      padding: 0.3rem 0.6rem;
+      border-radius: 3px;
+    }
 
-    .notepad-body { padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem; }
+    .notepad-body {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
 
-    /* FREE TEXT */
     .free-textarea {
       width: 100%;
-      min-height: 320px;
-      background: #FFF8EC;
+      min-height: 300px;
+      background: white;
       border: 2px solid var(--brown-mid);
       border-radius: var(--radius);
-      padding: 1rem;
-      font-family: 'Nunito', sans-serif;
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--brown-dark);
+      padding: 0.8rem;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
       resize: vertical;
-      outline: none;
-      line-height: 1.8;
-      transition: border-color 0.15s;
     }
-
-    .free-textarea:focus { border-color: var(--brown); }
 
     .notepad-meta {
       font-size: 12px;
       color: var(--brown-mid);
-      font-weight: 700;
       text-align: right;
+      font-weight: 600;
     }
 
-    /* CHECKLIST */
     .checklist-input-row {
       display: flex;
       gap: 0.5rem;
@@ -79,146 +76,105 @@
 
     .checklist-input {
       flex: 1;
-      background: #FFF8EC;
+      background: white;
       border: 2px solid var(--brown-mid);
       border-radius: var(--radius);
-      padding: 0.5rem 0.8rem;
-      font-family: 'Nunito', sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--brown-dark);
-      outline: none;
+      padding: 0.6rem;
+      font-size: 13px;
     }
-
-    .checklist-input:focus { border-color: var(--brown); }
 
     .add-btn {
       background: var(--green-tag);
-      border: 2px solid var(--brown-dark);
+      color: white;
+      border: none;
       border-radius: var(--radius);
-      color: #fff;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 9px;
-      padding: 0.5rem 0.8rem;
+      padding: 0.6rem 1rem;
+      font-weight: 700;
       cursor: pointer;
-      box-shadow: 2px 2px 0 var(--brown-dark);
-      transition: filter 0.1s;
-      white-space: nowrap;
+      transition: background 0.15s;
     }
 
-    .add-btn:hover { filter: brightness(1.1); }
-    .add-btn:active { transform: translate(1px,1px); box-shadow: none; }
+    .add-btn:hover { background: #2ecc71; }
 
-    .checklist { display: flex; flex-direction: column; gap: 4px; max-height: 340px; overflow-y: auto; }
+    .checklist {
+      background: white;
+      border: 2px solid var(--brown-mid);
+      border-radius: var(--radius);
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    .checklist-empty {
+      padding: 1rem;
+      text-align: center;
+      color: var(--brown-mid);
+      font-size: 12px;
+    }
 
     .checklist-item {
       display: flex;
       align-items: center;
-      gap: 0.7rem;
-      padding: 0.5rem 0.7rem;
-      background: #FFF8EC;
-      border: 2px solid var(--brown-mid);
-      border-radius: var(--radius);
-      transition: background 0.15s, opacity 0.15s;
+      padding: 0.6rem;
+      border-bottom: 1px solid #eee;
+      gap: 0.6rem;
     }
 
-    .checklist-item.checked {
-      background: var(--parch-dark);
-      opacity: 0.6;
+    .checklist-item input {
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
     }
 
-    .checklist-item.checked .item-text {
+    .checklist-item-text {
+      flex: 1;
+      font-size: 13px;
+      color: var(--brown-dark);
+    }
+
+    .checklist-item input:checked + .checklist-item-text {
       text-decoration: line-through;
       color: var(--brown-mid);
     }
 
-    .item-checkbox {
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--brown);
-      border-radius: 2px;
-      background: var(--parch-light);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      flex-shrink: 0;
-      transition: background 0.15s;
-    }
-
-    .checklist-item.checked .item-checkbox {
-      background: var(--green-tag);
-      border-color: var(--brown-dark);
-      color: #fff;
-    }
-
-    .item-text {
-      flex: 1;
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--brown-dark);
-    }
-
-    .item-delete {
+    .checklist-item-delete {
       background: none;
       border: none;
+      color: #C0392B;
       cursor: pointer;
-      font-size: 16px;
-      color: var(--brown-mid);
-      padding: 0 0.2rem;
-      transition: color 0.15s;
-      flex-shrink: 0;
-    }
-
-    .item-delete:hover { color: #C0392B; }
-
-    .checklist-empty {
-      text-align: center;
-      padding: 1.5rem;
-      font-size: 13px;
-      color: var(--brown-mid);
-      font-weight: 700;
+      font-size: 14px;
     }
 
     .checklist-footer {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      font-size: 13px;
-      font-weight: 700;
+      align-items: center;
+      padding: 0.8rem;
+      font-size: 12px;
       color: var(--brown-mid);
+      font-weight: 700;
+      border-top: 2px solid var(--brown-mid);
     }
 
     .clear-btn {
-      background: none;
-      border: 2px solid var(--brown-mid);
+      background: #C0392B;
+      color: white;
+      border: none;
       border-radius: var(--radius);
-      padding: 0.3rem 0.7rem;
-      font-family: 'Nunito', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--brown-mid);
-      cursor: pointer;
-      transition: border-color 0.15s, color 0.15s;
-    }
-
-    .clear-btn:hover { border-color: #C0392B; color: #C0392B; }
-
-    .saved-badge {
+      padding: 0.4rem 0.8rem;
       font-size: 11px;
-      color: var(--green-tag);
-      font-weight: 700;
-      opacity: 0;
-      transition: opacity 0.3s;
+      cursor: pointer;
     }
 
-    .saved-badge.show { opacity: 1; }
+    @media (max-width: 768px) {
+      .notepad-layout {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- HOTBAR -->
+  <!-- HOTBAR NAV -->
   <nav class="hotbar">
     <div class="hotbar-logo">⚒ CRAFTCOOK</div>
     <div class="hotbar-links">
@@ -282,7 +238,7 @@
 
   </div>
 
-  <footer class="mc-footer">⚒ CraftCook — 2024 · Сделано с ❤ и пикселями</footer>
+  <footer class="mc-footer">⚒ CraftCook — 2026 · Сделано с ❤ и пикселями</footer>
 
   <script src="js/main.js"></script>
   <script>
@@ -338,7 +294,7 @@
     }
 
     function clearChecked() {
-      items = items.filter(it => !it.checked);
+      items = items.filter(x => !x.checked);
       saveList();
       renderList();
     }
@@ -349,38 +305,34 @@
     }
 
     function renderList() {
-      const list = document.getElementById('checklist');
-      const empty = document.getElementById('checklist-empty');
+      const checklist = document.getElementById('checklist');
       const counter = document.getElementById('list-counter');
-
-      // clear old items (keep empty msg)
-      [...list.querySelectorAll('.checklist-item')].forEach(el => el.remove());
-
+      checklist.innerHTML = '';
       if (items.length === 0) {
-        empty.style.display = 'block';
+        checklist.innerHTML = '<div class="checklist-empty">📦 Список пуст</div>';
         counter.textContent = '0 продуктов';
         return;
       }
-
-      empty.style.display = 'none';
-      const checked = items.filter(i => i.checked).length;
-      counter.textContent = `${checked}/${items.length} куплено`;
-
       items.forEach((item, i) => {
-        const el = document.createElement('div');
-        el.className = 'checklist-item' + (item.checked ? ' checked' : '');
-        el.innerHTML = `
-          <div class="item-checkbox" onclick="toggleItem(${i})">${item.checked ? '✔' : ''}</div>
-          <span class="item-text">${item.text}</span>
-          <button class="item-delete" onclick="deleteItem(${i})">✕</button>
+        const li = document.createElement('div');
+        li.className = 'checklist-item';
+        li.innerHTML = `
+          <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleItem(${i})" />
+          <span class="checklist-item-text">${item.text}</span>
+          <button class="checklist-item-delete" onclick="deleteItem(${i})">✕</button>
         `;
-        list.appendChild(el);
+        checklist.appendChild(li);
       });
+      const checked = items.filter(x => x.checked).length;
+      counter.textContent = `${items.length} продуктов (${checked} куплено)`;
     }
 
     function showSaved(el) {
-      el.classList.add('show');
-      setTimeout(() => el.classList.remove('show'), 1500);
+      el.style.opacity = '1';
+      clearTimeout(el._t);
+      el._t = setTimeout(() => {
+        el.style.opacity = '0.6';
+      }, 1500);
     }
   </script>
 </body>

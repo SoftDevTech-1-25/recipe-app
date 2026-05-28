@@ -103,7 +103,7 @@
 
   </div>
 
-  <footer class="mc-footer">⚒ CraftCook — 2024 · Сделано с ❤ и пикселями</footer>
+  <footer class="mc-footer">⚒ CraftCook — 2026 · Сделано с ❤ и пикселями</footer>
 
   <script>
     let currentRecipe = null;
@@ -268,17 +268,32 @@
       if (isFav) {
         btn.classList.remove('favorite-active');
         btn.textContent = '☆ ИЗБРАННОЕ';
-        localStorage.removeItem(`favorite-${currentRecipe.id}`);
+        removeFavoriteFromStorage(currentRecipe.id);
       } else {
         btn.classList.add('favorite-active');
         btn.textContent = '★ В ИЗБРАННОМ';
-        localStorage.setItem(`favorite-${currentRecipe.id}`, 'true');
+        addFavoriteToStorage(currentRecipe.id);
       }
+    }
+
+    function addFavoriteToStorage(recipeId) {
+      let favorites = JSON.parse(localStorage.getItem('craftcook-favorites') || '[]');
+      if (!favorites.includes(recipeId)) {
+        favorites.push(recipeId);
+        localStorage.setItem('craftcook-favorites', JSON.stringify(favorites));
+      }
+    }
+
+    function removeFavoriteFromStorage(recipeId) {
+      let favorites = JSON.parse(localStorage.getItem('craftcook-favorites') || '[]');
+      favorites = favorites.filter(id => id !== recipeId);
+      localStorage.setItem('craftcook-favorites', JSON.stringify(favorites));
     }
 
     function loadFavoriteStatus() {
       const btn = document.getElementById('favorite-btn');
-      if (localStorage.getItem(`favorite-${currentRecipe.id}`)) {
+      let favorites = JSON.parse(localStorage.getItem('craftcook-favorites') || '[]');
+      if (favorites.includes(currentRecipe.id)) {
         btn.classList.add('favorite-active');
         btn.textContent = '★ В ИЗБРАННОМ';
       }
