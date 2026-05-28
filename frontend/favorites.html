@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Избранное — CraftCook</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    .favorites-page {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .fav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .fav-empty {
+      background: var(--parch-light);
+      border: 3px dashed var(--brown-mid);
+      border-radius: var(--radius);
+      padding: 3rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .fav-empty-icon { font-size: 64px; }
+
+    .fav-empty-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      color: var(--brown-mid);
+      line-height: 1.8;
+    }
+
+    .fav-empty-desc {
+      font-size: 15px;
+      color: var(--brown-mid);
+      font-weight: 600;
+    }
+
+    .fav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .fav-card {
+      background: var(--parch-light);
+      border: 3px solid var(--brown);
+      border-radius: var(--radius);
+      box-shadow: 4px 4px 0 var(--brown-mid);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem 1rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .fav-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--brown-dark);
+    }
+
+    .fav-card-img {
+      width: 90px;
+      height: 90px;
+      background: var(--parch-dark);
+      border: 2px solid var(--brown-mid);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+      flex-shrink: 0;
+    }
+
+    .fav-card-body { flex: 1; min-width: 0; }
+
+    .fav-card-name {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      color: var(--brown-dark);
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+      text-decoration: none;
+      display: block;
+    }
+
+    .fav-card-name:hover { color: var(--green-tag); }
+
+    .fav-card-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 0.4rem; }
+
+    .fav-card-meta {
+      display: flex;
+      gap: 0.8rem;
+      font-size: 13px;
+      color: var(--brown-mid);
+      font-weight: 700;
+    }
+
+    .fav-remove {
+      background: none;
+      border: 2px solid var(--brown-mid);
+      border-radius: var(--radius);
+      color: var(--brown-mid);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 0.4rem 0.6rem;
+      flex-shrink: 0;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .fav-remove:hover { border-color: #C0392B; color: #C0392B; }
+
+    .fav-count {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--brown-mid);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="hotbar">
+    <div class="hotbar-logo">⚒ CRAFTCOOK</div>
+    <div class="hotbar-links">
+      <a href="./index.html"><span class="icon">🏠</span> Главная</a>
+      <a href="./recipes.html"><span class="icon">📖</span> Рецепты</a>
+      <a href="./notepad.html"><span class="icon">📝</span> Блокнот</a>
+      <a href="./calendar.html"><span class="icon">📅</span> Календарь</a>
+      <a href="./favorites.html" class="active"><span class="icon">★</span> Избранное</a>
+      <a href="./help.html"><span class="icon">❓</span></a>
+    </div>
+  </nav>
+
+  <div class="favorites-page">
+
+    <div class="fav-header">
+      <h2 class="section-title" style="margin:0">★ ИЗБРАННОЕ</h2>
+      <span class="fav-count" id="fav-count"></span>
+    </div>
+
+    <!-- Пусто -->
+    <div class="fav-empty" id="fav-empty" style="display:none">
+      <div class="fav-empty-icon">📦</div>
+      <div class="fav-empty-title">СУНДУК ПУСТ</div>
+      <div class="fav-empty-desc">Добавь рецепты в избранное нажав ☆ на странице рецептов</div>
+      <a href="./recipes.html" class="mc-btn primary">📖 ПЕРЕЙТИ К РЕЦЕПТАМ</a>
+    </div>
+
+    <!-- Список -->
+    <div class="fav-list" id="fav-list"></div>
+
+  </div>
+
+  <footer class="mc-footer">⚒ CraftCook — 2024 · Сделано с ❤ и пикселями</footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Дефолтные данные рецептов
+    const allRecipes = [
+      { id: 1, emoji: '🍕', name: 'ПИЦЦА С СЫРОМ',      tags: [['pink','острая'],['green','вегетарианская']], time: '40 мин', diff: '⭐⭐ Средне',  kcal: '520 ккал' },
+      { id: 2, emoji: '🍣', name: 'СЕТ СУШИ',           tags: [['blue','японское'],['teal','морепродукты']], time: '60 мин', diff: '⭐⭐⭐ Сложно', kcal: '380 ккал' },
+      { id: 3, emoji: '🍲', name: 'ЧЕЧЕВИЧНЫЙ СУП',     tags: [['green','вегетарианская'],['teal','полезная']], time: '35 мин', diff: '⭐ Легко',    kcal: '290 ккал' },
+      { id: 4, emoji: '🥗', name: 'САЛАТ ЦЕЗАРЬ',       tags: [['green','лёгкая'],['yellow','с курицей']], time: '20 мин', diff: '⭐ Легко',    kcal: '350 ккал' },
+      { id: 5, emoji: '🍖', name: 'ЗАПЕЧЁННЫЕ РЁБРА',   tags: [['pink','мясная'],['purple','праздничная']], time: '90 мин', diff: '⭐⭐⭐ Сложно', kcal: '680 ккал' },
+      { id: 6, emoji: '🥘', name: 'ОВОЩНОЕ КАРРИ',      tags: [['teal','веганская'],['pink','острая']], time: '30 мин', diff: '⭐⭐ Средне',  kcal: '310 ккал' },
+    ];
+
+    let favorites = JSON.parse(localStorage.getItem('craftcook-favorites') || '[]');
+
+    function render() {
+      const list = document.getElementById('fav-list');
+      const empty = document.getElementById('fav-empty');
+      const count = document.getElementById('fav-count');
+
+      list.innerHTML = '';
+
+      const favRecipes = allRecipes.filter(r => favorites.includes(r.id));
+
+      count.textContent = favRecipes.length > 0 ? `${favRecipes.length} рецептов` : '';
+
+      if (favRecipes.length === 0) {
+        empty.style.display = 'flex';
+        return;
+      }
+
+      empty.style.display = 'none';
+
+      favRecipes.forEach(r => {
+        const card = document.createElement('div');
+        card.className = 'fav-card';
+        card.innerHTML = `
+          <div class="fav-card-img">${r.emoji}</div>
+          <div class="fav-card-body">
+            <a href="./recipe-detail.html" class="fav-card-name">${r.name}</a>
+            <div class="fav-card-tags">
+              ${r.tags.map(([cls, label]) => `<span class="tag ${cls}">${label}</span>`).join('')}
+            </div>
+            <div class="fav-card-meta">
+              <span>⏱ ${r.time}</span>
+              <span>${r.diff}</span>
+              <span>🔥 ${r.kcal}</span>
+            </div>
+          </div>
+          <button class="fav-remove" onclick="removeFav(${r.id})" title="Убрать из избранного">★</button>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    function removeFav(id) {
+      favorites = favorites.filter(f => f !== id);
+      localStorage.setItem('craftcook-favorites', JSON.stringify(favorites));
+      render();
+    }
+
+    render();
+  </script>
+</body>
+</html>
