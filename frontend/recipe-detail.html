@@ -124,6 +124,8 @@
         if (!response.ok) throw new Error('Рецепт не найден');
         
         currentRecipe = await response.json();
+        console.log('Загруженный рецепт:', currentRecipe);
+        
         originalPortions = currentRecipe.servings || 2;
         currentPortions = originalPortions;
         
@@ -175,6 +177,8 @@
       const ingredientsList = document.getElementById('ingredients-list');
       ingredientsList.innerHTML = '';
 
+      console.log('Ингредиенты:', currentRecipe.ingredients);
+
       if (!currentRecipe.ingredients || currentRecipe.ingredients.length === 0) {
         ingredientsList.innerHTML = '<p>📦 Нет ингредиентов</p>';
         return;
@@ -182,15 +186,30 @@
 
       currentRecipe.ingredients.forEach((ingredient, index) => {
         const portionMultiplier = currentPortions / originalPortions;
-        const scaledQuantity = (ingredient.quantity * portionMultiplier).toFixed(2);
+        
+        // Поддержка разных структур данных
+        let ingredientName = '';
+        let ingredientQuantity = ingredient.quantity || 0;
+        let ingredientUnit = ingredient.unit || '';
+
+        // Проверяем разные возможные структуры
+        if (ingredient.ingredient) {
+          ingredientName = ingredient.ingredient.name || ingredient.ingredient;
+        } else if (typeof ingredient === 'string') {
+          ingredientName = ingredient;
+        } else {
+          ingredientName = ingredient.name || 'Ингредиент';
+        }
+
+        const scaledQuantity = (ingredientQuantity * portionMultiplier).toFixed(2);
 
         const ingredientSlot = document.createElement('div');
         ingredientSlot.className = 'ingredient-slot';
         ingredientSlot.innerHTML = `
           <div class="ingredient-icon">📦</div>
           <div class="ingredient-info">
-            <div class="ingredient-name">${ingredient.ingredient?.name || 'Ингредиент'}</div>
-            <div class="ingredient-quantity">${scaledQuantity} ${ingredient.unit}</div>
+            <div class="ingredient-name">${ingredientName}</div>
+            <div class="ingredient-quantity">${scaledQuantity} ${ingredientUnit}</div>
           </div>
         `;
         ingredientsList.appendChild(ingredientSlot);
@@ -201,6 +220,8 @@
       const stepsList = document.getElementById('steps-list');
       stepsList.innerHTML = '';
 
+      console.log('Шаги:', currentRecipe.steps);
+
       if (!currentRecipe.steps || currentRecipe.steps.length === 0) {
         stepsList.innerHTML = '<p>📖 Шаги не добавлены</p>';
         return;
@@ -209,11 +230,17 @@
       currentRecipe.steps.forEach((step, index) => {
         const stepEl = document.createElement('div');
         stepEl.className = 'step-item';
+        
+        // Поддержка разных структур данных
+        let stepOrder = step.step_order || step.order || (index + 1);
+        let stepDescription = step.description || step.text || '';
+        let stepDuration = step.duration || '';
+
         stepEl.innerHTML = `
-          <div class="step-number">⬛ ${step.step_order}</div>
+          <div class="step-number">⬛ ${stepOrder}</div>
           <div class="step-content">
-            <p class="step-description">${step.description}</p>
-            ${step.duration ? `<small class="step-duration">⏱ ${step.duration} мин</small>` : ''}
+            <p class="step-description">${stepDescription}</p>
+            ${stepDuration ? `<small class="step-duration">⏱ ${stepDuration} мин</small>` : ''}
           </div>
         `;
         stepsList.appendChild(stepEl);
