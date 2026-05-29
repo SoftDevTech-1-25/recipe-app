@@ -11,8 +11,6 @@ import (
 
 var DB *gorm.DB
 
-// ==================== МОДЕЛИ ====================
-
 type User struct {
 	ID           uint      `json:"id" gorm:"primaryKey"`
 	Username     string    `json:"username" gorm:"uniqueIndex;not null"`
@@ -93,8 +91,6 @@ type Favorite struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
-// ==================== DTO для фронта ====================
-
 type RecipeResponse struct {
 	ID          uint               `json:"id"`
 	Name        string             `json:"name"`
@@ -146,8 +142,6 @@ func recipeToResponse(r Recipe) RecipeResponse {
 	}
 }
 
-// ==================== ПОДКЛЮЧЕНИЕ ====================
-
 func InitDB() {
 	var err error
 	DB, err = gorm.Open(sqlite.Open("data/init.db"), &gorm.Config{})
@@ -167,7 +161,7 @@ func InitDB() {
 	var count int64
 	DB.Model(&Recipe{}).Count(&count)
 	if count == 0 {
-		if data, err := os.ReadFile("backend/seed_complete.sql"); err == nil {
+		if data, err := os.ReadFile("import.sql"); err == nil {
 			DB.Exec(string(data))
 			log.Println("✅ Авто-импорт выполнен")
 		} else {
