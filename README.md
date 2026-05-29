@@ -60,37 +60,6 @@
    docker-compose --version
    ```
 
-**На macOS/Linux:**
-1. Скачайте [Docker Desktop для macOS](https://www.docker.com/products/docker-desktop) или установите через пакетный менеджер
-2. Запустите установщик
-3. Проверьте установку:
-   ```bash
-   docker --version
-   docker-compose --version
-   ```
-
-#### 🚀 Установка и запуск
-
-**Шаг 1 — Останови и удали все старые контейнеры (при переустановке):**
-```bash
-docker compose down
-```
-
-**Шаг 2 — Принудительно удали контейнеры, если всё ещё присутствуют:**
-```bash
-docker rm -f mc-backend mc-frontend
-```
-
-**Шаг 3 — Запусти всё заново:**
-```bash
-# Клонируем репозиторий (если ещё не клонирован)
-git clone https://github.com/SoftDevTech-1-25/recipe-app.git
-cd recipe-app
-
-# Запускаем приложение с пересборкой образов
-docker compose up --build
-```
-
 **Приложение будет доступно по адресам:**
 - 🌐 Frontend: `http://localhost` (80 порт)
 - 🔌 Backend API: `http://localhost:8080` (8080 порт)
