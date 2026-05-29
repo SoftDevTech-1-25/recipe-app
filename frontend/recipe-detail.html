@@ -178,13 +178,10 @@
       const ingredientsList = document.getElementById('ingredients-list');
       ingredientsList.innerHTML = '';
 
-      // Проверяем разные возможные пути к ингредиентам
-      let ingredients = currentRecipe.ingredients || 
-                       currentRecipe.recipe_ingredients ||
-                       currentRecipe.recipe?.ingredients || 
-                       [];
+      // Получаем ингредиенты из API структуры
+      let ingredients = currentRecipe.ingredients || [];
 
-      console.log('Ингредиенты:', ingredients);
+      console.log('Ингредиенты для обработки:', ingredients);
 
       if (!ingredients || ingredients.length === 0) {
         ingredientsList.innerHTML = '<p>📦 Нет ингредиентов</p>';
@@ -194,18 +191,18 @@
       ingredients.forEach((ingredient, index) => {
         const portionMultiplier = currentPortions / originalPortions;
         
-        // Поддержка разных структур данных
+        // Извлекаем данные из структуры API
         let ingredientName = '';
         let ingredientQuantity = ingredient.quantity || 0;
         let ingredientUnit = ingredient.unit || '';
 
-        // Проверяем разные возможные структуры
-        if (ingredient.ingredient) {
-          ingredientName = ingredient.ingredient.name || ingredient.ingredient;
-        } else if (typeof ingredient === 'string') {
-          ingredientName = ingredient;
+        // Backend возвращает объект с вложенным ingredient объектом
+        if (ingredient.ingredient && ingredient.ingredient.name) {
+          ingredientName = ingredient.ingredient.name;
+        } else if (ingredient.name) {
+          ingredientName = ingredient.name;
         } else {
-          ingredientName = ingredient.name || 'Ингредиент';
+          ingredientName = 'Ингредиент';
         }
 
         const scaledQuantity = (ingredientQuantity * portionMultiplier).toFixed(2);
@@ -231,10 +228,9 @@
       let steps = currentRecipe.steps || 
                  currentRecipe.recipe_steps ||
                  currentRecipe.instructions ||
-                 currentRecipe.recipe?.steps ||
                  [];
 
-      console.log('Шаги:', steps);
+      console.log('Шаги для обработки:', steps);
 
       if (!steps || steps.length === 0) {
         stepsList.innerHTML = '<p>📖 Шаги не добавлены</p>';
@@ -247,8 +243,8 @@
         
         // Поддержка разных структур данных
         let stepOrder = step.step_order || step.order || (index + 1);
-        let stepDescription = step.description || step.text || '';
-        let stepDuration = step.duration || '';
+        let stepDescription = step.description || step.text || step.instruction || '';
+        let stepDuration = step.duration || step.prep_time || '';
 
         stepEl.innerHTML = `
           <div class="step-number">⬛ ${stepOrder}</div>
