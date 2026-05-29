@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 func main() {
@@ -149,7 +150,15 @@ func getRecipes(c *gin.Context) {
 	tag := c.Query("tag")
 	search := c.Query("search")
 
-	query := DB.Preload("Tags").Preload("Category")
+	query := DB.Preload("Tags").
+		Preload("Category").
+		Preload("Ingredients", func(db *gorm.DB) *gorm.DB {
+			return db.Order("id ASC")
+		}).
+		Preload("Ingredients.Ingredient").
+		Preload("Steps", func(db *gorm.DB) *gorm.DB {
+			return db.Order("step_order ASC")
+		})
 
 	if tag != "" {
 		query = query.Joins("JOIN recipe_tags ON recipe_tags.recipe_id = recipes.id").
@@ -176,10 +185,30 @@ func getRecipes(c *gin.Context) {
 func getRecipeByID(c *gin.Context) {
 	id := c.Param("id")
 	var recipe Recipe
-	if err := DB.Preload("Tags").Preload("Category").Preload("Ingredients.Ingredient").Preload("Steps").First(&recipe, id).Error; err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Рецепт не найден"})
+	
+	// Загружаем рецепт со всеми связанными данными
+	// ВАЖНО: используем Preload для загрузки связанных данных
+	if err := DB.
+		Preload("Tags").
+		Preload("Category").
+		Preload("Ingredients", func(db *gorm.DB) *gorm.DB {
+			// Сортируем ингредиенты по ID для консистентности
+			return db.Order("id ASC")
+		}).
+		Preload("Ingredients.Ingredient").
+		Preload("Steps", func(db *gorm.DB) *gorm.DB {
+			// Сортируем шаги по порядку - ЭТО КРИТИЧНО!
+			return db.Order("step_order ASC")
+		}).
+		First(&recipe, id).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Рецепт не найден"})
+		} else {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		}
 		return
 	}
+	
 	c.JSON(http.StatusOK, recipeToResponse(recipe))
 }
 

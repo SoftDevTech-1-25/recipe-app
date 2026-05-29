@@ -61,8 +61,8 @@ type Recipe struct {
 	Emoji       string             `json:"emoji" gorm:"default:🍽"`
 	IsPublic    bool               `json:"is_public" gorm:"default:true"`
 	Tags        []Tag              `json:"tags" gorm:"many2many:recipe_tags;"`
-	Ingredients []RecipeIngredient `json:"ingredients,omitempty"`
-	Steps       []RecipeStep       `json:"steps,omitempty"`
+	Ingredients []RecipeIngredient `json:"ingredients,omitempty" gorm:"foreignKey:RecipeID"`
+	Steps       []RecipeStep       `json:"steps,omitempty" gorm:"foreignKey:RecipeID"`
 	CreatedAt   time.Time          `json:"created_at"`
 	UpdatedAt   time.Time          `json:"updated_at"`
 }
@@ -96,17 +96,19 @@ type Favorite struct {
 // ==================== DTO для фронта ====================
 
 type RecipeResponse struct {
-	ID          uint     `json:"id"`
-	Name        string   `json:"name"`
-	Title       string   `json:"title"`
-	Description string   `json:"description"`
-	Tags        []string `json:"tags"`
-	Emoji       string   `json:"emoji"`
-	Time        int      `json:"time"`
-	Difficulty  string   `json:"difficulty"`
-	Servings    int      `json:"servings"`
-	ImageURL    string   `json:"image_url"`
-	Category    string   `json:"category"`
+	ID          uint               `json:"id"`
+	Name        string             `json:"name"`
+	Title       string             `json:"title"`
+	Description string             `json:"description"`
+	Tags        []string           `json:"tags"`
+	Emoji       string             `json:"emoji"`
+	Time        int                `json:"time"`
+	Difficulty  string             `json:"difficulty"`
+	Servings    int                `json:"servings"`
+	ImageURL    string             `json:"image_url"`
+	Category    string             `json:"category"`
+	Ingredients []RecipeIngredient `json:"ingredients,omitempty"`
+	Steps       []RecipeStep       `json:"steps,omitempty"`
 }
 
 func recipeToResponse(r Recipe) RecipeResponse {
@@ -139,6 +141,8 @@ func recipeToResponse(r Recipe) RecipeResponse {
 		Servings:    r.Servings,
 		ImageURL:    r.ImageURL,
 		Category:    catName,
+		Ingredients: r.Ingredients,
+		Steps:       r.Steps,
 	}
 }
 
@@ -163,7 +167,7 @@ func InitDB() {
 	var count int64
 	DB.Model(&Recipe{}).Count(&count)
 	if count == 0 {
-		if data, err := os.ReadFile("import.sql"); err == nil {
+		if data, err := os.ReadFile("backend/seed_complete.sql"); err == nil {
 			DB.Exec(string(data))
 			log.Println("✅ Авто-импорт выполнен")
 		} else {
