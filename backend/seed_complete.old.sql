@@ -1,452 +1,559 @@
--- ==================== ДОБАВЛЯЕМ НОВЫЕ ИНГРЕДИЕНТЫ (ID 51–120) ====================
-INSERT INTO ingredients (id, name, icon_url, category, created_at) VALUES
-(51, 'Вода', 'water_16x16.png', 'Бакалея', datetime('now')),
-(52, 'Дрожжи', 'yeast_16x16.png', 'Бакалея', datetime('now')),
-(53, 'Томатный соус', 'tomato_sauce_16x16.png', 'Консервы', datetime('now')),
-(54, 'Моцарелла', 'mozzarella_16x16.png', 'Молочка', datetime('now')),
-(55, 'Огурец', 'cucumber_16x16.png', 'Овощи', datetime('now')),
-(56, 'Сливочный сыр', 'cream_cheese_16x16.png', 'Молочка', datetime('now')),
-(57, 'Савоярди', 'savoiardi_16x16.png', 'Бакалея', datetime('now')),
-(58, 'Маскарпоне', 'mascarpone_16x16.png', 'Молочка', datetime('now')),
-(59, 'Кофе', 'coffee_16x16.png', 'Напитки', datetime('now')),
-(60, 'Рыба', 'fish_16x16.png', 'Рыба', datetime('now')),
-(61, 'Лавровый лист', 'bay_leaf_16x16.png', 'Специи', datetime('now')),
-(62, 'Сметана', 'sour_cream_16x16.png', 'Молочка', datetime('now')),
-(63, 'Свинина', 'pork_16x16.png', 'Мясо', datetime('now')),
-(64, 'Уксус', 'vinegar_16x16.png', 'Приправы', datetime('now')),
-(65, 'Минеральная вода', 'mineral_water_16x16.png', 'Напитки', datetime('now')),
-(66, 'Лапша рамен', 'ramen_noodles_16x16.png', 'Макароны', datetime('now')),
-(67, 'Зеленый лук', 'green_onion_16x16.png', 'Овощи', datetime('now')),
-(68, 'Креветки', 'shrimp_16x16.png', 'Морепродукты', datetime('now')),
-(69, 'Лайм', 'lime_16x16.png', 'Фрукты', datetime('now')),
-(70, 'Перец чили', 'chili_16x16.png', 'Специи', datetime('now')),
-(71, 'Петрушка', 'parsley_16x16.png', 'Овощи', datetime('now')),
-(72, 'Зира', 'cumin_16x16.png', 'Специи', datetime('now')),
-(73, 'Листы лазаньи', 'lasagna_sheets_16x16.png', 'Макароны', datetime('now')),
-(74, 'Рисовая лапша', 'rice_noodles_16x16.png', 'Макароны', datetime('now')),
-(75, 'Ростки фасоли', 'bean_sprouts_16x16.png', 'Овощи', datetime('now')),
-(76, 'Соус пад тай', 'pad_thai_sauce_16x16.png', 'Приправы', datetime('now')),
-(77, 'Печенье', 'cookies_16x16.png', 'Бакалея', datetime('now')),
-(78, 'Фасоль', 'beans_16x16.png', 'Бобовые', datetime('now')),
-(79, 'Макароны', 'macaroni_16x16.png', 'Макароны', datetime('now')),
-(80, 'Говяжий бульон', 'beef_broth_16x16.png', 'Консервы', datetime('now')),
-(81, 'Кинза', 'cilantro_16x16.png', 'Овощи', datetime('now')),
-(82, 'Кабачок', 'zucchini_16x16.png', 'Овощи', datetime('now')),
-(83, 'Баклажан', 'eggplant_16x16.png', 'Овощи', datetime('now')),
-(84, 'Болгарский перец', 'bell_pepper_16x16.png', 'Овощи', datetime('now')),
-(85, 'Корица', 'cinnamon_16x16.png', 'Специи', datetime('now')),
-(86, 'Тунец', 'tuna_16x16.png', 'Рыба', datetime('now')),
-(87, 'Листья салата', 'lettuce_16x16.png', 'Овощи', datetime('now')),
-(88, 'Мисо-паста', 'miso_paste_16x16.png', 'Приправы', datetime('now')),
-(89, 'Тофу', 'tofu_16x16.png', 'Сой', datetime('now')),
-(90, 'Водоросли вакаме', 'wakame_16x16.png', 'Водоросли', datetime('now')),
-(91, 'Тортильи', 'tortillas_16x16.png', 'Мука', datetime('now')),
-(92, 'Зеленый горошек', 'green_peas_16x16.png', 'Овощи', datetime('now')),
-(93, 'Шафран', 'saffron_16x16.png', 'Специи', datetime('now')),
-(94, 'Яичные желтки', 'egg_yolks_16x16.png', 'Молочка', datetime('now')),
-(95, 'Ваниль', 'vanilla_16x16.png', 'Специи', datetime('now')),
-(96, 'Колбаса', 'sausage_16x16.png', 'Мясные изделия', datetime('now')),
-(97, 'Ветчина', 'ham_16x16.png', 'Мясные изделия', datetime('now')),
-(98, 'Соленые огурцы', 'pickles_16x16.png', 'Консервы', datetime('now')),
-(99, 'Булгур', 'bulgur_16x16.png', 'Бакалея', datetime('now')),
-(100, 'Баранина', 'lamb_16x16.png', 'Мясо', datetime('now')),
-(101, 'Сыр сулугуни', 'sulguni_16x16.png', 'Молочка', datetime('now')),
-(102, 'Сыр грюйер', 'gruyere_16x16.png', 'Молочка', datetime('now')),
-(103, 'Сыр эмменталь', 'emmental_16x16.png', 'Молочка', datetime('now')),
-(104, 'Белое вино', 'white_wine_16x16.png', 'Напитки', datetime('now')),
-(105, 'Хлеб', 'bread_16x16.png', 'Бакалея', datetime('now')),
-(106, 'Паприка', 'paprika_16x16.png', 'Специи', datetime('now')),
-(107, 'Соус бешамель', 'bechamel_16x16.png', 'Приправы', datetime('now')),
-(108, 'Каннеллони', 'cannelloni_16x16.png', 'Макароны', datetime('now')),
-(109, 'Карри', 'curry_16x16.png', 'Специи', datetime('now')),
-(110, 'Заварной крем', 'custard_16x16.png', 'Молочка', datetime('now')),
-(111, 'Грецкие орехи', 'walnuts_16x16.png', 'Орехи', datetime('now')),
-(112, 'Хмели-сунели', 'khmeli_suneli_16x16.png', 'Специи', datetime('now')),
-(113, 'Тесто фило', 'phyllo_16x16.png', 'Мука', datetime('now')),
-(114, 'Мёд', 'honey_16x16.png', 'Бакалея', datetime('now')),
-(115, 'Салат ромэн', 'romaine_16x16.png', 'Овощи', datetime('now')),
-(116, 'Сухарики', 'croutons_16x16.png', 'Бакалея', datetime('now')),
-(117, 'Пармезан', 'parmesan_16x16.png', 'Молочка', datetime('now')),
-(118, 'Соус Цезарь', 'caesar_sauce_16x16.png', 'Приправы', datetime('now')),
-(119, 'Бекон', 'bacon_16x16.png', 'Мясные изделия', datetime('now')),
-(120, 'Фарш', 'minced_meat_16x16.png', 'Мясо', datetime('now'));
+-- ==========================================
+-- full_seed.sql — ЧИСТАЯ КАЧЕСТВЕННАЯ БАЗА (32 рецепта)
+-- ==========================================
 
--- ==================== РЕЦЕПТЫ 51–92 ИЗ ФАЙЛА ====================
+PRAGMA foreign_keys = ON;
 
--- 51. Пицца
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Пицца', 'Классическая пицца с томатным соусом и моцареллой', 90, 2, 2, '🍕', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(51, 10, 300, 'г'), (51, 51, 180, 'мл'), (51, 52, 5, 'г'), (51, 53, 100, 'г'), (51, 54, 200, 'г'), (51, 42, 1, 'ст.л.');
+-- 1. Создание таблиц
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT UNIQUE NOT NULL,
+  email TEXT UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL,
+  avatar_url TEXT,
+  theme TEXT DEFAULT 'overworld',
+  units TEXT DEFAULT 'metric',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS categories (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT UNIQUE NOT NULL,
+  icon_url TEXT,
+  color TEXT
+);
+
+CREATE TABLE IF NOT EXISTS tags (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT UNIQUE NOT NULL,
+  color TEXT
+);
+
+CREATE TABLE IF NOT EXISTS ingredients (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT UNIQUE NOT NULL,
+  icon_url TEXT,
+  category TEXT
+);
+
+CREATE TABLE IF NOT EXISTS recipes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL,
+  title TEXT NOT NULL,
+  description TEXT,
+  category_id INTEGER,
+  prep_time INTEGER,
+  difficulty INTEGER,
+  servings INTEGER DEFAULT 2,
+  image_url TEXT,
+  emoji TEXT,
+  is_public BOOLEAN DEFAULT 1,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (category_id) REFERENCES categories(id)
+);
+
+CREATE TABLE IF NOT EXISTS recipe_steps (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  recipe_id INTEGER NOT NULL,
+  step_order INTEGER NOT NULL,
+  description TEXT NOT NULL,
+  duration INTEGER,
+  FOREIGN KEY (recipe_id) REFERENCES recipes(id)
+);
+
+CREATE TABLE IF NOT EXISTS recipe_ingredients (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  recipe_id INTEGER NOT NULL,
+  ingredient_id INTEGER NOT NULL,
+  quantity REAL NOT NULL,
+  unit TEXT NOT NULL,
+  slot_position INTEGER,
+  FOREIGN KEY (recipe_id) REFERENCES recipes(id),
+  FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
+);
+
+CREATE TABLE IF NOT EXISTS recipe_tags (
+  recipe_id INTEGER NOT NULL,
+  tag_id INTEGER NOT NULL,
+  PRIMARY KEY (recipe_id, tag_id)
+);
+
+-- 2. Очистка старых данных
+DELETE FROM recipe_tags;
+DELETE FROM recipe_ingredients;
+DELETE FROM recipe_steps;
+DELETE FROM recipes;
+DELETE FROM ingredients;
+DELETE FROM categories;
+DELETE FROM tags;
+DELETE FROM users;
+
+DELETE FROM sqlite_sequence WHERE name IN (
+    'users','categories','tags','ingredients',
+    'recipes','recipe_steps','recipe_ingredients'
+);
+
+-- 3. Базовые данные
+INSERT INTO categories (id, name, color) VALUES
+(1, 'Итальянская', '#FFD700'),
+(2, 'Русская', '#FF6347'),
+(3, 'Азиатская', '#FF4500'),
+(4, 'Мясные блюда', '#8B4513'),
+(5, 'Супы', '#FF6347'),
+(6, 'Десерты', '#FF69B4'),
+(7, 'Салаты', '#90EE90');
+
+INSERT INTO tags (id, name, color) VALUES
+(1, 'острая', '#b03030'), (2, 'веганская', '#5a8a3c'), (3, 'мясная', '#8B4513'),
+(4, 'с сыром', '#FFD700'), (5, 'домашняя', '#c8a020'), (6, 'быстрая', '#00CED1'),
+(7, 'вегетарианская', '#7ab84a'), (8, 'сладкая', '#c04080'), (9, 'рыбная', '#3a6a9a');
+
+INSERT INTO users (id, username, email, password_hash) VALUES
+(1, 'guest', 'guest@local', '-');
+
+-- ==================== ИНГРЕДИЕНТЫ (62 шт) ====================
+INSERT INTO ingredients (id, name, category) VALUES
+(1,'Спагетти','Макароны'),(2,'Фарш говяжий','Мясо'),(3,'Помидор','Овощи'),
+(4,'Лук','Овощи'),(5,'Чеснок','Овощи'),(6,'Морковь','Овощи'),
+(7,'Моцарелла','Молочка'),(8,'Курица','Мясо'),(9,'Рис','Крупы'),
+(10,'Картофель','Овощи'),(11,'Сметана','Молочка'),(12,'Яйцо','Молочка'),
+(13,'Мука','Бакалея'),(14,'Сыр','Молочка'),(15,'Бекон','Мясо'),
+(16,'Лосось','Рыба'),(17,'Нори','Морепродукты'),(18,'Капуста','Овощи'),
+(19,'Свекла','Овощи'),(20,'Томатная паста','Соусы'),(21,'Сливки','Молочка'),
+(22,'Грибы','Овощи'),(23,'Лапша яичная','Макароны'),(24,'Креветки','Морепродукты'),
+(25,'Кокосовое молоко','Напитки'),(26,'Паста Том Ям','Приправы'),(27,'Рисовая лапша','Макароны'),
+(28,'Соевый соус','Приправы'),(29,'Имбирь','Овощи'),(30,'Огурец','Овощи'),
+(31,'Авокадо','Овощи'),(32,'Говядина','Мясо'),(33,'Свинина','Мясо'),
+(34,'Баранина','Мясо'),(35,'Перец болгарский','Овощи'),(36,'Баклажан','Овощи'),
+(37,'Кабачок','Овощи'),(38,'Яблоко','Фрукты'),(39,'Масло сливочное','Молочка'),
+(40,'Мёд','Бакалея'),(41,'Ванилин','Специи'),(42,'Разрыхлитель','Бакалея'),
+(43,'Молоко','Молочка'),(44,'Масло растительное','Бакалея'),(45,'Зелень','Овощи'),
+(46,'Лимон','Фрукты'),(47,'Майонез','Приправы'),(48,'Горошек зелёный','Консервы'),
+(49,'Соль','Специи'),(50,'Перец чёрный','Специи'),(51,'Вода','Напитки'),
+(52,'Дрожжи','Бакалея'),(53,'Томатный соус','Соусы'),(54,'Масло оливковое','Бакалея'),
+(55,'Маскарпоне','Молочка'),(56,'Печенье Савоярди','Бакалея'),(57,'Кофе','Напитки'),
+(58,'Рыба белая','Рыба'),(59,'Соус Терияки','Приправы'),(60,'Кунжут','Специи'),
+(61,'Сахар','Бакалея'),(62,'Сливочный сыр','Молочка');
+
+-- ==================== РЕЦЕПТЫ (32 шт) ====================
+
+-- 1. Спагетти Болоньезе
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(1,1,'Спагетти Болоньезе','Классическая итальянская паста с мясным соусом из говяжьего фарша и томатов',45,2,3,'🍝',1);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(1,1,300,'г',1),(1,2,400,'г',2),(1,3,3,'шт',3),(1,4,1,'шт',4),(1,5,2,'зубч',5),(1,20,2,'ст.л',6),(1,14,50,'г',7),(1,49,1,'щепотка',8);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(51, 1, 'Замесить тесто и оставить на 1 час', 60), (51, 2, 'Раскатать основу', 10), (51, 3, 'Смазать соусом', 5), (51, 4, 'Посыпать сыром', 5), (51, 5, 'Выпекать 12-15 минут при 220°C', 15);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (51, 6), (51, 16), (51, 13);
+(1,1,'Обжарить фарш с луком и чесноком до румяной корочки',10),
+(1,2,'Добавить помидоры и томатную пасту, тушить 20 минут',20),
+(1,3,'Отварить спагетти в подсоленной воде до аль денте',10),
+(1,4,'Смешать горячую пасту с соусом',3),
+(1,5,'Посыпать тёртым сыром и подать горячим',2);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (1,3),(1,5);
 
--- 52. Роллы
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Роллы', 'Классические роллы с лососем и огурцом', 40, 3, 2, '🍣', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(52, 26, 200, 'г'), (52, 27, 5, 'лист'), (52, 25, 150, 'г'), (52, 55, 1, 'шт'), (52, 56, 100, 'г');
+-- 2. Паста Карбонара
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(2,1,'Паста Карбонара','Нежная паста с беконом, яйцом и сыром в сливочном соусе',25,2,2,'🍝',1);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(2,1,200,'г',1),(2,15,150,'г',2),(2,12,3,'шт',3),(2,14,80,'г',4),(2,21,100,'мл',5),(2,5,1,'зубч',6),(2,49,1,'щепотка',7),(2,50,1,'щепотка',8);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(52, 1, 'Сварить рис', 20), (52, 2, 'Разложить нори на коврике', 5), (52, 3, 'Выложить рис и начинку', 10), (52, 4, 'Свернуть ролл', 5), (52, 5, 'Нарезать на кусочки', 5);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (52, 20), (52, 19), (52, 8);
+(2,1,'Обжарить нарезанный бекон с чесноком до хрустящей корочки',5),
+(2,2,'Взбить яйца со сливками и тёртым сыром',5),
+(2,3,'Отварить спагетти, сохранить немного воды',10),
+(2,4,'Смешать горячую пасту с беконом и яичной смесью',3),
+(2,5,'Посыпать перцем и подать немедленно',2);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (2,3),(2,4);
 
--- 53. Борщ
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Борщ', 'Традиционный красный борщ со свеклой', 90, 2, 4, '🥘', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(53, 23, 500, 'г'), (53, 21, 2, 'шт'), (53, 7, 4, 'шт'), (53, 6, 1, 'шт'), (53, 4, 1, 'шт'), (53, 22, 300, 'г'), (53, 34, 2, 'ст.л.');
+-- 3. Пицца Маргарита
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(3,1,'Пицца Маргарита','Классическая пицца на тонком тесте с моцареллой и томатным соусом',90,2,2,'🍕',1);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(3,13,250,'г',1),(3,51,150,'мл',2),(3,52,5,'г',3),(3,3,2,'шт',4),(3,7,200,'г',5),(3,54,2,'ст.л',6),(3,49,1,'щепотка',7),(3,53,3,'ст.л',8);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(53, 1, 'Сварить бульон', 60), (53, 2, 'Нарезать овощи', 15), (53, 3, 'Обжарить свеклу с томатной пастой', 10), (53, 4, 'Добавить овощи в бульон', 5), (53, 5, 'Варить 30-40 минут', 40);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (53, 7), (53, 13), (53, 18);
+(3,1,'Замесить тесто из муки, воды, дрожжей и соли, оставить на 1 час',60),
+(3,2,'Раскатать тесто в тонкую лепёшку',10),
+(3,3,'Смазать оливковым маслом, выложить томатный соус',5),
+(3,4,'Разложить кружочки помидоров и нарезанную моцареллу',5),
+(3,5,'Выпекать 12–15 минут при 220°C до золотистой корочки',15);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (3,4),(3,7);
 
--- 54. Цезарь
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Салат Цезарь', 'Классический салат с курицей и соусом Цезарь', 20, 1, 2, '🥗', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(54, 17, 200, 'г'), (54, 115, 1, 'пучок'), (54, 116, 100, 'г'), (54, 117, 50, 'г'), (54, 118, 50, 'мл');
+-- 4. Паста с грибами и сливками
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(4,1,'Паста с грибами','Феттучине в нежном сливочном соусе с шампиньонами и сыром',30,1,2,'🍝',1);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(4,1,250,'г',1),(4,22,300,'г',2),(4,21,200,'мл',3),(4,14,60,'г',4),(4,5,2,'зубч',5),(4,39,1,'ст.л',6),(4,49,1,'щепотка',7),(4,50,1,'щепотка',8);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(54, 1, 'Обжарить курицу', 15), (54, 2, 'Нарезать салат', 5), (54, 3, 'Добавить сухарики', 2), (54, 4, 'Посыпать сыром', 2), (54, 5, 'Полить соусом', 2);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (54, 17), (54, 14), (54, 10);
+(4,1,'Отварить пасту до состояния аль денте',10),
+(4,2,'Обжарить грибы со сливочным маслом и чесноком',8),
+(4,3,'Влить сливки, добавить сыр, прогреть до растворения',5),
+(4,4,'Смешать с пастой и тушить 2 минуты',2),
+(4,5,'Посыпать зеленью и подать',5);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (4,4),(4,7);
 
--- 55. Карбонара
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Паста Карбонара', 'Итальянская паста с беконом и яичным соусом', 25, 2, 2, '🍝', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(55, 1, 250, 'г'), (55, 119, 150, 'г'), (55, 9, 2, 'шт'), (55, 117, 50, 'г'), (55, 13, 1, 'по вкусу');
+-- 5. Ризотто с курицей
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(5,1,'Ризотто с курицей','Кремовое итальянское ризотто с кусочками курицы и грибами',40,2,3,'🍚',1);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(5,9,250,'г',1),(5,8,300,'г',2),(5,22,200,'г',3),(5,21,150,'мл',4),(5,14,50,'г',5),(5,4,1,'шт',6),(5,39,1,'ст.л',7),(5,49,1,'щепотка',8);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(55, 1, 'Отварить спагетти', 12), (55, 2, 'Обжарить бекон', 5), (55, 3, 'Смешать яйца и сыр', 5), (55, 4, 'Соединить с пастой', 3), (55, 5, 'Добавить перец', 2);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (55, 14), (55, 16), (55, 7);
+(5,1,'Обжарить нарезанную курицу до готовности, отложить',8),
+(5,2,'Обжарить лук и грибы, добавить рис и прогреть',5),
+(5,3,'Влить сливки и немного воды, тушить помешивая',20),
+(5,4,'Вернуть курицу, добавить сыр и масло',5),
+(5,5,'Накрыть крышкой и дать настояться 2 минуты',2);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (5,3),(5,4);
 
--- 56. Тирамису
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Тирамису', 'Итальянский десерт с маскарпоне и кофе', 35, 2, 4, '🍰', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(56, 57, 200, 'г'), (56, 58, 250, 'г'), (56, 9, 3, 'шт'), (56, 11, 100, 'г'), (56, 59, 200, 'мл'), (56, 38, 1, 'ст.л.');
+-- 6. Том Ям
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(6,1,'Том Ям с креветками','Острый тайский суп с креветками, кокосовым молоком и лемонграссом',30,2,2,'🍲',3);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(6,24,250,'г',1),(6,25,200,'мл',2),(6,26,2,'ст.л',3),(6,51,500,'мл',4),(6,29,20,'г',5),(6,46,0.5,'шт',6),(6,49,1,'щепотка',7);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(56, 1, 'Приготовить крем', 10), (56, 2, 'Обмакнуть печенье в кофе', 10), (56, 3, 'Выложить слоями', 5), (56, 4, 'Повторить слои', 5), (56, 5, 'Посыпать какао и охладить', 5);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (56, 2), (56, 15), (56, 13);
+(6,1,'Довести воду до кипения, растворить пасту Том Ям',3),
+(6,2,'Добавить имбирь и креветки, варить 5 минут',5),
+(6,3,'Влить кокосовое молоко и довести до кипения',5),
+(6,4,'Выжать сок лимона, посолить',2),
+(6,5,'Разлить по мискам и подать горячим',5);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (6,1),(6,5);
 
--- 57. Уха
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Уха', 'Традиционная рыбная похлебка', 40, 1, 4, '🍲', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(57, 60, 500, 'г'), (57, 7, 3, 'шт'), (57, 6, 1, 'шт'), (57, 4, 1, 'шт'), (57, 61, 2, 'шт');
+-- 7. Азиатская лапша с курицей
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(7,1,'Лапша с курицей по-азиатски','Жареная яичная лапша с курицей, овощами и соевым соусом',25,1,2,'🍜',3);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(7,23,200,'г',1),(7,8,250,'г',2),(7,4,1,'шт',3),(7,5,2,'зубч',4),(7,29,15,'г',5),(7,28,2,'ст.л',6),(7,44,2,'ст.л',7),(7,45,1,'пучок',8);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(57, 1, 'Сварить рыбный бульон', 20), (57, 2, 'Добавить овощи', 5), (57, 3, 'Варить 20 минут', 20), (57, 4, 'Добавить специи', 2), (57, 5, 'Подать горячим', 2);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (57, 8), (57, 13), (57, 18);
+(7,1,'Отварить лапшу, промыть холодной водой',8),
+(7,2,'Обжарить нарезанную курицу до готовности',7),
+(7,3,'Добавить лук, чеснок и имбирь, обжарить',3),
+(7,4,'Выложить лапшу, полить соевым соусом, перемешать',5),
+(7,5,'Посыпать зеленью и подать',2);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (7,6);
 
--- 58. Стейк
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Стейк', 'Сочный говяжий стейк', 25, 2, 2, '🥩', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(58, 23, 300, 'г'), (58, 12, 1, 'по вкусу'), (58, 13, 1, 'по вкусу'), (58, 14, 2, 'ст.л.');
+-- 8. Пад Тай
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(8,1,'Пад Тай','Тайская жареная рисовая лапша с креветками, яйцом и арахисом',25,2,2,'🍜',3);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(8,27,200,'г',1),(8,24,200,'г',2),(8,12,2,'шт',3),(8,4,1,'шт',4),(8,28,2,'ст.л',5),(8,44,2,'ст.л',6),(8,61,1,'ст.л',7),(8,46,0.5,'шт',8);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(58, 1, 'Довести мясо до комнатной температуры', 30), (58, 2, 'Посолить и поперчить', 2), (58, 3, 'Обжарить по 3-5 минут с каждой стороны', 10), (58, 4, 'Дать отдохнуть 5 минут', 5), (58, 5, 'Подать', 2);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (58, 7), (58, 11), (58, 15);
+(8,1,'Замочить рисовую лапшу в тёплой воде на 10 минут',10),
+(8,2,'Обжарить креветки до розового цвета',4),
+(8,3,'Добавить яйцо, быстро перемешать',2),
+(8,4,'Выложить лапшу с соевым соусом и сахаром, жарить 5 минут',5),
+(8,5,'Полить лимонным соком и подать',4);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (8,1),(8,6);
 
--- 59. Пельмени
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Пельмени', 'Домашние пельмени с мясной начинкой', 90, 3, 4, '🥟', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(59, 10, 400, 'г'), (59, 51, 200, 'мл'), (59, 120, 300, 'г'), (59, 4, 1, 'шт'), (59, 12, 1, 'по вкусу');
+-- 9. Роллы Филадельфия
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(9,1,'Роллы Филадельфия','Классические роллы с лососем, сливочным сыром и авокадо',40,3,2,'🍣',3);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(9,17,3,'листа',1),(9,9,150,'г',2),(9,16,100,'г',3),(9,30,0.5,'шт',4),(9,31,1,'шт',5),(9,62,100,'г',6),(9,28,1,'ч.л',7);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(59, 1, 'Замесить тесто', 15), (59, 2, 'Приготовить начинку', 10), (59, 3, 'Слепить пельмени', 30), (59, 4, 'Варить 7-10 минут', 10), (59, 5, 'Подать со сметаной', 5);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (59, 7), (59, 13), (59, 18);
+(9,1,'Сварить рис, заправить смесью уксуса и сахара, остудить',20),
+(9,2,'Выложить нори на коврик, равномерно распределить рис',5),
+(9,3,'Положить лосось, авокадо, огурец и сливочный сыр в ряд',5),
+(9,4,'Завернуть плотным рулетом при помощи коврика',5),
+(9,5,'Нарезать на 8 равных кусочков и подать',5);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (9,6),(9,9);
 
--- 60. Шашлык
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Шашлык', 'Маринованный шашлык из свинины', 300, 2, 4, '🍖', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(60, 63, 1000, 'г'), (60, 4, 3, 'шт'), (60, 12, 1, 'по вкусу'), (60, 13, 1, 'по вкусу'), (60, 64, 100, 'мл');
+-- 10. Курица Терияки
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(10,1,'Курица Терияки','Куриное филе в карамельном соусе Терияки с кунжутом',20,1,2,'🍗',3);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(10,8,400,'г',1),(10,59,3,'ст.л',2),(10,28,1,'ст.л',3),(10,5,2,'зубч',4),(10,44,1,'ст.л',5),(10,49,1,'щепотка',6),(10,50,1,'щепотка',7),(10,60,1,'ст.л',8);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(60, 1, 'Нарезать мясо', 15), (60, 2, 'Замариновать с луком', 10), (60, 3, 'Оставить на 4-6 часов', 300), (60, 4, 'Нанизать на шампуры', 10), (60, 5, 'Жарить на углях до готовности', 20);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (60, 7), (60, 11), (60, 13);
+(10,1,'Нарезать курицу полосками, обжарить на сильном огне',6),
+(10,2,'Добавить измельчённый чеснок',1),
+(10,3,'Влить соус Терияки и соевый соус',2),
+(10,4,'Тушить до загустения соуса 5 минут',5),
+(10,5,'Посыпать кунжутом и подать с отварным рисом',6);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (10,6);
 
--- 61. Блины
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Блины', 'Тонкие русские блины', 30, 1, 2, '🥞', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(61, 10, 250, 'г'), (61, 8, 500, 'мл'), (61, 9, 2, 'шт'), (61, 11, 1, 'ст.л'), (61, 12, 1, 'щепотка'), (61, 14, 2, 'ст.л');
+-- 11. Борщ
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(11,1,'Борщ украинский','Настоящий красный борщ со свёклой, говядиной и сметаной',90,2,4,'🥘',2);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(11,32,300,'г',1),(11,19,2,'шт',2),(11,18,200,'г',3),(11,3,2,'шт',4),(11,4,1,'шт',5),(11,6,1,'шт',6),(11,10,3,'шт',7),(11,20,3,'ст.л',8),(11,44,2,'ст.л',9),(11,49,1,'щепотка',10);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(61, 1, 'Смешать яйца, сахар и соль', 5), (61, 2, 'Добавить молоко', 2), (61, 3, 'Постепенно всыпать муку', 5), (61, 4, 'Добавить масло', 2), (61, 5, 'Жарить тонкие блины на сковороде', 20);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (61, 2), (61, 14), (61, 6);
+(11,1,'Сварить говядину до готовности, получить бульон',40),
+(11,2,'Нарезать свёклу соломкой, обжарить с томатной пастой',10),
+(11,3,'Нарезать остальные овощи кубиками',10),
+(11,4,'Добавить овощи в бульон, варить 20 минут',20),
+(11,5,'Добавить зажарку из свёклы, посолить, варить ещё 10 минут',10);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (11,3),(11,5);
 
--- 62. Рамен
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Рамен', 'Японский суп с лапшой и яйцом', 50, 3, 2, '🍜', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(62, 66, 200, 'г'), (62, 35, 1, 'л'), (62, 9, 2, 'шт'), (62, 63, 200, 'г'), (62, 67, 2, 'стебля'), (62, 30, 2, 'ст.л');
+-- 12. Грибной крем-суп
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(12,1,'Грибной крем-суп','Нежный суп-пюре из шампиньонов со сливками и гренками',35,1,3,'🍄',5);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(12,22,400,'г',1),(12,10,2,'шт',2),(12,4,1,'шт',3),(12,21,150,'мл',4),(12,43,200,'мл',5),(12,39,1,'ст.л',6),(12,49,1,'щепотка',7),(12,45,1,'пучок',8);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(62, 1, 'Сварить бульон', 30), (62, 2, 'Отварить лапшу', 5), (62, 3, 'Приготовить мясо', 10), (62, 4, 'Собрать ингредиенты в миске', 5), (62, 5, 'Залить горячим бульоном', 2);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (62, 20), (62, 7), (62, 18);
+(12,1,'Нарезать грибы, картофель и лук',5),
+(12,2,'Обжарить грибы с луком до золотистого цвета',7),
+(12,3,'Добавить картофель, залить водой или бульоном, варить 15 минут',15),
+(12,4,'Измельчить блендером до однородности',3),
+(12,5,'Влить сливки и молоко, довести до кипения, посыпать зеленью',5);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (12,5),(12,7);
 
--- 63. Том Ям
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Том Ям', 'Острый тайский суп с креветками', 30, 2, 2, '🍲', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(63, 68, 300, 'г'), (63, 39, 200, 'мл'), (63, 16, 150, 'г'), (63, 69, 1, 'шт'), (63, 70, 1, 'по вкусу'), (63, 40, 2, 'ст.л');
+-- 13. Куриный суп с лапшой
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(13,1,'Куриный суп с лапшой','Лёгкий домашний суп с курицей, овощами и яичной лапшой',35,1,4,'🍗',5);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(13,8,300,'г',1),(13,23,100,'г',2),(13,4,1,'шт',3),(13,6,1,'шт',4),(13,10,2,'шт',5),(13,45,1,'пучок',6),(13,49,1,'щепотка',7),(13,50,1,'щепотка',8);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(63, 1, 'Довести воду до кипения', 5), (63, 2, 'Добавить пасту том ям', 2), (63, 3, 'Положить грибы и креветки', 5), (63, 4, 'Влить кокосовое молоко', 2), (63, 5, 'Добавить сок лайма и подать', 5);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (63, 1), (63, 19), (63, 14);
+(13,1,'Залить курицу водой, варить бульон 20 минут',20),
+(13,2,'Достать курицу, разобрать на волокна',5),
+(13,3,'Нарезать овощи, добавить в бульон',5),
+(13,4,'Вернуть курицу, добавить лапшу, варить 7 минут',7),
+(13,5,'Посыпать зеленью и подать',3);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (13,6),(13,5);
 
--- 64. Фалафель
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Фалафель', 'Жареные шарики из нута с восточными специями', 270, 2, 2, '🧆', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(64, 31, 300, 'г'), (64, 4, 1, 'шт'), (64, 5, 2, 'зубч'), (64, 71, 1, 'пучок'), (64, 72, 1, 'ч.л'), (64, 14, 500, 'мл');
+-- 14. Уха по-русски
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(14,1,'Уха по-русски','Душистая рыбная похлёбка с овощами и зеленью',40,1,4,'🐟',5);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(14,58,600,'г',1),(14,10,2,'шт',2),(14,4,1,'шт',3),(14,6,1,'шт',4),(14,45,1,'пучок',5),(14,49,1,'щепотка',6),(14,50,1,'щепотка',7);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(64, 1, 'Замочить нут на ночь', 480), (64, 2, 'Измельчить с остальными ингредиентами', 10), (64, 3, 'Сформировать шарики', 5), (64, 4, 'Обжарить во фритюре', 15), (64, 5, 'Подать с соусом', 2);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (64, 5), (64, 11), (64, 18);
+(14,1,'Почистить рыбу, залить водой, варить бульон 20 минут',20),
+(14,2,'Достать рыбу, отделить филе от костей',5),
+(14,3,'Нарезать картофель и морковь, добавить в бульон',5),
+(14,4,'Варить до готовности овощей 10 минут',10),
+(14,5,'Вернуть рыбу, посыпать зеленью',5);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (14,9),(14,5);
 
--- 65. Лазанья
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Лазанья', 'Итальянская лазанья с мясным соусом', 70, 3, 4, '🧀', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(65, 73, 12, 'шт'), (65, 120, 500, 'г'), (65, 53, 300, 'мл'), (65, 15, 250, 'г'), (65, 4, 1, 'шт');
+-- 15. Стейк из говядины
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(15,1,'Стейк из говядины','Сочный стейк средней прожарки с чёрным перцем',20,2,2,'🥩',4);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(15,32,400,'г',1),(15,49,1,'щепотка',2),(15,50,1,'щепотка',3),(15,44,1,'ст.л',4),(15,39,20,'г',5);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(65, 1, 'Обжарить фарш с луком', 10), (65, 2, 'Добавить томатный соус', 5), (65, 3, 'Выложить слоями листы, мясо и сыр', 15), (65, 4, 'Повторить слои', 10), (65, 5, 'Запекать 40 минут', 40);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (65, 7), (65, 16), (65, 12);
+(15,1,'Достать мясо из холодильника за 30 минут до готовки',1),
+(15,2,'Обсушить бумажным полотенцем, посолить и поперчить',2),
+(15,3,'Разогреть сковороду до дыма, обжарить по 4 минуты с каждой стороны',8),
+(15,4,'Добавить сливочное масло, полить стейк',2),
+(15,5,'Дать отдохнуть под фольгой 5 минут, затем нарезать',5);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (15,3);
 
--- 66. Пад Тай
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Пад Тай', 'Тайская жареная рисовая лапша', 30, 2, 2, '🍜', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(66, 74, 200, 'г'), (66, 68, 200, 'г'), (66, 9, 2, 'шт'), (66, 75, 100, 'г'), (66, 76, 3, 'ст.л');
+-- 16. Бефстроганов
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(16,1,'Бефстроганов','Классический русский обед: говядина в сметанном соусе с луком',35,2,3,'🥘',4);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(16,32,400,'г',1),(16,4,2,'шт',2),(16,11,200,'г',3),(16,44,2,'ст.л',4),(16,49,1,'щепотка',5),(16,50,1,'щепотка',6),(16,45,1,'пучок',7);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(66, 1, 'Замочить лапшу', 15), (66, 2, 'Обжарить креветки', 5), (66, 3, 'Добавить яйца', 3), (66, 4, 'Смешать с лапшой и соусом', 5), (66, 5, 'Добавить ростки фасоли', 2);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (66, 19), (66, 14), (66, 18);
+(16,1,'Нарезать говядину тонкими брусочками',5),
+(16,2,'Обжарить мясо на сильном огне до румяной корочки',7),
+(16,3,'Добавить лук, обжарить до мягкости',5),
+(16,4,'Влить сметану, добавить специи, тушить 10 минут',10),
+(16,5,'Посыпать зеленью, подать с картофельным пюре',8);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (16,3),(16,5);
 
--- 67. Чизкейк
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Чизкейк', 'Классический чизкейк с печеньем', 90, 2, 8, '🍰', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(67, 77, 200, 'г'), (67, 19, 100, 'г'), (67, 56, 500, 'г'), (67, 9, 3, 'шт'), (67, 11, 150, 'г');
+-- 17. Шашлык из свинины
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(17,1,'Шашлык из свинины','Сочный маринованный шашлык с луком и лимоном',180,2,4,'🍖',4);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(17,33,1000,'г',1),(17,4,3,'шт',2),(17,46,1,'шт',3),(17,49,1,'ст.л',4),(17,50,1,'ч.л',5),(17,44,2,'ст.л',6);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(67, 1, 'Измельчить печенье', 5), (67, 2, 'Смешать с маслом и сделать основу', 5), (67, 3, 'Приготовить сырную начинку', 10), (67, 4, 'Вылить на основу', 5), (67, 5, 'Выпекать около часа', 60);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (67, 2), (67, 15), (67, 16);
+(17,1,'Нарезать свинину крупными кусками',10),
+(17,2,'Нарезать лук кольцами, выжать лимонный сок',5),
+(17,3,'Замариновать мясо с луком, солью и перцем на 3 часа',180),
+(17,4,'Нанизать мясо на шампуры',10),
+(17,5,'Жарить на углях 15–20 минут, периодически переворачивая',20);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (17,3),(17,5);
 
--- 68. Минестроне
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Минестроне', 'Итальянский овощной суп', 40, 1, 4, '🍲', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(68, 7, 2, 'шт'), (68, 6, 1, 'шт'), (68, 78, 150, 'г'), (68, 3, 2, 'шт'), (68, 79, 100, 'г'), (68, 4, 1, 'шт');
+-- 18. Плов узбекский
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(18,1,'Плов узбекский','Ароматный плов с бараниной, морковью и специями',90,2,4,'🍚',4);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(18,9,400,'г',1),(18,34,500,'г',2),(18,4,2,'шт',3),(18,6,2,'шт',4),(18,44,100,'мл',5),(18,49,1,'щепотка',6),(18,50,1,'щепотка',7);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(68, 1, 'Нарезать овощи', 10), (68, 2, 'Обжарить лук и морковь', 5), (68, 3, 'Добавить остальные овощи', 5), (68, 4, 'Варить до готовности', 20), (68, 5, 'Добавить макароны', 10);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (68, 6), (68, 18), (68, 10);
+(18,1,'Обжарить нарезанную баранину до румяной корочки',10),
+(18,2,'Добавить нарезанный лук, обжарить до золотистого',5),
+(18,3,'Добавить морковь соломкой, обжарить',7),
+(18,4,'Засыпать промытый рис, залить водой на 2 см выше',2),
+(18,5,'Томить на медленном огне до впитывания воды 40 минут',40);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (18,3),(18,5);
 
--- 69. Плов
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Плов', 'Восточный плов с говядиной', 90, 2, 4, '🍚', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(69, 18, 500, 'г'), (69, 23, 500, 'г'), (69, 6, 2, 'шт'), (69, 4, 2, 'шт'), (69, 5, 1, 'головка'), (69, 51, 1, 'л');
+-- 19. Домашние котлеты
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(19,1,'Домашние котлеты','Сочные жареные котлеты из говяжьего фарша с луком',35,1,4,'🍔',4);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(19,2,600,'г',1),(19,12,1,'шт',2),(19,13,3,'ст.л',3),(19,4,1,'шт',4),(19,43,100,'мл',5),(19,44,2,'ст.л',6),(19,49,1,'щепотка',7),(19,50,1,'щепотка',8);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(69, 1, 'Обжарить мясо', 15), (69, 2, 'Добавить лук и морковь', 10), (69, 3, 'Засыпать рис', 2), (69, 4, 'Влить воду', 2), (69, 5, 'Томить до готовности', 40);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (69, 7), (69, 13), (69, 18);
+(19,1,'Измельчить лук, смешать с фаршем, яйцом и мукой',10),
+(19,2,'Добавить молоко, соль, перец, вымесить фарш',5),
+(19,3,'Сформировать котлеты, обвалять в муке',5),
+(19,4,'Обжарить на растительном масле по 5 минут с каждой стороны',10),
+(19,5,'Держать под крышкой 5 минут перед подачей',5);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (19,3),(19,5);
 
--- 70. Манты
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Манты', 'Восточные манты на пару', 90, 3, 4, '🥟', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(70, 10, 500, 'г'), (70, 51, 250, 'мл'), (70, 120, 500, 'г'), (70, 4, 3, 'шт'), (70, 12, 1, 'по вкусу'), (70, 13, 1, 'по вкусу');
+-- 20. Тёплый салат с курицей
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(20,1,'Тёплый салат с курицей','Сытный салат с обжаренной курицей, свежими овощами и сыром',15,1,2,'🥗',7);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(20,8,200,'г',1),(20,3,2,'шт',2),(20,30,1,'шт',3),(20,14,50,'г',4),(20,47,2,'ст.л',5),(20,49,1,'щепотка',6),(20,50,1,'щепотка',7);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(70, 1, 'Замесить тесто', 15), (70, 2, 'Подготовить начинку', 10), (70, 3, 'Сформировать манты', 30), (70, 4, 'Готовить на пару 40-45 минут', 45), (70, 5, 'Подать со сметаной', 5);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (70, 7), (70, 13), (70, 18);
+(20,1,'Обжарить куриное филе до готовности, нарезать полосками',8),
+(20,2,'Нарезать помидоры и огурец кубиками',3),
+(20,3,'Натереть сыр',2),
+(20,4,'Смешать овощи, курицу и сыр',1),
+(20,5,'Заправить майонезом, посолить и поперчить',1);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (20,6);
 
--- 71. Фо Бо
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Фо Бо', 'Вьетнамский суп с рисовой лапшой', 120, 3, 2, '🍜', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(71, 23, 300, 'г'), (71, 74, 200, 'г'), (71, 80, 1, 'л'), (71, 29, 20, 'г'), (71, 67, 1, 'пучок'), (71, 81, 1, 'пучок');
+-- 21. Овощной салат летний
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(21,1,'Овощной салат летний','Лёгкий витаминный салат из свежих овощей с оливковым маслом',10,1,2,'🥗',7);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(21,3,2,'шт',1),(21,30,2,'шт',2),(21,35,1,'шт',3),(21,4,0.5,'шт',4),(21,54,2,'ст.л',5),(21,46,0.5,'шт',6),(21,49,1,'щепотка',7),(21,50,1,'щепотка',8);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(71, 1, 'Приготовить ароматный бульон', 90), (71, 2, 'Отварить рисовую лапшу', 5), (71, 3, 'Тонко нарезать говядину', 5), (71, 4, 'Выложить лапшу и мясо в миску', 3), (71, 5, 'Залить горячим бульоном', 2);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (71, 7), (71, 18), (71, 10);
+(21,1,'Нарезать помидоры дольками',2),
+(21,2,'Нарезать огурец полукольцами',2),
+(21,3,'Нарезать перец соломкой',2),
+(21,4,'Мелко нарезать лук',1),
+(21,5,'Смешать всё, заправить маслом и лимонным соком, посолить',3);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (21,2),(21,7);
 
--- 72. Рататуй
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Рататуй', 'Французское овощное рагу', 60, 2, 3, '🍆', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(72, 82, 1, 'шт'), (72, 83, 1, 'шт'), (72, 3, 3, 'шт'), (72, 84, 1, 'шт'), (72, 4, 1, 'шт'), (72, 5, 2, 'зубч'), (72, 53, 100, 'г');
+-- 22. Салат Оливье
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(22,1,'Салат Оливье','Новогодний классический салат с курицей, овощами и майонезом',30,1,6,'🥗',7);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(22,10,4,'шт',1),(22,6,2,'шт',2),(22,48,1,'банка',3),(22,30,3,'шт',4),(22,12,4,'шт',5),(22,8,200,'г',6),(22,47,3,'ст.л',7),(22,49,1,'щепотка',8);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(72, 1, 'Нарезать овощи кружочками', 10), (72, 2, 'Приготовить томатный соус', 10), (72, 3, 'Выложить овощи слоями', 10), (72, 4, 'Накрыть фольгой', 2), (72, 5, 'Запекать 40-50 минут', 50);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (72, 6), (72, 18), (72, 12);
+(22,1,'Отварить картофель, морковь и яйца до готовности',20),
+(22,2,'Нарезать все ингредиенты кубиками одинакового размера',5),
+(22,3,'Добавить горошек и майонез',2),
+(22,4,'Аккуратно перемешать',2),
+(22,5,'Украсить зеленью и охладить перед подачей',1);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (22,5),(22,9);
 
--- 73. Чуррос
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Чуррос', 'Испанские жареные палочки с корицей', 30, 2, 2, '🥨', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(73, 51, 250, 'мл'), (73, 10, 150, 'г'), (73, 19, 50, 'г'), (73, 11, 50, 'г'), (73, 85, 1, 'ч.л'), (73, 14, 500, 'мл');
+-- 23. Винегрет
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(23,1,'Винегрет','Постный овощной салат со свёклой и квашеной капустой',25,1,4,'🥗',7);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(23,19,2,'шт',1),(23,10,3,'шт',2),(23,6,2,'шт',3),(23,48,1,'банка',4),(23,54,2,'ст.л',5),(23,49,1,'щепотка',6),(23,50,1,'щепотка',7);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(73, 1, 'Вскипятить воду с маслом', 5), (73, 2, 'Добавить муку и перемешать', 5), (73, 3, 'Остудить тесто', 10), (73, 4, 'Выдавить полоски в горячее масло', 10), (73, 5, 'Посыпать сахаром и корицей', 2);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (73, 2), (73, 11), (73, 6);
+(23,1,'Отварить свёклу, картофель и морковь до готовности',20),
+(23,2,'Нарезать овощи кубиками',3),
+(23,3,'Добавить горошек',1),
+(23,4,'Заправить оливковым маслом, солью и перцем',1),
+(23,5,'Перемешать и подать',0);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (23,2),(23,7);
 
--- 74. Гаспачо
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Гаспачо', 'Испанский холодный томатный суп', 15, 1, 2, '🥣', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(74, 3, 600, 'г'), (74, 55, 1, 'шт'), (74, 84, 1, 'шт'), (74, 5, 1, 'зубч'), (74, 42, 2, 'ст.л');
+-- 24. Блины тонкие
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(24,1,'Блины тонкие','Классические русские блины на молоке — идеальны с мёдом или икрой',30,1,4,'🥞',6);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(24,12,3,'шт',1),(24,43,500,'мл',2),(24,13,200,'г',3),(24,61,1,'ст.л',4),(24,49,1,'щепотка',5),(24,44,2,'ст.л',6),(24,39,30,'г',7);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(74, 1, 'Очистить помидоры', 5), (74, 2, 'Нарезать овощи', 5), (74, 3, 'Измельчить в блендере', 3), (74, 4, 'Добавить масло и специи', 2), (74, 5, 'Охладить перед подачей', 30);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (74, 6), (74, 18), (74, 10);
+(24,1,'Взбить яйца с сахаром и солью',3),
+(24,2,'Влить молоко, постепенно добавить муку, замесить тесто',5),
+(24,3,'Добавить растительное масло, дать постоять 10 минут',10),
+(24,4,'Жарить тонкие блины на сковороде с двух сторон',15),
+(24,5,'Смазать сливочным маслом и подать',2);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (24,8),(24,5);
 
--- 75. Нисуаз
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Нисуаз', 'Французский салат с тунцом', 20, 1, 2, '🥗', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(75, 86, 150, 'г'), (75, 9, 2, 'шт'), (75, 3, 2, 'шт'), (75, 87, 100, 'г'), (75, 33, 50, 'г'), (75, 42, 2, 'ст.л');
+-- 25. Тирамису
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(25,1,'Тирамису','Итальянский десерт с маскарпоне, кофе и печеньем савоярди',30,2,4,'🍰',6);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(25,55,250,'г',1),(25,12,3,'шт',2),(25,61,100,'г',3),(25,56,200,'г',4),(25,57,200,'мл',5),(25,41,1,'щепотка',6);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(75, 1, 'Отварить яйца', 10), (75, 2, 'Нарезать овощи', 5), (75, 3, 'Разложить салат на тарелке', 3), (75, 4, 'Добавить тунец и яйца', 2), (75, 5, 'Заправить оливковым маслом', 2);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (75, 8), (75, 14), (75, 10);
+(25,1,'Взбить яичные желтки с сахаром до пышности',5),
+(25,2,'Добавить маскарпоне, взбить до однородности',5),
+(25,3,'Приготовить кофе, остудить',5),
+(25,4,'Обмакнуть печенье в кофе и выложить слоем',5),
+(25,5,'Покрыть кремом, повторить слои и убрать в холодильник на 2 часа',120);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (25,8),(25,9);
 
--- 76. Вареники
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Вареники', 'Домашние вареники с картошкой', 60, 2, 4, '🥟', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(76, 10, 400, 'г'), (76, 51, 200, 'мл'), (76, 7, 500, 'г'), (76, 4, 1, 'шт'), (76, 12, 1, 'по вкусу');
+-- 26. Сметанная запеканка
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(26,1,'Сметанная запеканка','Нежная творожно-сметанная запеканка с изюмом или без',50,1,4,'🍮',6);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(26,11,500,'г',1),(26,12,3,'шт',2),(26,61,100,'г',3),(26,13,2,'ст.л',4),(26,39,50,'г',5),(26,42,1,'ч.л',6),(26,49,1,'щепотка',7);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(76, 1, 'Замесить тесто', 15), (76, 2, 'Приготовить картофельную начинку', 20), (76, 3, 'Слепить вареники', 20), (76, 4, 'Отварить 5-7 минут', 7), (76, 5, 'Подать с жареным луком', 5);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (76, 6), (76, 13), (76, 18);
+(26,1,'Смешать сметану с яйцами и сахаром',5),
+(26,2,'Добавить муку, разрыхлитель и соль',3),
+(26,3,'Вылить в форму, смазанную маслом',2),
+(26,4,'Выпекать при 180°C 35–40 минут',40),
+(26,5,'Остудить и нарезать порции',5);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (26,8),(26,5);
 
--- 77. Мисо
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Мисо', 'Японский суп с мисо и тофу', 15, 1, 2, '🍲', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(77, 88, 2, 'ст.л'), (77, 51, 1, 'л'), (77, 89, 150, 'г'), (77, 90, 10, 'г'), (77, 67, 2, 'стебля');
+-- 27. Шарлотка с яблоками
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(27,1,'Шарлотка с яблоками','Пышная домашняя шарлотка с хрустящей корочкой и мягкими яблоками',45,1,6,'🍎',6);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(27,12,4,'шт',1),(27,61,150,'г',2),(27,13,150,'г',3),(27,38,4,'шт',4),(27,42,0.5,'ч.л',5),(27,49,1,'щепотка',6),(27,39,30,'г',7);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(77, 1, 'Нагреть воду', 5), (77, 2, 'Растворить мисо-пасту', 3), (77, 3, 'Добавить тофу', 2), (77, 4, 'Положить водоросли', 2), (77, 5, 'Посыпать луком перед подачей', 1);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (77, 20), (77, 5), (77, 10);
+(27,1,'Взбить яйца с сахаром до пышной светлой массы',5),
+(27,2,'Просеять муку с разрыхлителем, аккуратно вмешать',3),
+(27,3,'Нарезать яблоки дольками, добавить в тесто',3),
+(27,4,'Вылить в форму, смазанную маслом',2),
+(27,5,'Выпекать при 180°C 30–35 минут до золотистой корочки',35);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (27,8),(27,5);
 
--- 78. Тако
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Тако', 'Мексиканские тако с говяжьим фаршем', 25, 1, 2, '🌮', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(78, 91, 6, 'шт'), (78, 2, 300, 'г'), (78, 3, 2, 'шт'), (78, 4, 1, 'шт'), (78, 15, 100, 'г');
+-- 28. Панкейки
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(28,1,'Панкейки','Американские пышные блинчики на завтрак с мёдом или ягодами',20,1,2,'🥞',6);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(28,13,150,'г',1),(28,61,2,'ст.л',2),(28,12,1,'шт',3),(28,43,200,'мл',4),(28,42,1,'ч.л',5),(28,39,30,'г',6),(28,49,1,'щепотка',7);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(78, 1, 'Обжарить фарш', 10), (78, 2, 'Подготовить овощи', 5), (78, 3, 'Разогреть тортильи', 3), (78, 4, 'Наполнить начинкой', 5), (78, 5, 'Посыпать сыром и подать', 2);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (78, 7), (78, 14), (78, 18);
+(28,1,'Смешать муку, сахар, разрыхлитель и соль',2),
+(28,2,'Взбить яйцо с молоком и растопленным маслом',3),
+(28,3,'Соединить жидкие и сухие ингредиенты',2),
+(28,4,'Жарить на сухой сковороде до появления пузырьков',10),
+(28,5,'Перевернуть, обжарить ещё 1 минуту и подать',3);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (28,8),(28,6);
 
--- 79. Паэлья
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Паэлья', 'Испанская паэлья с морепродуктами', 60, 3, 4, '🍚', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(79, 18, 300, 'г'), (79, 68, 200, 'г'), (79, 17, 200, 'г'), (79, 84, 1, 'шт'), (79, 92, 100, 'г'), (79, 93, 1, 'щепотка'), (79, 35, 1, 'л');
+-- 29. Омлет с сыром
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(29,1,'Омлет с сыром','Пышный завтрачный омлет с тёртым сыром и зеленью',10,1,1,'🍳',6);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(29,12,3,'шт',1),(29,43,50,'мл',2),(29,14,40,'г',3),(29,49,1,'щепотка',4),(29,50,1,'щепотка',5),(29,44,1,'ст.л',6),(29,45,1,'пучок',7);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(79, 1, 'Обжарить мясо и овощи', 15), (79, 2, 'Добавить рис', 2), (79, 3, 'Влить бульон', 2), (79, 4, 'Добавить морепродукты', 5), (79, 5, 'Готовить до впитывания жидкости', 30);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (79, 19), (79, 15), (79, 18);
+(29,1,'Взбить яйца с молоком, солью и перцем',2),
+(29,2,'Разогреть сковороду с маслом',1),
+(29,3,'Вылить яичную смесь, готовить на среднем огне',4),
+(29,4,'Посыпать сыром, накрыть крышкой до расплавления',2),
+(29,5,'Свернуть омлет и подать с зеленью',1);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (29,4),(29,6);
 
--- 80. Крем-брюле
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Крем-брюле', 'Французский кремовый десерт', 50, 3, 2, '🍮', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(80, 20, 500, 'мл'), (80, 94, 5, 'шт'), (80, 11, 100, 'г'), (80, 95, 1, 'по вкусу');
+-- 30. Жареные кабачки
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(30,1,'Жареные кабачки','Хрустящие кольца кабачков в яичном кляре — идеальная закуска',20,1,2,'🥒',7);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(30,37,2,'шт',1),(30,13,3,'ст.л',2),(30,12,1,'шт',3),(30,49,1,'щепотка',4),(30,50,1,'щепотка',5),(30,44,3,'ст.л',6);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(80, 1, 'Подогреть сливки с ванилью', 5), (80, 2, 'Смешать желтки и сахар', 5), (80, 3, 'Соединить смеси', 3), (80, 4, 'Запечь на водяной бане', 25), (80, 5, 'Посыпать сахаром и карамелизовать', 5);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (80, 2), (80, 15), (80, 12);
+(30,1,'Нарезать кабачки кольцами толщиной 1 см',3),
+(30,2,'Приготовить кляр из муки, яйца, соли и перца',3),
+(30,3,'Обмакнуть каждое кольцо в кляр',3),
+(30,4,'Обжарить на растительном масле до золотистой корочки',10),
+(30,5,'Выложить на бумажное полотенце и подать',1);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (30,2),(30,7);
 
--- 81. Солянка
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Солянка', 'Сборная мясная солянка', 60, 2, 4, '🍲', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(81, 23, 300, 'г'), (81, 96, 150, 'г'), (81, 97, 150, 'г'), (81, 98, 3, 'шт'), (81, 34, 2, 'ст.л'), (81, 33, 100, 'г'), (81, 32, 1, 'шт');
+-- 31. Рататуй
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(31,1,'Рататуй','Французское овощное рагу из баклажанов, кабачков и помидоров',50,2,3,'🍆',7);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(31,36,1,'шт',1),(31,37,1,'шт',2),(31,3,3,'шт',3),(31,35,1,'шт',4),(31,4,1,'шт',5),(31,5,3,'зубч',6),(31,54,3,'ст.л',7),(31,45,1,'пучок',8);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(81, 1, 'Сварить мясной бульон', 30), (81, 2, 'Нарезать мясные продукты', 10), (81, 3, 'Обжарить огурцы с томатной пастой', 10), (81, 4, 'Добавить всё в бульон', 5), (81, 5, 'Подавать с лимоном и маслинами', 5);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (81, 7), (81, 13), (81, 3);
+(31,1,'Нарезать все овощи кружочками одинаковой толщины',8),
+(31,2,'Обжарить лук и чеснок в оливковом масле',3),
+(31,3,'Выложить овощи в форму чередуя цвета',5),
+(31,4,'Запекать при 180°C под фольгой 30 минут',30),
+(31,5,'Снять фольгу, запечь ещё 10 минут, посыпать зеленью',10);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (31,2),(31,7);
 
--- 82. Табуле
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Табуле', 'Ближневосточный салат с булгуром', 20, 1, 2, '🥗', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(82, 99, 150, 'г'), (82, 71, 1, 'пучок'), (82, 3, 2, 'шт'), (82, 55, 1, 'шт'), (82, 32, 2, 'ст.л'), (82, 42, 2, 'ст.л');
+-- 32. Хачапури по-аджарски
+INSERT INTO recipes (id, user_id, title, description, prep_time, difficulty, servings, emoji, category_id) VALUES
+(32,1,'Хачапури по-аджарски','Грузинская лодочка из дрожжевого теста с расплавленным сыром и яйцом',70,3,2,'🥖',1);
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, slot_position) VALUES
+(32,13,300,'г',1),(32,51,150,'мл',2),(32,52,5,'г',3),(32,12,1,'шт',4),(32,14,250,'г',5),(32,39,50,'г',6),(32,49,1,'щепотка',7);
 INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(82, 1, 'Залить булгур горячей водой', 10), (82, 2, 'Мелко нарезать зелень и овощи', 10), (82, 3, 'Смешать ингредиенты', 3), (82, 4, 'Заправить маслом и лимонным соком', 2), (82, 5, 'Охладить перед подачей', 10);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (82, 5), (82, 10), (82, 18);
+(32,1,'Замесить тесто из муки, воды, дрожжей и соли, оставить на 40 минут',40),
+(32,2,'Приготовить начинку из тёртого сыра',5),
+(32,3,'Разделить тесто, сформировать лодочки, выложить сыр',10),
+(32,4,'Выпекать при 220°C 15 минут до золотистой корочки',15),
+(32,5,'Выложить яйцо в центр, допечь 3 минуты',3);
+INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (32,4),(32,5);
 
--- 83. Кебаб
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Кебаб', 'Восточный кебаб из баранины', 40, 2, 3, '🍢', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(83, 100, 500, 'г'), (83, 4, 2, 'шт'), (83, 5, 2, 'зубч'), (83, 72, 1, 'ч.л'), (83, 12, 1, 'по вкусу'), (83, 13, 1, 'по вкусу');
-INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(83, 1, 'Измельчить мясо и лук', 10), (83, 2, 'Добавить специи', 2), (83, 3, 'Хорошо вымесить фарш', 5), (83, 4, 'Сформировать колбаски', 5), (83, 5, 'Жарить на гриле или мангале', 15);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (83, 7), (83, 11), (83, 13);
-
--- 84. Хачапури
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Хачапури', 'Грузинский хачапури по-аджарски', 80, 3, 2, '🥖', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(84, 10, 400, 'г'), (84, 8, 200, 'мл'), (84, 52, 7, 'г'), (84, 101, 300, 'г'), (84, 9, 1, 'шт');
-INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(84, 1, 'Замесить дрожжевое тесто', 20), (84, 2, 'Приготовить сырную начинку', 5), (84, 3, 'Сформировать лодочку', 10), (84, 4, 'Запечь до золотистой корочки', 20), (84, 5, 'Добавить яйцо и допечь', 5);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (84, 6), (84, 16), (84, 12);
-
--- 85. Фондю
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Фондю', 'Швейцарское сырное фондю', 20, 2, 2, '🫕', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(85, 102, 200, 'г'), (85, 103, 200, 'г'), (85, 104, 250, 'мл'), (85, 5, 1, 'зубч'), (85, 105, 1, 'багет');
-INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(85, 1, 'Натереть сыр', 5), (85, 2, 'Нагреть вино', 5), (85, 3, 'Постепенно расплавить сыр', 10), (85, 4, 'Перемешать до однородности', 3), (85, 5, 'Подавать с кусочками хлеба', 2);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (85, 16), (85, 15), (85, 6);
-
--- 86. Гуляш
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Гуляш', 'Венгерский гуляш с паприкой', 120, 2, 4, '🥘', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(86, 23, 600, 'г'), (86, 4, 2, 'шт'), (86, 106, 2, 'ст.л'), (86, 7, 3, 'шт'), (86, 6, 1, 'шт'), (86, 51, 500, 'мл');
-INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(86, 1, 'Обжарить лук', 5), (86, 2, 'Добавить мясо', 10), (86, 3, 'Всыпать паприку', 2), (86, 4, 'Добавить овощи и воду', 5), (86, 5, 'Тушить 1,5-2 часа', 120);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (86, 7), (86, 13), (86, 18);
-
--- 87. Мусака
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Мусака', 'Греческая мусака с баклажанами', 70, 3, 4, '🍆', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(87, 83, 2, 'шт'), (87, 120, 400, 'г'), (87, 3, 3, 'шт'), (87, 15, 150, 'г'), (87, 107, 300, 'мл');
-INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(87, 1, 'Нарезать и обжарить баклажаны', 15), (87, 2, 'Приготовить мясную начинку', 15), (87, 3, 'Выложить слоями', 10), (87, 4, 'Залить бешамелем', 5), (87, 5, 'Запекать 40 минут', 40);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (87, 7), (87, 16), (87, 12);
-
--- 88. Каннеллони
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Каннеллони', 'Итальянские каннеллони с фаршем', 60, 2, 4, '🍝', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(88, 108, 250, 'г'), (88, 120, 400, 'г'), (88, 53, 300, 'мл'), (88, 15, 150, 'г');
-INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(88, 1, 'Приготовить начинку', 15), (88, 2, 'Наполнить каннеллони', 15), (88, 3, 'Выложить в форму', 5), (88, 4, 'Полить соусом', 3), (88, 5, 'Посыпать сыром и запечь', 25);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (88, 7), (88, 16), (88, 12);
-
--- 89. Самоса
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Самоса', 'Индийские пирожки с картошкой', 50, 2, 4, '🥟', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(89, 10, 300, 'г'), (89, 7, 3, 'шт'), (89, 92, 100, 'г'), (89, 109, 1, 'ч.л'), (89, 14, 500, 'мл');
-INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(89, 1, 'Замесить тесто', 10), (89, 2, 'Приготовить начинку', 15), (89, 3, 'Сформировать треугольники', 10), (89, 4, 'Обжарить во фритюре', 15), (89, 5, 'Подать с соусом', 2);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (89, 5), (89, 11), (89, 18);
-
--- 90. Эклеры
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Эклеры', 'Французские эклеры с заварным кремом', 60, 3, 8, '🥮', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(90, 51, 250, 'мл'), (90, 19, 100, 'г'), (90, 10, 150, 'г'), (90, 9, 4, 'шт'), (90, 110, 300, 'г');
-INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(90, 1, 'Приготовить заварное тесто', 10), (90, 2, 'Отсадить полоски на противень', 10), (90, 3, 'Выпекать до золотистого цвета', 20), (90, 4, 'Остудить', 10), (90, 5, 'Наполнить кремом', 10);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (90, 2), (90, 15), (90, 13);
-
--- 91. Харчо
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Харчо', 'Грузинский суп харчо с говядиной', 90, 2, 4, '🍲', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(91, 23, 500, 'г'), (91, 18, 100, 'г'), (91, 4, 2, 'шт'), (91, 34, 2, 'ст.л'), (91, 111, 50, 'г'), (91, 5, 3, 'зубч'), (91, 81, 1, 'пучок'), (91, 112, 1, 'ч.л'), (91, 61, 2, 'шт'), (91, 12, 1, 'по вкусу'), (91, 13, 1, 'по вкусу');
-INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(91, 1, 'Сварить говяжий бульон', 60), (91, 2, 'Нарезать мясо и вернуть его в кастрюлю', 10), (91, 3, 'Добавить промытый рис', 3), (91, 4, 'Обжарить лук с томатной пастой', 10), (91, 5, 'Добавить зажарку в суп', 2), (91, 6, 'Положить измельчённые орехи, чеснок и специи', 5), (91, 7, 'Варить до готовности риса', 20), (91, 8, 'Перед подачей посыпать кинзой', 2);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (91, 7), (91, 1), (91, 13);
-
--- 92. Баклава
-INSERT INTO recipes (user_id, title, description, prep_time, difficulty, servings, emoji, is_public, created_at, updated_at) VALUES
-(1, 'Баклава', 'Восточная баклава с орехами и мёдом', 120, 4, 8, '🍯', 1, datetime('now'), datetime('now'));
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
-(92, 113, 400, 'г'), (92, 111, 300, 'г'), (92, 19, 200, 'г'), (92, 11, 200, 'г'), (92, 51, 200, 'мл'), (92, 114, 100, 'г'), (92, 32, 1, 'ст.л');
-INSERT INTO recipe_steps (recipe_id, step_order, description, duration) VALUES
-(92, 1, 'Измельчить орехи', 5), (92, 2, 'Смазать форму маслом', 2), (92, 3, 'Выложить несколько слоёв теста фило', 5), (92, 4, 'Посыпать орехами', 3), (92, 5, 'Повторять слои до окончания ингредиентов', 10), (92, 6, 'Нарезать ромбами до выпечки', 3), (92, 7, 'Выпекать 40-50 минут при 180°C', 50), (92, 8, 'Сварить сироп из воды, сахара и мёда', 15), (92, 9, 'Полить горячую баклаву сиропом', 2), (92, 10, 'Дать настояться несколько часов', 180);
-INSERT INTO recipe_tags (recipe_id, tag_id) VALUES (92, 2), (92, 15), (92, 6);
+-- ==========================================
+-- КОНЕЦ ФАЙЛА
+-- ==========================================
