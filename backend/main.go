@@ -187,7 +187,9 @@ func getRecipeByID(c *gin.Context) {
 	var recipe Recipe
 	
 	// Загружаем рецепт со всеми связанными данными
-	if err := DB.Preload("Tags").
+	// ВАЖНО: используем Preload для загрузки связанных данных
+	if err := DB.
+		Preload("Tags").
 		Preload("Category").
 		Preload("Ingredients", func(db *gorm.DB) *gorm.DB {
 			// Сортируем ингредиенты по ID для консистентности
@@ -195,11 +197,15 @@ func getRecipeByID(c *gin.Context) {
 		}).
 		Preload("Ingredients.Ingredient").
 		Preload("Steps", func(db *gorm.DB) *gorm.DB {
-			// Сортируем шаги по порядку
+			// Сортируем шаги по порядку - ЭТО КРИТИЧНО!
 			return db.Order("step_order ASC")
 		}).
 		First(&recipe, id).Error; err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Рецепт не найден"})
+		if err == gorm.ErrRecordNotFound {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Рецепт не найден"})
+		} else {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		}
 		return
 	}
 	
