@@ -45,32 +45,69 @@
 ### Вариант 1: Запуск с использованием Docker 🐳 (Рекомендуется)
 
 #### Требования
-- Docker
-- Docker Compose
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- Docker Compose (входит в Docker Desktop)
 
-#### Установка и запуск
+#### 📦 Установка Docker Desktop
 
+**На Windows:**
+1. Скачайте [Docker Desktop для Windows](https://www.docker.com/products/docker-desktop)
+2. Запустите установщик и следуйте инструкциям
+3. Перезагрузитесь (может потребоваться несколько раз)
+4. Откройте PowerShell или Command Prompt и проверьте установку:
+   ```bash
+   docker --version
+   docker-compose --version
+   ```
+
+**На macOS/Linux:**
+1. Скачайте [Docker Desktop для macOS](https://www.docker.com/products/docker-desktop) или установите через пакетный менеджер
+2. Запустите установщик
+3. Проверьте установку:
+   ```bash
+   docker --version
+   docker-compose --version
+   ```
+
+#### 🚀 Установка и запуск
+
+**Шаг 1 — Останови и удали все старые контейнеры (при переустановке):**
 ```bash
-# Клонируем репозиторий
+docker compose down
+```
+
+**Шаг 2 — Принудительно удали контейнеры, если всё ещё присутствуют:**
+```bash
+docker rm -f mc-backend mc-frontend
+```
+
+**Шаг 3 — Запусти всё заново:**
+```bash
+# Клонируем репозиторий (если ещё не клонирован)
 git clone https://github.com/SoftDevTech-1-25/recipe-app.git
 cd recipe-app
 
-# Запускаем приложение через Docker Compose
-docker-compose up -d
+# Запускаем приложение с пересборкой образов
+docker compose up --build
 ```
 
 **Приложение будет доступно по адресам:**
 - 🌐 Frontend: `http://localhost` (80 порт)
 - 🔌 Backend API: `http://localhost:8080` (8080 порт)
 
-**Остановка контейнеров:**
+#### 🛑 Остановка контейнеров:
 ```bash
-docker-compose down
+docker compose down
 ```
 
-**Просмотр логов:**
+#### 📋 Просмотр логов:
 ```bash
-docker-compose logs -f
+docker compose logs -f
+```
+
+#### 🔍 Проверка статуса контейнеров:
+```bash
+docker compose ps
 ```
 
 ---
@@ -187,21 +224,21 @@ recipe-app/
 - 🧭 Удобная навигация
 - 💾 Локальное сохранение данных в браузере
 
-## 🐳 Docker инструкции
+## 🐳 Docker инструкции (Продвинутые)
 
 ### Запуск с Docker Compose (все-в-одном)
 ```bash
 # Запуск всех сервисов
-docker-compose up -d
+docker compose up -d
 
 # Проверка статуса
-docker-compose ps
+docker compose ps
 
 # Просмотр логов backend
-docker-compose logs -f backend
+docker compose logs -f backend
 
 # Просмотр логов frontend
-docker-compose logs -f frontend
+docker compose logs -f frontend
 ```
 
 ### Ручная сборка и запуск образов
@@ -219,13 +256,13 @@ docker run -d -p 80:80 --name frontend -v $(pwd)/frontend:/usr/share/nginx/html 
 ### Удаление контейнеров и томов
 ```bash
 # Остановка и удаление контейнеров
-docker-compose down
+docker compose down
 
 # Удаление контейнеров, сетей, томов
-docker-compose down -v
+docker compose down -v
 
 # Удаление образов
-docker-compose down --rmi all
+docker compose down --rmi all
 ```
 
 ## 🚀 Переменные окружения
@@ -277,7 +314,7 @@ API_URL=http://localhost:8080
 
 ## 📞 Обратная связь
 
-Если у вас есть вопросы или предложения, откройте [Issue](https://github.com/SoftDevTech-1-25/recipe-app/issues) или свяжитесь с нами через GitHub Discussions.
+Если у вас есть вопросы или предложения, откройте [Issue](https://github.com/SoftDevTech-1-25/recipe-app/issues) или свяжитесь с нами.
 
 ## 🔗 Полезные ссылки
 
